@@ -1,10 +1,5 @@
-/*
-- Genreal-purpose registers 
-- Segment register
-- Sepcial-purpose registers 
-*/
-#ifndef _REGISTERS_H
-#define _REGISTERS_H
+#ifndef _REGISTERS_H_
+#define _REGISTERS_H_
 
 typedef  unsigned int reg16; 
 typedef  unsigned long reg32;
@@ -56,10 +51,10 @@ typedef struct general_registers
         reg32 SP:16; 
         reg32 msb:16;
     }ESP;
-}_GENERAL_REGS;
+}_general_regs;
 
 // 16-bit segement registers
-typedef struct 
+typedef struct segement_registers
 {
     reg16 CS; // code segment
     reg16 SS; // stack segment
@@ -68,10 +63,10 @@ typedef struct
     reg16 ES;
     reg16 FS;
     reg16 GS;
-}_SEGMENT_REGS;
+}_segment_regs;
 
 // EFLAG register._s = status, _c = control, _x= system flag
-typedef struct
+typedef struct eflag_register
 {
     reg32 carry_s:1;
     reg32 RES1:1;
@@ -92,13 +87,13 @@ typedef struct
     reg32 virtual_8086_mode_x:1;
     reg32 RES18_31:14;
 
-}_EFLAGS_REG;
+}_eflag_reg;
 
 // instruction register 
-typedef struct 
+typedef struct Instruction_pointer_register
 {
     reg32 IP:16; // Inctuction Pointer
-    reg32 msb:16;
-}EIP;
+    reg32 msb:16; // msb: most segnificant bits
+}_eip;
 
-#endif
+#endif //_REGISTERS_H_
