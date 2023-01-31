@@ -1,11 +1,12 @@
 #ifndef _REGISTERS_H_
 #define _REGISTERS_H_
+#include "../status.h"
 
 typedef  unsigned int reg16; 
 typedef  unsigned long reg32;
 
 // 32-bit general-perpose register
-typedef struct general_registers
+typedef struct general_registers_st
 {
     struct 
     {
@@ -51,10 +52,10 @@ typedef struct general_registers
         reg32 SP:16; 
         reg32 msb:16;
     }ESP;
-}_general_regs;
+}_general_regs_st;
 
 // 16-bit segement registers
-typedef struct segement_registers
+typedef struct segement_registers_st
 {
     reg16 CS; // code segment
     reg16 SS; // stack segment
@@ -63,10 +64,10 @@ typedef struct segement_registers
     reg16 ES;
     reg16 FS;
     reg16 GS;
-}_segment_regs;
+}_segment_regs_st;
 
 // EFLAG register._s = status, _c = control, _x= system flag
-typedef struct eflag_register
+typedef struct eflag_registers_st
 {
     reg32 carry_s:1;
     reg32 RES1:1;
@@ -87,13 +88,19 @@ typedef struct eflag_register
     reg32 virtual_8086_mode_x:1;
     reg32 RES18_31:14;
 
-}_eflag_reg;
+}_eflag_reg_st;
 
 // instruction register 
-typedef struct Instruction_pointer_register
+typedef struct IP_register_s
 {
     reg32 IP:16; // Inctuction Pointer
     reg32 msb:16; // msb: most segnificant bits
-}_eip;
+}_eip_st;
+
+
+// #### Functions ####
+void reg_init_gen (_general_regs_st* general_registers_st, int selftest, _status* status);
+void reg_init_eflags(_eflag_reg_st* eflag_register, _status* status);
+
 
 #endif //_REGISTERS_H_

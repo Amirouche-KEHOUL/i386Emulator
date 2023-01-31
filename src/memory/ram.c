@@ -1,6 +1,7 @@
 #include "ram.h"
 #include <stdio.h>
-_byte ram_read (_ram ram, _addr addr,_status* status)
+
+_byte ram_read ( _ram_ptr  ram_ptr, _addr addr, _status *status)
 {
     //check if _addr < _RAM_SIZE 
     if (addr >= _RAM_SIZE)
@@ -8,41 +9,42 @@ _byte ram_read (_ram ram, _addr addr,_status* status)
         *status = ERR_RAM_ADDR_OUTRANGE;
         return 0;
     }
-    // check if  ram != NULL
-    if (ram == NULL)
+    // check if  ram_ptr != NULL
+    if (ram_ptr == NULL)
     {
         *status = ERR_RAM_NULL_POINTER;
         return 0;
     } 
+
     *status = OK;
-    return ram[addr];
+    return ram_ptr[addr];
 } 
 
-void ram_write(_byte byte,_ram ram, _addr addr,_status* status)
-{
+void ram_write(_byte byte, _ram_ptr  ram_ptr, _addr addr,  _status* status)
+{   
     //check if _addr < _RAM_SIZE 
     if (addr >= _RAM_SIZE)
     {
         *status = ERR_RAM_ADDR_OUTRANGE;
-        goto stop;
+        return;
     }
-    // check if  ram != NULL
-    if (ram == NULL)
+    // check if  ram_ptr != NULL
+    if (ram_ptr == NULL)
     {
         *status = ERR_RAM_NULL_POINTER;
-        goto stop;
+        return;
     }
+
     // if all OK 
-    ram[addr] = byte;
+    ram_ptr[addr] = byte;
     *status = OK;
+}
 
-stop:}
 
-
-_ram  ram_start(_status* status)
+_ram_ptr ram_start( _status* status)
 {
-    _ram ram = (_ram) malloc(sizeof(char)*_RAM_SIZE);
-    if (ram == NULL)
+    _ram_ptr ram_ptr = (_ram_ptr) malloc(sizeof(char)*_RAM_SIZE);
+    if (ram_ptr == NULL)
     {
         *status = ERR_RAM_MALLOC;
         return 0;
@@ -51,5 +53,5 @@ _ram  ram_start(_status* status)
     // set init values
 
     *status = OK;
-    return ram;
+    return ram_ptr;
 }
