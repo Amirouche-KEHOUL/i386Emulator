@@ -1,9 +1,34 @@
 #include "registers.h"
 
+void reg_init_seg (_segment_regs_st* segment_registers_st, _status* status)
+{
+    if(segment_registers_st == 0 )
+    {
+        *status = ERR_REG_NULL_POINTER;
+        return;
+    }
+    segment_registers_st->CS = (segment_registers_st->CS) & CONF_RESET_DEFAULT_CS; // init to 0x000
+    segment_registers_st->DS = CONF_RESET_DEFAULT_DS;
+    segment_registers_st->ES = CONF_RESET_DEFAULT_ES;
+    segment_registers_st->SS = CONF_RESET_DEFAULT_SS;
+    segment_registers_st->FS = CONF_RESET_DEFAULT_FS;
+    segment_registers_st->GS = CONF_RESET_DEFAULT_GS;
+}
+void reg_init_eip (_eip_st* eip_st, _status* status)
+{
+    if (eip_st == 0)
+    {
+        *status = ERR_REG_NULL_POINTER;
+        return;
+    }
+    eip_st->IP = 0xFFF0;
+    eip_st->msb = 0x0000;
+}
+
 void reg_init_gen (_general_regs_st* general_registers_st, int selftest, _status* status)
 { 
 
-    // EAX: result of power-up self test: 0 if OK , !0 if NOK (some unit is faulty)
+    // EAX: result of power-up self test: 0 if STATUS_OK , !0 if NOK (some unit is faulty)
     
     // DX: DX holds a component identifier and revision number after RESET
 

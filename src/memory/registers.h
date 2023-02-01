@@ -1,104 +1,108 @@
 #ifndef _REGISTERS_H_
 #define _REGISTERS_H_
-#include "../status.h"
 
-typedef  unsigned int reg16; 
-typedef  unsigned long reg32;
+#include "../status/status.h"
+#include "../config.h"
+
+typedef  unsigned int _reg16; 
+typedef  unsigned long _reg32;
 
 // 32-bit general-perpose register
 typedef struct general_registers_st
 {
     struct 
     {
-        reg32 AL:8; 
-        reg32 AH:8; 
-        reg32 msb:16;
+        _reg32 AL:8; 
+        _reg32 AH:8; 
+        _reg32 msb:16;
     }EAX;
     struct 
     {
-        reg32 DL:8; 
-        reg32 DH:8; 
-        reg32 msb:16;
+        _reg32 DL:8; 
+        _reg32 DH:8; 
+        _reg32 msb:16;
     }EDX;
     struct 
     {
-        reg32 CL:8; 
-        reg32 CH:8; 
-        reg32 msb:16;
+        _reg32 CL:8; 
+        _reg32 CH:8; 
+        _reg32 msb:16;
     }ECX;
     struct 
     {
-        reg32 BL:8; 
-        reg32 BH:8; 
-        reg32 msb:16;   
+        _reg32 BL:8; 
+        _reg32 BH:8; 
+        _reg32 msb:16;   
     }EBX;
     struct
     {
-        reg32 BP:16; 
-        reg32 msb:16;
+        _reg32 BP:16; 
+        _reg32 msb:16;
     }EBP;
     struct
     {
-        reg32 SI:16; 
-        reg32 msb:16;
+        _reg32 SI:16; 
+        _reg32 msb:16;
     }ESI;
     struct
     {
-        reg32 DI:16; 
-        reg32 msb:16;
+        _reg32 DI:16; 
+        _reg32 msb:16;
     }EDI;
     struct
     {
-        reg32 SP:16; 
-        reg32 msb:16;
+        _reg32 SP:16; 
+        _reg32 msb:16;
     }ESP;
 }_general_regs_st;
 
 // 16-bit segement registers
-typedef struct segement_registers_st
+typedef struct segment_registers_st
 {
-    reg16 CS; // code segment
-    reg16 SS; // stack segment
+    _reg16 CS; // code segment
+    _reg16 SS; // stack segment
     // data segments
-    reg16 DS;
-    reg16 ES;
-    reg16 FS;
-    reg16 GS;
+    _reg16 DS;
+    _reg16 ES;
+    _reg16 FS;
+    _reg16 GS;
 }_segment_regs_st;
 
 // EFLAG register._s = status, _c = control, _x= system flag
 typedef struct eflag_registers_st
 {
-    reg32 carry_s:1;
-    reg32 RES1:1;
-    reg32 parity_s:1;
-    reg32 RES3:1;
-    reg32 auxilary_carry_s:1;
-    reg32 RES5:1;
-    reg32 zero_s:1;
-    reg32 sign_s:1;
-    reg32 trap_s:1;
-    reg32 interrupt_enable_x:1;
-    reg32 direction_c:1;
-    reg32 overflow_s:1;
-    reg32 io_previlege_level_x:2;
-    reg32 nested_task_s:1;
-    reg32 RES15:1;
-    reg32 resume_x:1;
-    reg32 virtual_8086_mode_x:1;
-    reg32 RES18_31:14;
+    _reg32 carry_s:1;
+    _reg32 RES1:1;
+    _reg32 parity_s:1;
+    _reg32 RES3:1;
+    _reg32 auxilary_carry_s:1;
+    _reg32 RES5:1;
+    _reg32 zero_s:1;
+    _reg32 sign_s:1;
+    _reg32 trap_s:1;
+    _reg32 interrupt_enable_x:1;
+    _reg32 direction_c:1;
+    _reg32 overflow_s:1;
+    _reg32 io_previlege_level_x:2;
+    _reg32 nested_task_s:1;
+    _reg32 RES15:1;
+    _reg32 resume_x:1;
+    _reg32 virtual_8086_mode_x:1;
+    _reg32 RES18_31:14;
 
 }_eflag_reg_st;
 
 // instruction register 
-typedef struct IP_register_s
+typedef struct eip_st
 {
-    reg32 IP:16; // Inctuction Pointer
-    reg32 msb:16; // msb: most segnificant bits
+    _reg32 IP:16; // Inctuction Pointer
+    _reg32 msb:16; // msb: most segnificant bits
 }_eip_st;
 
 
 // #### Functions ####
+void reg_init_seg (_segment_regs_st* segment_registers_st, _status* status);
+void reg_init_eip (_eip_st* eip_st, _status* status);
 void reg_init_gen (_general_regs_st* general_registers_st, int selftest, _status* status);
 void reg_init_eflags(_eflag_reg_st* eflag_register, _status* status);
 

@@ -18,7 +18,10 @@ void err_print (_status* status)
                 break; 
             case -4 :
                 printf("ERR_REG_NULL_POINTER (%d)\n" , *status);
-                break;   
+                break; 
+            case -5 :
+                printf("ERR_PIN_NULL_POINTER (%d)\n" , *status);
+                break;       
             default: 
                 printf("Unknown error code (%d)\n" , *status );
 

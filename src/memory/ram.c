@@ -16,7 +16,7 @@ _byte ram_read ( _ram_ptr  ram_ptr, _addr addr, _status *status)
         return 0;
     } 
 
-    *status = OK;
+    *status = STATUS_OK;
     return ram_ptr[addr];
 } 
 
@@ -35,9 +35,9 @@ void ram_write(_byte byte, _ram_ptr  ram_ptr, _addr addr,  _status* status)
         return;
     }
 
-    // if all OK 
+    // if all STATUS_OK 
     ram_ptr[addr] = byte;
-    *status = OK;
+    *status = STATUS_OK;
 }
 
 
@@ -52,6 +52,6 @@ _ram_ptr ram_start( _status* status)
     
     // set init values
 
-    *status = OK;
+    *status = STATUS_OK;
     return ram_ptr;
 }

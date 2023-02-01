@@ -2,7 +2,7 @@
 #define _RAM_H_
 
 #include <stdlib.h>
-#include "../status.h"
+#include "../status/status.h"
 
 # define _RAM_SIZE 4294967296 // 4GB. THIS Value should not be changed. 
 
