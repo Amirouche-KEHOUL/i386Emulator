@@ -13,12 +13,12 @@ _status status = STATUS_OK ; //status = 0 : not error,status>0: warnig,status<0:
 int main ()
 {
     printf("\nStart Emulator\n");
-    // Create pins 
+    // Create and init pins 
     _pins_st pins_st ;
-    pins_init(0,&status);    
+    pins_pow_up (&pins_st,&status);    
     if(status < 0) goto EXIT;  // if err, terminate
 
-    // Create RAM 
+    // Create and init RAM 
     _ram_ptr ram_ptr = ram_start(&status);
 
     // Create registers
@@ -30,7 +30,13 @@ int main ()
     reg_init_eflags(&eflag_reg_st,&status);
     reg_init_eip(&eip_st, &status);
     reg_init_seg(&seg_regs_st,&status);
+    status = STATUS_END_OF_RESET;
+    pins_st.BUSY = 1;
+    reg_init_gen(&gen_regs_st,&pins_st,&status);
 
+    printf("AH value  = 0x%X\n",gen_regs_st.EAX.AH);
+    printf("AH value  = 0x%X\n",gen_regs_st.EAX.AH);
+    printf("msb value  = 0x%X\n",gen_regs_st.EAX.msb);
 
 
     free(ram_ptr);

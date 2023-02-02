@@ -10,12 +10,13 @@ typedef int _pin ;
 typedef struct pins_st
 {
     _pin BUSY:1;
+    _pin RESET:1;
 
 }_pins_st;
 
 
 /* functions */
 
-void pins_init (_pins_st* pins_st, _status* status);
+void pins_pow_up (_pins_st* pins_st, _status* status);
 
 #endif // _PINS_H_

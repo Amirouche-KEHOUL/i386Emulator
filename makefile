@@ -1,12 +1,12 @@
 
 SRC = src/main.c src/memory/ram.c
-OBJ = build/main.o build/status/status.o build/memory/ram.o build/memory/registers.o build/pins/pins.o
+OBJ = build/main.o build/sys/sys.o build/status/status.o build/memory/ram.o build/memory/registers.o build/pins/pins.o
 
 i386.out : $(OBJ)
 	gcc $(OBJ) -o bin/i386Emulator.out
 
 build/main.o : $(SRC) 
-	gcc -c src/main.c -I src/memory -o build/main.o
+	gcc -c src/main.c -o build/main.o
 
 build/memory/ram.o : src/memory/ram.c
 	gcc -c src/memory/ram.c -o build/memory/ram.o
@@ -19,6 +19,9 @@ build/memory/registers.o : src/memory/registers.c src/config.h
 
 build/pins/pins.o : src/pins/pins.c src/config.h 
 	gcc -c src/pins/pins.c -o build/pins/pins.o
+
+build/sys/sys.o : src/sys/sys.c 
+	gcc -c src/sys/sys.c -o build/sys/sys.o
 
 clean: 
 	rm -f $(OBJ)

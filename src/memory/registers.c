@@ -25,10 +25,31 @@ void reg_init_eip (_eip_st* eip_st, _status* status)
     eip_st->msb = 0x0000;
 }
 
-void reg_init_gen (_general_regs_st* general_registers_st, int selftest, _status* status)
+void reg_init_gen (_general_regs_st* general_registers_st, _pins_st* pins_st, _status* status)
 { 
 
-    // EAX: result of power-up self test: 0 if STATUS_OK , !0 if NOK (some unit is faulty)
+    // EAX: result of power-up self test: 0 if OK  , !0 if NOK (some unit is faulty)
+    int ret = 0;
+    ret = sys_selftest_resq(pins_st,status);
+    if (ret == -1) 
+    {
+        *status = ERR_REG_INIT;
+        return ;
+    }
+        
+    if (ret == 0) // Self test not requested 
+    {
+        general_registers_st->EAX.AH = CONF_RESET_DEFAULT_EAX_AH;
+        general_registers_st->EAX.AL = CONF_RESET_DEFAULT_EAX_AL;
+        general_registers_st->EAX.msb = CONF_RESET_DEFAULT_EAX_MSB;         
+    }
+
+    if (ret == 1) // Self test requested
+    {
+        general_registers_st->EAX.AH = 0xAB;
+        general_registers_st->EAX.AL = 0xCD;
+        general_registers_st->EAX.msb = 0xEF;  
+    }
     
     // DX: DX holds a component identifier and revision number after RESET
 
