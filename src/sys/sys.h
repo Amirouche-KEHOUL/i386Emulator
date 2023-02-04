@@ -3,6 +3,6 @@
 #include "../status/status.h"
 #include "../pins/pins.h"
 
-int sys_selftest_resq (_pins_st* pins_st,_status* status);
+int sys_selftest_resq (_pins* pins,_status* status);
 
 #endif // _SYS_H_

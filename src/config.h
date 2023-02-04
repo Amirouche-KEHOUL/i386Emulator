@@ -15,6 +15,7 @@
 #define CONF_RESET_DEFAULT_EAX_MSB 0x0000
 
 
+
 /* Pins power up  values */
 
 #define CONF_PIN_BUSY_POW_UP 0

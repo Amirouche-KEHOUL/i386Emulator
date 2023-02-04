@@ -3,7 +3,6 @@
 
 #include <stdio.h>
 
-
 typedef int _status; 
 
 /* STATUS */
@@ -21,6 +20,6 @@ typedef int _status;
 
 
 void err_print (_status* status);
-
+void err_handler(_status* status);
 
 #endif //_STATUS_H

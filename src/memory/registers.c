@@ -5,6 +5,7 @@ void reg_init_seg (_segment_regs_st* segment_registers_st, _status* status)
     if(segment_registers_st == 0 )
     {
         *status = ERR_REG_NULL_POINTER;
+        err_handler(status);        
         return;
     }
     segment_registers_st->CS = (segment_registers_st->CS) & CONF_RESET_DEFAULT_CS; // init to 0x000
@@ -19,36 +20,36 @@ void reg_init_eip (_eip_st* eip_st, _status* status)
     if (eip_st == 0)
     {
         *status = ERR_REG_NULL_POINTER;
+        err_handler(status);        
         return;
     }
     eip_st->IP = 0xFFF0;
     eip_st->msb = 0x0000;
 }
 
-void reg_init_gen (_general_regs_st* general_registers_st, _pins_st* pins_st, _status* status)
+void reg_init_gen (_general_regs_st* general_registers_st, _pins* pins, _status* status)
 { 
 
     // EAX: result of power-up self test: 0 if OK  , !0 if NOK (some unit is faulty)
     int ret = 0;
-    ret = sys_selftest_resq(pins_st,status);
+    ret = sys_selftest_resq(pins,status);
+    printf("value of ret sys_selftest is : %d\n",ret);
     if (ret == -1) 
     {
         *status = ERR_REG_INIT;
+        err_handler(status);        
         return ;
     }
         
     if (ret == 0) // Self test not requested 
     {
-        general_registers_st->EAX.AH = CONF_RESET_DEFAULT_EAX_AH;
-        general_registers_st->EAX.AL = CONF_RESET_DEFAULT_EAX_AL;
-        general_registers_st->EAX.msb = CONF_RESET_DEFAULT_EAX_MSB;         
+      
     }
 
     if (ret == 1) // Self test requested
     {
-        general_registers_st->EAX.AH = 0xAB;
-        general_registers_st->EAX.AL = 0xCD;
-        general_registers_st->EAX.msb = 0xEF;  
+        //TODO: put real values in here
+ 
     }
     
     // DX: DX holds a component identifier and revision number after RESET
@@ -62,6 +63,7 @@ void reg_init_eflags(_eflag_reg_st* eflag_register_st , _status* status)
     if (eflag_register_st == 0 ) 
     {
         *status = ERR_REG_NULL_POINTER;
+        err_handler(status);        
         return;        
     }
 

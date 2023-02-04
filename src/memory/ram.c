@@ -7,12 +7,14 @@ _byte ram_read ( _ram_ptr  ram_ptr, _addr addr, _status *status)
     if (addr >= _RAM_SIZE)
     {
         *status = ERR_RAM_ADDR_OUTRANGE;
+        err_handler(status);        
         return 0;
     }
     // check if  ram_ptr != NULL
     if (ram_ptr == NULL)
     {
         *status = ERR_RAM_NULL_POINTER;
+        err_handler(status);        
         return 0;
     } 
 
@@ -26,12 +28,14 @@ void ram_write(_byte byte, _ram_ptr  ram_ptr, _addr addr,  _status* status)
     if (addr >= _RAM_SIZE)
     {
         *status = ERR_RAM_ADDR_OUTRANGE;
+        err_handler(status);        
         return;
     }
     // check if  ram_ptr != NULL
     if (ram_ptr == NULL)
     {
         *status = ERR_RAM_NULL_POINTER;
+        err_handler(status);        
         return;
     }
 
@@ -47,6 +51,7 @@ _ram_ptr ram_start( _status* status)
     if (ram_ptr == NULL)
     {
         *status = ERR_RAM_MALLOC;
+        err_handler(status);        
         return 0;
     }
     
