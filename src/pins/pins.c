@@ -1,6 +1,6 @@
 #include "pins.h"
 
-_pin_state_enum pins_read (_pins* pins,_pin_name_enum pin_name_enum, _status* status)
+_pin_state_enum pin_read (const _pins* pins,_pin_name_enum pin_name_enum, _status* status)
 {
     if (pins == NULL)
     {
@@ -8,7 +8,7 @@ _pin_state_enum pins_read (_pins* pins,_pin_name_enum pin_name_enum, _status* st
         err_handler(status);
         return -1 ;
     }
-    if (*pins & (pin_name_enum << 1)) 
+    if (*pins & (1 << pin_name_enum )) 
     {
         return ON;
     }
@@ -16,7 +16,7 @@ _pin_state_enum pins_read (_pins* pins,_pin_name_enum pin_name_enum, _status* st
 }
 
 
-void  pins_wrtie (_pins* pins,_pin_name_enum pin_name_enum,_pin_state_enum pin_state_enum, _status* status)
+void  pin_write (_pins* pins,_pin_name_enum pin_name_enum,_pin_state_enum pin_state_enum, _status* status)
 {
     if (pins == NULL)
     {
@@ -26,21 +26,19 @@ void  pins_wrtie (_pins* pins,_pin_name_enum pin_name_enum,_pin_state_enum pin_s
     }
     if ( pin_state_enum == OFF )
     {
-       *pins = *pins & ~(pin_name_enum << 1 );
+       *pins = *pins & ~( 1 << pin_name_enum );
        return; 
     }
-    if ( pin_name_enum == ON )
+    if ( pin_state_enum == ON )
     {
-       *pins = *pins | (pin_name_enum << 1 );
+       *pins = *pins | (1 << pin_name_enum ); 
         return;
     }
 }
 
 
 
-
-
-void pins_pow_up (_pins* pins, _status* status)
+void pin_pow_up (_pins* pins, _status* status)
 {
     if (pins == 0 )
     {
@@ -48,5 +46,5 @@ void pins_pow_up (_pins* pins, _status* status)
         err_handler(status);        
         return ;
     }
-        
+                
 }

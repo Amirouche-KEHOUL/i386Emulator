@@ -100,12 +100,10 @@ typedef struct eip_st
     _reg32 msb:16; // msb: most segnificant bits
 }_eip_st;
 
-
 // #### Functions ####
 void reg_init_seg (_segment_regs_st* segment_registers_st, _status* status);
 void reg_init_eip (_eip_st* eip_st, _status* status);
-void reg_init_gen (_general_regs_st* general_registers_st, _pins* pins, _status* status);
+void reg_init_gen (_general_regs_st* general_registers_st, _pins* pins,_sys_cond_st* sys_cond_st, _status* status);
 void reg_init_eflags(_eflag_reg_st* eflag_register, _status* status);
-
 
 #endif //_REGISTERS_H_

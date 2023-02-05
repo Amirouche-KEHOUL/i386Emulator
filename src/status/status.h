@@ -3,11 +3,11 @@
 
 #include <stdio.h>
 
-typedef int _status; 
+typedef int _status ; 
 
 /* STATUS */
-#define STATUS_END_OF_RESET 1
 #define STATUS_OK 0
+#define STATUS_END_OF_RESET 1
 
 /* ERRORS */
 #define ERR_RAM_ADDR_OUTRANGE -1  

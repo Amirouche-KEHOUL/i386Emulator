@@ -15,6 +15,7 @@ void reg_init_seg (_segment_regs_st* segment_registers_st, _status* status)
     segment_registers_st->FS = CONF_RESET_DEFAULT_FS;
     segment_registers_st->GS = CONF_RESET_DEFAULT_GS;
 }
+
 void reg_init_eip (_eip_st* eip_st, _status* status)
 {
     if (eip_st == 0)
@@ -23,36 +24,46 @@ void reg_init_eip (_eip_st* eip_st, _status* status)
         err_handler(status);        
         return;
     }
-    eip_st->IP = 0xFFF0;
-    eip_st->msb = 0x0000;
+    eip_st->IP = CONF_RESET_DEFAULT_EIP_IP ;
+    eip_st->msb = CONF_RESET_DEFAULT_EIP_msb ;
 }
 
-void reg_init_gen (_general_regs_st* general_registers_st, _pins* pins, _status* status)
+void reg_init_gen (_general_regs_st* general_registers_st, _pins* pins,_sys_cond_st* sys_cond_st, _status* status)
 { 
 
     // EAX: result of power-up self test: 0 if OK  , !0 if NOK (some unit is faulty)
     int ret = 0;
-    ret = sys_selftest_resq(pins,status);
-    printf("value of ret sys_selftest is : %d\n",ret);
-    if (ret == -1) 
+    ret = sys_is_selftest_req(pins,status);
+    if (ret == -1 || general_registers_st == NULL || pins == NULL || sys_cond_st == NULL) 
     {
         *status = ERR_REG_INIT;
         err_handler(status);        
         return ;
-    }
-        
-    if (ret == 0) // Self test not requested 
-    {
-      
-    }
+    }       
 
     if (ret == 1) // Self test requested
     {
-        //TODO: put real values in here
- 
+        if (sys_isfaulty(sys_cond_st,status) == SYS_NOT_FAULTY)
+        {
+            general_registers_st->EAX.AL = 0;
+            general_registers_st->EAX.AH = 0;
+            general_registers_st->EAX.msb = 0;
+            return ;
+        }
+        if (sys_isfaulty(sys_cond_st, status) == SYS_FAULTY)
+        {
+            // TODO: these values are radonm. Correct value to be confirmed later on
+            general_registers_st->EAX.AL = 0xFF;
+            general_registers_st->EAX.AH = 0xFF;
+            general_registers_st->EAX.msb = 0xFFFF;
+            return ;
+        }
     }
+    // EAX value is undefined otherwise
     
     // DX: DX holds a component identifier and revision number after RESET
+    general_registers_st->EDX.DL = CONF_RESET_DEFAULT_EDX_DL;
+    general_registers_st->EDX.DH = CONF_RESET_DEFAULT_EDX_DH;
 
     // CR0 ? 
 
@@ -68,22 +79,22 @@ void reg_init_eflags(_eflag_reg_st* eflag_register_st , _status* status)
     }
 
     // eflag_register_st = 0x00000002;
-    eflag_register_st->carry_s = 0;
-    eflag_register_st->RES1 = 1; 
-    eflag_register_st->parity_s = 0;
-    eflag_register_st->RES3 = 0;
-    eflag_register_st->auxilary_carry_s = 0;
-    eflag_register_st->RES5 = 0;
-    eflag_register_st->zero_s = 0;
-    eflag_register_st->sign_s = 0;
-    eflag_register_st->trap_s = 0;
-    eflag_register_st->interrupt_enable_x = 0;
-    eflag_register_st->direction_c = 0;
-    eflag_register_st->overflow_s = 0;
-    eflag_register_st->io_previlege_level_x = 0;
-    eflag_register_st->nested_task_s = 0;
-    eflag_register_st->RES15 = 0;
-    eflag_register_st->resume_x = 0;
-    eflag_register_st->virtual_8086_mode_x = 0;
-    eflag_register_st->RES18_31 = 0;
+    eflag_register_st->carry_s = CONF_RESET_DEFAULT_EFLAG_CARRY;
+    eflag_register_st->RES1 = CONF_RESET_DEFAULT_EFLAG_RES1 ; 
+    eflag_register_st->parity_s = CONF_RESET_DEFAULT_EFLAG_PARITY;
+    eflag_register_st->RES3 = CONF_RESET_DEFAULT_EFLAG_RES3;
+    eflag_register_st->auxilary_carry_s = CONF_RESET_DEFAULT_EFLAG_AUX_CARRY;
+    eflag_register_st->RES5 = CONF_RESET_DEFAULT_EFLAG_RES5;
+    eflag_register_st->zero_s = CONF_RESET_DEFAULT_EFLAG_ZERO ;
+    eflag_register_st->sign_s = CONF_RESET_DEFAULT_EFLAG_SIGN ;
+    eflag_register_st->trap_s = CONF_RESET_DEFAULT_EFLAG_TRAP;
+    eflag_register_st->interrupt_enable_x = CONF_RESET_DEFAULT_EFLAG_INTR_ENABLE;
+    eflag_register_st->direction_c = CONF_RESET_DEFAULT_EFLAG_DIREC;
+    eflag_register_st->overflow_s = CONF_RESET_DEFAULT_EFLAG_OVERF;
+    eflag_register_st->io_previlege_level_x = CONF_RESET_DEFAULT_EFLAG_IO_PREV_LEV;
+    eflag_register_st->nested_task_s = CONF_RESET_DEFAULT_EFLAG_NESTED_TASK;
+    eflag_register_st->RES15 = CONF_RESET_DEFAULT_EFLAG_RES15 ;
+    eflag_register_st->resume_x = CONF_RESET_DEFAULT_EFLAG_RESUME;
+    eflag_register_st->virtual_8086_mode_x = CONF_RESET_DEFAULT_EFLAG_VIRT_8086_MODE;
+    eflag_register_st->RES18_31 = CONF_RESET_DEFAULT_EFLAG_RES18_31;
 }
