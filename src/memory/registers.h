@@ -100,6 +100,30 @@ typedef struct eip_st
     _reg32 msb:16; // msb: most segnificant bits
 }_eip_st;
 
+// Memory management registers
+typedef _reg32 _gdtr_reg; // Global Descriptor Table Register
+typedef _reg32 _ldtr_reg; // Local Descriptor Table Register
+typedef _reg32 _idtr_reg; // Interrupt Descriptor Table Register
+typedef struct task_reg_st
+{
+    unsigned int selector : 16 ;
+    unsigned int base : 16 ; // TODO : size TBC 
+    unsigned int limi : 16 ; // TODO : size TBC 
+}_task_reg_st;
+
+// Control registers
+typedef struct cr0_reg_st  
+{
+    int PE : 1; // Protection Enable
+    int MP : 1; // Math Present
+    int EM : 1; // EMulation
+    int TS : 1; // Task Switched 
+    int ET : 1; // Extension Type
+    int PG : 1; // Paging
+} _cr0_reg_st;
+typedef _reg32 _cr2_reg ;
+typedef _reg32 _cr3_reg_pdbr ; // Page directory base register
+
 // #### Functions ####
 void reg_init_seg (_segment_regs_st* segment_registers_st, _status* status);
 void reg_init_eip (_eip_st* eip_st, _status* status);

@@ -14,6 +14,7 @@ typedef enum  pin_name_enum
 {
     pin_reset = 0,
     pin_busy  = 1,
+    pin_error = 2,
 
 }_pin_name_enum; 
 
