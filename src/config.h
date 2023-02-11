@@ -39,6 +39,12 @@
 #define CONF_RESET_DEFAULT_EFLAG_VIRT_8086_MODE 0
 #define CONF_RESET_DEFAULT_EFLAG_RES18_31 0
 
+#define CONF_RESET_DEFAULT_CR0_PE 0 // if 0: protection not enabled (real address mode)
+#define CONF_RESET_DEFAULT_CR0_MP 0 // if 0: coprocessor not present
+#define CONF_RESET_DEFAULT_CR0_EM 0 // if 0: do not monitor coprocessor
+#define CONF_RESET_DEFAULT_CR0_TS 0 // if 0: no task switch
+#define CONF_RESET_DEFAULT_CR0_ET 0 // indicates presense of 80387
+#define CONF_RESET_DEFAULT_CR0_PG 0 // if 0: paging disabled
 
 
 /* Pins power up  values */

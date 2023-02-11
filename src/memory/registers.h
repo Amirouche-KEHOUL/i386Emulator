@@ -114,20 +114,391 @@ typedef struct task_reg_st
 // Control registers
 typedef struct cr0_reg_st  
 {
-    int PE : 1; // Protection Enable
-    int MP : 1; // Math Present
-    int EM : 1; // EMulation
-    int TS : 1; // Task Switched 
-    int ET : 1; // Extension Type
-    int PG : 1; // Paging
+    unsigned int PE : 1; // Protection Enable
+    unsigned int MP : 1; // Math Present
+    unsigned int EM : 1; // EMulation
+    unsigned int TS : 1; // Task Switched 
+    unsigned int ET : 1; // Extension Type
+    unsigned int PG : 1; // Paging
 } _cr0_reg_st;
-typedef _reg32 _cr2_reg ;
+typedef _reg32 _cr2_reg ; // Page fault linear address 
 typedef _reg32 _cr3_reg_pdbr ; // Page directory base register
+
+// TLB Translation lookaside Buffer 
+typedef struct tlb_reg_st
+ {
+    struct
+    {
+        struct
+        {
+            unsigned int attribute:3;
+            unsigned int valid:1;
+            unsigned int linear_addr:20;
+        }tag0;
+        struct
+        {
+            unsigned int physical_addr:20;
+        }data0;
+        
+        struct
+        {
+            unsigned int attribute:3;
+            unsigned int valid:1;
+            unsigned int linear_addr:20;
+        }tag1;
+        struct
+        {
+            unsigned int physical_addr:20;
+        }data1;
+
+        struct
+        {
+            unsigned int attribute:3;
+            unsigned int valid:1;
+            unsigned int linear_addr:20;
+        }tag2;
+        struct
+        {
+            unsigned int physical_addr:20;
+        }data2;
+            
+        struct
+        {
+            unsigned int attribute:3;
+            unsigned int valid:1;
+            unsigned int linear_addr:20;
+        }tag3;
+        struct
+        {
+            unsigned int physical_addr:20;
+        }data3;
+
+        struct
+        {
+            unsigned int attribute:3;
+            unsigned int valid:1;
+            unsigned int linear_addr:20;
+        }tag4;        
+        struct
+        {
+            unsigned int physical_addr:20;
+        }data4;
+
+        struct
+        {
+            unsigned int attribute:3;
+            unsigned int valid:1;
+            unsigned int linear_addr:20;
+        }tag5;
+        struct
+        {
+            unsigned int physical_addr:20;
+        }data5;
+
+        struct
+        {
+            unsigned int attribute:3;
+            unsigned int valid:1;
+            unsigned int linear_addr:20;
+        }tag6;
+        struct
+        {
+            unsigned int physical_addr:20;
+        }data6;
+
+        struct
+        {
+            unsigned int attribute:3;
+            unsigned int valid:1;
+            unsigned int linear_addr:20;
+        }tag7;
+        struct
+        {
+            unsigned int physical_addr:20;
+        }data7;
+    }set00;
+    
+    struct
+    {
+        struct
+        {
+            unsigned int attribute:3;
+            unsigned int valid:1;
+            unsigned int linear_addr:20;
+        }tag0;
+        struct
+        {
+            unsigned int physical_addr:20;
+        }data0;
+        
+        struct
+        {
+            unsigned int attribute:3;
+            unsigned int valid:1;
+            unsigned int linear_addr:20;
+        }tag1;
+        struct
+        {
+            unsigned int physical_addr:20;
+        }data1;
+
+        struct
+        {
+            unsigned int attribute:3;
+            unsigned int valid:1;
+            unsigned int linear_addr:20;
+        }tag2;
+        struct
+        {
+            unsigned int physical_addr:20;
+        }data2;
+            
+        struct
+        {
+            unsigned int attribute:3;
+            unsigned int valid:1;
+            unsigned int linear_addr:20;
+        }tag3;
+        struct
+        {
+            unsigned int physical_addr:20;
+        }data3;
+
+        struct
+        {
+            unsigned int attribute:3;
+            unsigned int valid:1;
+            unsigned int linear_addr:20;
+        }tag4;        
+        struct
+        {
+            unsigned int physical_addr:20;
+        }data4;
+
+        struct
+        {
+            unsigned int attribute:3;
+            unsigned int valid:1;
+            unsigned int linear_addr:20;
+        }tag5;
+        struct
+        {
+            unsigned int physical_addr:20;
+        }data5;
+
+        struct
+        {
+            unsigned int attribute:3;
+            unsigned int valid:1;
+            unsigned int linear_addr:20;
+        }tag6;
+        struct
+        {
+            unsigned int physical_addr:20;
+        }data6;
+
+        struct
+        {
+            unsigned int attribute:3;
+            unsigned int valid:1;
+            unsigned int linear_addr:20;
+        }tag7;
+        struct
+        {
+            unsigned int physical_addr:20;
+        }data7;
+    }set01;
+    
+    struct
+    {
+        struct
+        {
+            unsigned int attribute:3;
+            unsigned int valid:1;
+            unsigned int linear_addr:20;
+        }tag0;
+        struct
+        {
+            unsigned int physical_addr:20;
+        }data0;
+        
+        struct
+        {
+            unsigned int attribute:3;
+            unsigned int valid:1;
+            unsigned int linear_addr:20;
+        }tag1;
+        struct
+        {
+            unsigned int physical_addr:20;
+        }data1;
+
+        struct
+        {
+            unsigned int attribute:3;
+            unsigned int valid:1;
+            unsigned int linear_addr:20;
+        }tag2;
+        struct
+        {
+            unsigned int physical_addr:20;
+        }data2;
+            
+        struct
+        {
+            unsigned int attribute:3;
+            unsigned int valid:1;
+            unsigned int linear_addr:20;
+        }tag3;
+        struct
+        {
+            unsigned int physical_addr:20;
+        }data3;
+
+        struct
+        {
+            unsigned int attribute:3;
+            unsigned int valid:1;
+            unsigned int linear_addr:20;
+        }tag4;        
+        struct
+        {
+            unsigned int physical_addr:20;
+        }data4;
+
+        struct
+        {
+            unsigned int attribute:3;
+            unsigned int valid:1;
+            unsigned int linear_addr:20;
+        }tag5;
+        struct
+        {
+            unsigned int physical_addr:20;
+        }data5;
+
+        struct
+        {
+            unsigned int attribute:3;
+            unsigned int valid:1;
+            unsigned int linear_addr:20;
+        }tag6;
+        struct
+        {
+            unsigned int physical_addr:20;
+        }data6;
+
+        struct
+        {
+            unsigned int attribute:3;
+            unsigned int valid:1;
+            unsigned int linear_addr:20;
+        }tag7;
+        struct
+        {
+            unsigned int physical_addr:20;
+        }data7;
+    }set10;
+ 
+    struct
+    {
+        struct
+        {
+            unsigned int attribute:3;
+            unsigned int valid:1;
+            unsigned int linear_addr:20;
+        }tag0;
+        struct
+        {
+            unsigned int physical_addr:20;
+        }data0;
+        
+        struct
+        {
+            unsigned int attribute:3;
+            unsigned int valid:1;
+            unsigned int linear_addr:20;
+        }tag1;
+        struct
+        {
+            unsigned int physical_addr:20;
+        }data1;
+
+        struct
+        {
+            unsigned int attribute:3;
+            unsigned int valid:1;
+            unsigned int linear_addr:20;
+        }tag2;
+        struct
+        {
+            unsigned int physical_addr:20;
+        }data2;
+            
+        struct
+        {
+            unsigned int attribute:3;
+            unsigned int valid:1;
+            unsigned int linear_addr:20;
+        }tag3;
+        struct
+        {
+            unsigned int physical_addr:20;
+        }data3;
+
+        struct
+        {
+            unsigned int attribute:3;
+            unsigned int valid:1;
+            unsigned int linear_addr:20;
+        }tag4;        
+        struct
+        {
+            unsigned int physical_addr:20;
+        }data4;
+
+        struct
+        {
+            unsigned int attribute:3;
+            unsigned int valid:1;
+            unsigned int linear_addr:20;
+        }tag5;
+        struct
+        {
+            unsigned int physical_addr:20;
+        }data5;
+
+        struct
+        {
+            unsigned int attribute:3;
+            unsigned int valid:1;
+            unsigned int linear_addr:20;
+        }tag6;
+        struct
+        {
+            unsigned int physical_addr:20;
+        }data6;
+
+        struct
+        {
+            unsigned int attribute:3;
+            unsigned int valid:1;
+            unsigned int linear_addr:20;
+        }tag7;
+        struct
+        {
+            unsigned int physical_addr:20;
+        }data7;
+
+    }set11;
+ 
+ }_tlb_reg_st;
 
 // #### Functions ####
 void reg_init_seg (_segment_regs_st* segment_registers_st, _status* status);
 void reg_init_eip (_eip_st* eip_st, _status* status);
 void reg_init_gen (_general_regs_st* general_registers_st, _pins* pins,_sys_cond_st* sys_cond_st, _status* status);
 void reg_init_eflags(_eflag_reg_st* eflag_register, _status* status);
+void reg_init_cr0 (_cr0_reg_st* cr0_reg_st,_status* status);
 
 #endif //_REGISTERS_H_

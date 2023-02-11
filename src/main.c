@@ -30,15 +30,20 @@ int main ()
     _cr0_reg_st cr0_reg_st;
     _cr2_reg cr2_reg;
     _cr3_reg_pdbr cr3_reg_pdbr;
-        // init regs.
+    _tlb_reg_st tlb_reg_st;
+
+        // init regs
     reg_init_eflags(&eflag_reg_st,&status);
     reg_init_eip(&eip_st, &status);
     reg_init_seg(&seg_regs_st,&status);
     reg_init_gen(&gen_regs_st,&pins,&sys_cond_st, &status);
+    reg_init_cr0(&cr0_reg_st,&status);
+
 
 
     free(ram_ptr);
 
-    printf("Close Emulator\n");       
-    return 0;
+    printf("Close Emulator\n");
+
+    return   0;
 }
