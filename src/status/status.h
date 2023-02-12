@@ -17,9 +17,11 @@ typedef int _status ;
 #define ERR_PIN_NULL_POINTER -5
 #define ERR_SYS_NULL_POINTER -6
 #define ERR_REG_INIT -7
+#define ERR_BIOS_NULL_POINTER -8
+#define ERR_OPEN_DEVICE_NOK -9
 
 
 void err_print (_status* status);
-void err_handler(_status* status);
+void err_handler(_status* status,char* message);
 
 #endif //_STATUS_H

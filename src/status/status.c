@@ -28,6 +28,9 @@ void err_print (_status* status)
             case -7 :
                 printf("ERR_REG_INIT (%d)\n" , *status);
                 break;
+            case -9 :
+                printf("ERR_OPEN_DEVICE_NOK (%d)\n" , *status);
+                break;
             default: 
                 printf("Unknown error code (%d)\n" , *status );
 
@@ -35,7 +38,7 @@ void err_print (_status* status)
     }
 }
 
-void err_handler(_status* status)
+void err_handler(_status* status,char* message)
 {   
     printf("Following error occured : ");
     err_print(status);
@@ -71,6 +74,10 @@ void err_handler(_status* status)
             printf("Emulater exited with error.\n");
             exit(*status);
             break; 
+        case ERR_OPEN_DEVICE_NOK:
+            printf("Could not open file \"%s\"(file existes? permissions?). please use relative path.\n",message);
+            printf("Emulater exited with error.\n");
+            exit(*status);
     
         default: // handle case error code not known
             printf("Emulater exited with error.\n");

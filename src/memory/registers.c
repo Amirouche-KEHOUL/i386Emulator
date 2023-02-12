@@ -5,7 +5,7 @@ void reg_init_seg (_segment_regs_st* segment_registers_st, _status* status)
     if(segment_registers_st == 0 )
     {
         *status = ERR_REG_NULL_POINTER;
-        err_handler(status);        
+        err_handler(status,"");        
         return;
     }
     segment_registers_st->CS = (segment_registers_st->CS) & CONF_RESET_DEFAULT_CS; // init to 0x000
@@ -21,7 +21,7 @@ void reg_init_eip (_eip_st* eip_st, _status* status)
     if (eip_st == 0)
     {
         *status = ERR_REG_NULL_POINTER;
-        err_handler(status);        
+        err_handler(status,"");        
         return;
     }
     eip_st->IP = CONF_RESET_DEFAULT_EIP_IP ;
@@ -37,7 +37,7 @@ void reg_init_gen (_general_regs_st* general_registers_st, _pins* pins,_sys_cond
     if (ret == -1 || general_registers_st == NULL || pins == NULL || sys_cond_st == NULL) 
     {
         *status = ERR_REG_INIT;
-        err_handler(status);        
+        err_handler(status,"");        
         return ;
     }       
 
@@ -69,7 +69,7 @@ void reg_init_eflags(_eflag_reg_st* eflag_register_st , _status* status)
     if (eflag_register_st == 0 ) 
     {
         *status = ERR_REG_NULL_POINTER;
-        err_handler(status);        
+        err_handler(status,"");        
         return;        
     }
 
@@ -99,7 +99,7 @@ void reg_init_cr0 (_cr0_reg_st* cr0_reg_st,_status* status)
     if (cr0_reg_st == NULL)
     {
         *status = ERR_REG_NULL_POINTER;
-        err_handler(status);
+        err_handler(status,"");
         return;
     }
     cr0_reg_st->PE = CONF_RESET_DEFAULT_CR0_PE;

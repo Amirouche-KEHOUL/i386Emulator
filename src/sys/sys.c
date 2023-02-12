@@ -6,7 +6,7 @@ int sys_is_selftest_req (_pins* pins,_status* status)
     if (pins == 0 )
     {
         *status = ERR_SYS_NULL_POINTER; 
-        err_handler(status);     
+        err_handler(status,"");     
         return -1 ;
     }
     // if selftest requested
@@ -21,7 +21,7 @@ int sys_isfaulty (_sys_cond_st* sys_cond_st, _status* status)
     if (sys_cond_st == NULL)
     {
         *status = ERR_SYS_NULL_POINTER;
-        err_handler(status);
+        err_handler(status,"");
         return -1; 
     }
 

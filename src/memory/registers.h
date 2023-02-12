@@ -62,7 +62,7 @@ typedef struct segment_registers_st
 {
     _reg16 CS; // code segment
     _reg16 SS; // stack segment
-    // data segments
+    /* data segments */
     _reg16 DS;
     _reg16 ES;
     _reg16 FS;
@@ -101,8 +101,8 @@ typedef struct eip_st
 }_eip_st;
 
 // Memory management registers
-typedef _reg32 _gdtr_reg; // Global Descriptor Table Register
-typedef _reg32 _ldtr_reg; // Local Descriptor Table Register
+typedef _reg32 _gdtr_reg; // Global Descriptor Table Register. TODO : should store base + limit addresses. size TBC
+typedef _reg32 _ldtr_reg; // Local Descriptor Table Register. TODO : should store base + limit addresses. size TBC
 typedef _reg32 _idtr_reg; // Interrupt Descriptor Table Register
 typedef struct task_reg_st
 {

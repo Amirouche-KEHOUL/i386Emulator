@@ -51,5 +51,7 @@
 #define CONF_PIN_BUSY_POW_UP 0
 #define CONF_PIN_RESET_POW_UP 0
 
+/* Others */
+#define CONF_MAX_LEN_DEVICE_NAME 200 
 
 #endif // _CONFIG_H_
