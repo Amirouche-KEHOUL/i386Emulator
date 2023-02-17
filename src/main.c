@@ -5,8 +5,9 @@
 #include "memory/registers.h"
 #include "memory/ram.h"
 #include "pins/pins.h"
+#include "bios/bios.h"
 
-_status status = STATUS_OK ; //status = 0 : not error, > 0: warnig, < 0: error.
+_status status = _STATUS_OK ; //status = 0 : OK, > 0: warnig, < 0: error.
 _sys_cond_st sys_cond_st ; 
 
 int str_length(char str[]) 
@@ -18,16 +19,24 @@ int str_length(char str[])
 
 int main (int argc, char** argv)
 {
-    printf("Start Emulator\n");
+    printf("----------| Start Emulator |----------\n");
+    /* If no device quit Emulator */
+    if (argv[1] == NULL)
+    {
+        status = _STATUS_NO_DEVICE;
+        err_handler(&status,"");
+    }
     
-    /* load bootable device file */
-    FILE* device; // bootable device
+    /* Load bootable device file */
+    FILE* device; // Bootable device
+    //TODO: check if file is binary, else exit emulator.
+
     char* device_name = argv[1];
     char device_path[PATH_MAX]; 
-        // construct full path and open the device file
+        // Construct full path and open the device file
     if (getcwd(device_path, sizeof(device_path)) != NULL) // Current Working Directory
     {
-        for (int i = 0 ; i < PATH_MAX - CONF_MAX_LEN_DEVICE_NAME ; i++)
+        for (int i = 0 ; i < PATH_MAX - _CONF_MAX_LEN_DEVICE_NAME ; i++)
         {
             if (device_path[i] == 0 )
             {   
@@ -42,19 +51,29 @@ int main (int argc, char** argv)
                 break; 
             }
         }   
-        device = fopen(device_path,"r");
+        device = fopen(device_path,"r"); 
         if (device == NULL)
         {
-            status = ERR_OPEN_DEVICE_NOK;
+            status = _ERR_OPEN_DEVICE_NOK;
             err_handler(&status,device_name);
         }
-    } else // if getcwd fails
+    } else // If getcwd fails
     {
-        status = ERR_OPEN_DEVICE_NOK;
+        status = _ERR_OPEN_DEVICE_NOK;
         err_handler(&status,device_name);
     }
    
     printf("Disk : %s\n",device_name);
+
+    /* Check is device is bootable */
+    // TODO : Enhence err handeling function to manage thing before quitting
+    if (bios_is_bootable(device,&status) == _DEVICE_IS_BOOTABLE) printf ("Device is bootable.\n");
+    if (status == _STATUS_DEVICE_BOOT_SIG_NOT_FOUND) // in case of device not beetable
+    {
+        fclose(device);
+        printf("Close Emulator\n"); 
+        exit(status);
+    }
 
     /* Create and init pins */
     _pins pins ;
@@ -85,13 +104,11 @@ int main (int argc, char** argv)
     reg_init_seg(&seg_regs_st,&status);
     reg_init_gen(&gen_regs_st,&pins,&sys_cond_st, &status);
     reg_init_cr0(&cr0_reg_st,&status);
+   
 
     
-    /* Start BIOS */
-    printf("== Start BIOS...\n");
-    
     free(ram_ptr);
-    printf("Close Emulator\n");
+    printf("----------| Exit Emulator |----------\n");
 
     return   0;
 }

@@ -4,7 +4,7 @@ _pin_state_enum pin_read (const _pins* pins,_pin_name_enum pin_name_enum, _statu
 {
     if (pins == NULL)
     {
-        *status = ERR_PIN_NULL_POINTER;
+        *status = _ERR_PIN_NULL_POINTER;
         err_handler(status,"");
         return -1 ;
     }
@@ -20,7 +20,7 @@ void  pin_write (_pins* pins,_pin_name_enum pin_name_enum,_pin_state_enum pin_st
 {
     if (pins == NULL)
     {
-        *status = ERR_PIN_NULL_POINTER;
+        *status = _ERR_PIN_NULL_POINTER;
         err_handler(status,"");
         return;
     }
@@ -40,9 +40,9 @@ void  pin_write (_pins* pins,_pin_name_enum pin_name_enum,_pin_state_enum pin_st
 
 void pin_pow_up (_pins* pins, _status* status)
 {
-    if (pins == 0 )
+    if (pins == NULL )
     {
-        *status = ERR_PIN_NULL_POINTER;
+        *status = _ERR_PIN_NULL_POINTER;
         err_handler(status,"");        
         return ;
     }
