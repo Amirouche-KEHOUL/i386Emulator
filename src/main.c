@@ -21,6 +21,36 @@ int main (int argc, char** argv)
 {
     printf("----------| Start Emulator |----------\n");
     /* If no device quit Emulator */
+
+    /* Create and init pins */
+    _pins pins ;
+    pin_pow_up (&pins,&status);  
+
+    /* Create and init RAM */
+    printf("== Create and initialise RAM ...\n");
+    _ram_ptr ram_ptr = ram_start(&status);
+
+    /* Create registers */
+    printf("== Create and initialise registers ...\n");
+    _general_regs_st gen_regs_st;
+    _segment_regs_st seg_regs_st;
+    _eflag_reg_st eflag_reg_st;
+    _eip_st eip_st;
+    _gdtr_reg gdtr_reg;
+    _ldtr_reg ldtr_reg;
+    _idtr_reg idtr_reg;
+    _task_reg_st task_reg_st;
+    _cr0_reg_st cr0_reg_st;
+    _cr2_reg cr2_reg;
+    _cr3_reg_pdbr cr3_reg_pdbr;
+    _tlb_reg_st tlb_reg_st;
+        // init regs
+    reg_init_eflags(&eflag_reg_st,&status);
+    reg_init_eip(&eip_st, &status);
+    reg_init_seg(&seg_regs_st,&status);
+    reg_init_gen(&gen_regs_st,&pins,&sys_cond_st, &status);
+    reg_init_cr0(&cr0_reg_st,&status);
+        
     if (argv[1] == NULL)
     {
         status = _STATUS_NO_DEVICE;
@@ -63,52 +93,27 @@ int main (int argc, char** argv)
         err_handler(&status,device_name);
     }
    
-    printf("Disk : %s\n",device_name);
+    printf("Disk : %s ",device_name);
 
     /* Check is device is bootable */
-    // TODO : Enhence err handeling function to manage thing before quitting
-    if (bios_is_bootable(device,&status) == _DEVICE_IS_BOOTABLE) printf ("Device is bootable.\n");
-    if (status == _STATUS_DEVICE_BOOT_SIG_NOT_FOUND) // in case of device not beetable
+    if (bios_is_bootable(device,&status) == _DEVICE_IS_BOOTABLE) printf ("(bootable).\n");
+        // in case of device not bootable
+    if (status == _STATUS_DEVICE_BOOT_SIG_NOT_FOUND) 
     {
         fclose(device);
-        printf("Close Emulator\n"); 
+        printf("----------| Exit Emulator |---------\n"); 
         exit(status);
     }
+        // Load MBR
+    bios_load_MBR_TO_RAM(device,ram_ptr,&status);
+    printf("== LOAD Master Boot Record to RAM location 0x%X\n",_MBR_LOAD_RAM_ADDR);    
 
-    /* Create and init pins */
-    _pins pins ;
-    pin_pow_up (&pins,&status);  
-
-    /* Create and init RAM */
-    printf("== Create and initialise RAM ...\n");
-    _ram_ptr ram_ptr = ram_start(&status);
-
-    /* Create registers */
-    printf("== Create and initialise registers ...\n");
-    _general_regs_st gen_regs_st;
-    _segment_regs_st seg_regs_st;
-    _eflag_reg_st eflag_reg_st;
-    _eip_st eip_st;
-    _gdtr_reg gdtr_reg;
-    _ldtr_reg ldtr_reg;
-    _idtr_reg idtr_reg;
-    _task_reg_st task_reg_st;
-    _cr0_reg_st cr0_reg_st;
-    _cr2_reg cr2_reg;
-    _cr3_reg_pdbr cr3_reg_pdbr;
-    _tlb_reg_st tlb_reg_st;
-
-        // init regs
-    reg_init_eflags(&eflag_reg_st,&status);
-    reg_init_eip(&eip_st, &status);
-    reg_init_seg(&seg_regs_st,&status);
-    reg_init_gen(&gen_regs_st,&pins,&sys_cond_st, &status);
-    reg_init_cr0(&cr0_reg_st,&status);
-   
-
+    // test 
+    for (int i = 0; i < 512 ; i++)
+    {
     
-    free(ram_ptr);
+    printf("0x%X  :  0x%X\n",0x7c00+i,ram_read(ram_ptr,0x7c00+i,&status) );
+    }
     printf("----------| Exit Emulator |----------\n");
-
     return   0;
 }

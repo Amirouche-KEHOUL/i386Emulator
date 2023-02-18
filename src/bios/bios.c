@@ -2,6 +2,7 @@
 
 unsigned int bios_is_bootable (FILE* device_name,_status* status)
 {
+    // arguments check
     if (device_name == NULL)
     {
         *status = _ERR_BIOS_NULL_POINTER;
@@ -23,4 +24,22 @@ unsigned int bios_is_bootable (FILE* device_name,_status* status)
     // If signature not found
     *status = _STATUS_DEVICE_BOOT_SIG_NOT_FOUND;
     err_handler(status,"");
+}
+
+unsigned int bios_load_MBR_TO_RAM (FILE* device,_ram_ptr ram_ptr,_status* status)
+{
+    // arguments check
+    if ((device == NULL) | (ram_ptr == NULL))
+    {
+        *status = _ERR_BIOS_NULL_POINTER;
+        err_handler(status,"");
+    }
+    // copy MBR to RAM 
+    _byte byte_stream = 0;
+    for (int i = 0 ; i < 512;i++ )
+    {
+        byte_stream = getc(device);
+        ram_write(byte_stream, ram_ptr,(_MBR_LOAD_RAM_ADDR + i ),status);
+    }
+    return 1;        
 }

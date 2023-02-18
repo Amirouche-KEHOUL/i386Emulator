@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include "../status/status.h"
 
-# define _RAM_SIZE 4294967296 // 4GB. THIS Value should not be changed. 
+#define _RAM_SIZE 4294967296 // 4GB. This Value should not be changed! 
 
 typedef unsigned long* _ram_ptr;
 typedef unsigned char _byte;
