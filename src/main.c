@@ -27,11 +27,11 @@ int main (int argc, char** argv)
     pin_pow_up (&pins,&status);  
 
     /* Create and init RAM */
-    printf("== Create and initialise RAM ...\n");
+    printf("== Create and initialise RAM\n");
     _ram_ptr ram_ptr = ram_start(&status);
 
     /* Create registers */
-    printf("== Create and initialise registers ...\n");
+    printf("== Create and initialise registers\n");
     _general_regs_st gen_regs_st;
     _segment_regs_st seg_regs_st;
     _eflag_reg_st eflag_reg_st;
@@ -60,7 +60,6 @@ int main (int argc, char** argv)
     /* Load bootable device file */
     FILE* device; // Bootable device
     //TODO: check if file is binary, else exit emulator.
-
     char* device_name = argv[1];
     char device_path[PATH_MAX]; 
         // Construct full path and open the device file
@@ -104,16 +103,18 @@ int main (int argc, char** argv)
         printf("----------| Exit Emulator |---------\n"); 
         exit(status);
     }
-        // Load MBR
-    bios_load_MBR_TO_RAM(device,ram_ptr,&status);
+    /* Load MBR Master Block Record */
+    bios_load_MBR_TO_RAM(device,ram_ptr,&seg_regs_st,&eip_st,&status);
     printf("== LOAD Master Boot Record to RAM location 0x%X\n",_MBR_LOAD_RAM_ADDR);    
 
-    // test 
+    /* 
+    printf("value of CS = 0x%X\n",seg_regs_st.CS);
+    printf("value of IP = 0x%X\n",eip_st.IP);
     for (int i = 0; i < 512 ; i++)
-    {
-    
-    printf("0x%X  :  0x%X\n",0x7c00+i,ram_read(ram_ptr,0x7c00+i,&status) );
+    {    
+        printf("0x%X  :  0x%X\n",0x7c00+i,ram_read(ram_ptr,0x7c00+i,&status) );
     }
+    */
     printf("----------| Exit Emulator |----------\n");
     return   0;
 }

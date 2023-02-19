@@ -9,7 +9,7 @@ typedef  unsigned int _reg16;
 typedef  unsigned long _reg32;
 
 // 32-bit general-perpose register
-typedef struct general_registers_st
+typedef struct general_reg_st
 {
     struct 
     {
@@ -58,7 +58,7 @@ typedef struct general_registers_st
 }_general_regs_st;
 
 // 16-bit segement registers
-typedef struct segment_registers_st
+typedef struct segment_reg_st
 {
     _reg16 CS; // code segment
     _reg16 SS; // stack segment
@@ -70,7 +70,7 @@ typedef struct segment_registers_st
 }_segment_regs_st;
 
 // EFLAG register._s = status, _c = control, _x= system flag
-typedef struct eflag_registers_st
+typedef struct eflag_reg_st
 {
     _reg32 carry_s:1;
     _reg32 RES1:1;
@@ -495,9 +495,9 @@ typedef struct tlb_reg_st
  }_tlb_reg_st;
 
 // #### Functions ####
-void reg_init_seg (_segment_regs_st* segment_registers_st, _status* status);
+void reg_init_seg (_segment_regs_st* segment_reg_st, _status* status);
 void reg_init_eip (_eip_st* eip_st, _status* status);
-void reg_init_gen (_general_regs_st* general_registers_st, _pins* pins,_sys_cond_st* sys_cond_st, _status* status);
+void reg_init_gen (_general_regs_st* _general_regs_st, _pins* pins,_sys_cond_st* sys_cond_st, _status* status);
 void reg_init_eflags(_eflag_reg_st* eflag_register, _status* status);
 void reg_init_cr0 (_cr0_reg_st* cr0_reg_st,_status* status);
 

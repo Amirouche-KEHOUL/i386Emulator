@@ -2,7 +2,7 @@
 
 unsigned int bios_is_bootable (FILE* device_name,_status* status)
 {
-    // arguments check
+    // Arguments check
     if (device_name == NULL)
     {
         *status = _ERR_BIOS_NULL_POINTER;
@@ -26,10 +26,10 @@ unsigned int bios_is_bootable (FILE* device_name,_status* status)
     err_handler(status,"");
 }
 
-unsigned int bios_load_MBR_TO_RAM (FILE* device,_ram_ptr ram_ptr,_status* status)
+unsigned int bios_load_MBR_TO_RAM (FILE* device,_ram_ptr ram_ptr,_segment_regs_st* segment_regs_st,_eip_st* eip_st, _status* status)
 {
-    // arguments check
-    if ((device == NULL) | (ram_ptr == NULL))
+    // Arguments check
+    if ((device == NULL) | (ram_ptr == NULL)|(segment_regs_st == NULL) | (eip_st == NULL))
     {
         *status = _ERR_BIOS_NULL_POINTER;
         err_handler(status,"");
@@ -41,5 +41,8 @@ unsigned int bios_load_MBR_TO_RAM (FILE* device,_ram_ptr ram_ptr,_status* status
         byte_stream = getc(device);
         ram_write(byte_stream, ram_ptr,(_MBR_LOAD_RAM_ADDR + i ),status);
     }
+    // Force CS:IP to 0x 0000:_MBR_LOAD_RAM_ADDR 
+    segment_regs_st->CS = 0x0000;
+    eip_st->IP = _MBR_LOAD_RAM_ADDR;
     return 1;        
 }

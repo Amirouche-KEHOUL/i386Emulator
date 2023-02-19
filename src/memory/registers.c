@@ -1,19 +1,19 @@
 #include "registers.h"
 
-void reg_init_seg (_segment_regs_st* segment_registers_st, _status* status)
+void reg_init_seg (_segment_regs_st* segment_reg_st, _status* status)
 {
-    if(segment_registers_st == 0 )
+    if(segment_reg_st == 0 )
     {
         *status = _ERR_REG_NULL_POINTER;
         err_handler(status,"");        
         return;
     }
-    segment_registers_st->CS = (segment_registers_st->CS) & _CONF_RESET_DEFAULT_CS; // init to 0x000
-    segment_registers_st->DS = _CONF_RESET_DEFAULT_DS;
-    segment_registers_st->ES = _CONF_RESET_DEFAULT_ES;
-    segment_registers_st->SS = _CONF_RESET_DEFAULT_SS;
-    segment_registers_st->FS = _CONF_RESET_DEFAULT_FS;
-    segment_registers_st->GS = _CONF_RESET_DEFAULT_GS;
+    segment_reg_st->CS = (segment_reg_st->CS) & _CONF_RESET_DEFAULT_CS; // init to 0x000
+    segment_reg_st->DS = _CONF_RESET_DEFAULT_DS;
+    segment_reg_st->ES = _CONF_RESET_DEFAULT_ES;
+    segment_reg_st->SS = _CONF_RESET_DEFAULT_SS;
+    segment_reg_st->FS = _CONF_RESET_DEFAULT_FS;
+    segment_reg_st->GS = _CONF_RESET_DEFAULT_GS;
 }
 
 void reg_init_eip (_eip_st* eip_st, _status* status)
@@ -28,13 +28,13 @@ void reg_init_eip (_eip_st* eip_st, _status* status)
     eip_st->msb = _CONF_RESET_DEFAULT_EIP_msb ;
 }
 
-void reg_init_gen (_general_regs_st* general_registers_st, _pins* pins,_sys_cond_st* sys_cond_st, _status* status)
+void reg_init_gen (_general_regs_st* _general_regs_st, _pins* pins,_sys_cond_st* sys_cond_st, _status* status)
 { 
 
     // EAX: result of power-up self test: 0 if OK  , !0 if NOK (some unit is faulty)
     int ret = 0;
     ret = sys_is_selftest_req(pins,status);
-    if ( general_registers_st == NULL || pins == NULL || sys_cond_st == NULL) 
+    if ( _general_regs_st == NULL || pins == NULL || sys_cond_st == NULL) 
     {
         *status = _ERR_REG_INIT;
         err_handler(status,"");        
@@ -45,23 +45,23 @@ void reg_init_gen (_general_regs_st* general_registers_st, _pins* pins,_sys_cond
     {
         if (sys_isfaulty(sys_cond_st,status) == _SYS_NOT_FAULTY)
         {
-            general_registers_st->EAX.AL = 0;
-            general_registers_st->EAX.AH = 0;
-            general_registers_st->EAX.msb = 0;
+            _general_regs_st->EAX.AL = 0;
+            _general_regs_st->EAX.AH = 0;
+            _general_regs_st->EAX.msb = 0;
         }
         if (sys_isfaulty(sys_cond_st, status) == _SYS_FAULTY)
         {
             // TODO: these values are radonm. Correct value to be confirmed later on
-            general_registers_st->EAX.AL = 0xFF;
-            general_registers_st->EAX.AH = 0xFF;
-            general_registers_st->EAX.msb = 0xFFFF;
+            _general_regs_st->EAX.AL = 0xFF;
+            _general_regs_st->EAX.AH = 0xFF;
+            _general_regs_st->EAX.msb = 0xFFFF;
         }
     }
     // EAX value is undefined otherwise
     
     // DX: DX holds a component identifier and revision number after RESET
-    general_registers_st->EDX.DL = _CONF_RESET_DEFAULT_EDX_DL;
-    general_registers_st->EDX.DH = _CONF_RESET_DEFAULT_EDX_DH;
+    _general_regs_st->EDX.DL = _CONF_RESET_DEFAULT_EDX_DL;
+    _general_regs_st->EDX.DH = _CONF_RESET_DEFAULT_EDX_DH;
 }
 
 void reg_init_eflags(_eflag_reg_st* eflag_register_st , _status* status)
