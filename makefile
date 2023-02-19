@@ -1,8 +1,10 @@
 
 SRC = src/main.c src/memory/ram.c src/bios/bios.c src/sys/sys.c src/pins/pins.c src/memory/registers.c src/status/status.c
 OBJ = build/main.o build/bios/bios.o build/sys/sys.o build/status/status.o build/memory/ram.o build/memory/registers.o build/pins/pins.o
+ASM_DIR = src/assembler
 OP = 
-i386.out : $(OBJ)
+
+bin/i386Emulator.out : $(OBJ)
 	gcc $(OBJ) -o bin/i386Emulator.out
 
 build/main.o : $(SRC) 
@@ -28,3 +30,6 @@ build/bios/bios.o : src/bios/bios.c
 
 clean: 
 	rm -f $(OBJ)
+
+mkdir: 
+	mkdir -p bin/ build/memory build/pins build/status build/sys build/bios 

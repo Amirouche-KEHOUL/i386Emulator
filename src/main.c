@@ -7,7 +7,7 @@
 #include "pins/pins.h"
 #include "bios/bios.h"
 
-_status status = _STATUS_OK ; //status = 0 : OK, > 0: warnig, < 0: error.
+_status status = _STATUS_OK; // status = 0 : OK, > 0: warnig, < 0: error.
 _sys_cond_st sys_cond_st ; 
 
 int str_length(char str[]) 

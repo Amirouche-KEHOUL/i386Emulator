@@ -93,7 +93,7 @@ typedef struct eflag_reg_st
 
 }_eflag_reg_st;
 
-// instruction register 
+// Instruction register.It is not directly visible to the programmer.
 typedef struct eip_st
 {
     _reg32 IP:16; // Inctuction Pointer
