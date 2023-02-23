@@ -5,7 +5,7 @@ unsigned int bios_is_bootable (FILE* device_name,_status* status)
     // Arguments check
     if (device_name == NULL)
     {
-        *status = _ERR_BIOS_NULL_POINTER;
+        *status = _ERR_BIOS_NULL_POINTER_ARG;
         err_handler(status,"");
     }
     
@@ -31,7 +31,7 @@ unsigned int bios_load_MBR_TO_RAM (FILE* device,_ram_ptr ram_ptr,_segment_regs_s
     // Arguments check
     if ((device == NULL) | (ram_ptr == NULL)|(segment_regs_st == NULL) | (eip_st == NULL))
     {
-        *status = _ERR_BIOS_NULL_POINTER;
+        *status = _ERR_BIOS_NULL_POINTER_ARG;
         err_handler(status,"");
     }
     // copy MBR to RAM 

@@ -10,10 +10,10 @@ bin/i386Emulator.out : $(OBJ)
 build/main.o : $(SRC) 
 	gcc $(OP) -c src/main.c -o build/main.o
 
-build/memory/ram.o : src/memory/ram.c
+build/memory/ram.o : src/memory/ram.c src/memory/ram.h
 	gcc $(OP) -c src/memory/ram.c -o build/memory/ram.o
 
-build/status/status.o : src/status/status.c 
+build/status/status.o : src/status/status.c src/status/status.h 
 	gcc $(OP) -c src/status/status.c -o build/status/status.o
 
 build/memory/registers.o : src/memory/registers.c src/config.h
@@ -22,10 +22,10 @@ build/memory/registers.o : src/memory/registers.c src/config.h
 build/pins/pins.o : src/pins/pins.c src/config.h 
 	gcc $(OP) -c src/pins/pins.c -o build/pins/pins.o
 
-build/sys/sys.o : src/sys/sys.c 
+build/sys/sys.o : src/sys/sys.c  src/sys/sys.h
 	gcc $(OP) -c src/sys/sys.c -o build/sys/sys.o
 
-build/bios/bios.o : src/bios/bios.c 
+build/bios/bios.o : src/bios/bios.c src/bios/bios.h
 	gcc $(OP) -c src/bios/bios.c -o build/bios/bios.o	
 
 clean: 

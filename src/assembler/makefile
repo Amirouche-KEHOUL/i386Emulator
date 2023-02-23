@@ -10,10 +10,10 @@ $(BIN_DIR)/i386asm.out : $(OBJ)
 $(BUILD_DIR)/main.o : main.c
 	gcc $(OP) -c main.c -o $(BUILD_DIR)/main.o
 
-$(BUILD_DIR)/status/status.o : status/status.c
+$(BUILD_DIR)/status/status.o : status/status.c status/status.h
 	gcc $(OP) -c status/status.c -o $(BUILD_DIR)/status/status.o
 
-$(BUILD_DIR)/parser/parser.o : parser/parser.c
+$(BUILD_DIR)/parser/parser.o : parser/parser.c parser/parser.h
 	gcc $(OP) -c parser/parser.c -o $(BUILD_DIR)/parser/parser.o
 
 clean: 

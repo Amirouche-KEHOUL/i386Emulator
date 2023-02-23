@@ -13,7 +13,7 @@ _byte ram_read ( _ram_ptr  ram_ptr, _addr addr, _status *status)
     // check if  ram_ptr != NULL
     if (ram_ptr == NULL)
     {
-        *status = _ERR_RAM_NULL_POINTER;
+        *status = _ERR_RAM_NULL_POINTER_ARG;
         err_handler(status,"");        
         return 0;
     } 
@@ -34,7 +34,7 @@ void ram_write(_byte byte, _ram_ptr  ram_ptr, _addr addr,  _status* status)
     // check if  ram_ptr != NULL
     if (ram_ptr == NULL)
     {
-        *status = _ERR_RAM_NULL_POINTER;
+        *status = _ERR_RAM_NULL_POINTER_ARG;
         err_handler(status,"");        
         return;
     }

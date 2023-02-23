@@ -21,22 +21,22 @@ void err_print (_status* status)
             printf("_ERR_RAM_MALLOC (code %d)\n" , *status);
             break;  
         case -3 :
-            printf("_ERR_RAM_NULL_POINTER (code %d)\n" , *status);
+            printf("_ERR_RAM_NULL_POINTER_ARG (code %d)\n" , *status);
             break; 
         case -4 :
-            printf("_ERR_REG_NULL_POINTER (code %d)\n" , *status);
+            printf("_ERR_REG_NULL_POINTER_ARG (code %d)\n" , *status);
             break; 
         case -5 :
-            printf("_ERR_PIN_NULL_POINTER (code %d)\n" , *status);
+            printf("_ERR_PIN_NULL_POINTER_ARG (code %d)\n" , *status);
             break;
         case -6 :
-            printf("_ERR_SYS_NULL_POINTER (code %d)\n" , *status);
+            printf("_ERR_SYS_NULL_POINTER_ARG (code %d)\n" , *status);
             break;
         case -7 :
             printf("_ERR_REG_INIT (code %d)\n" , *status);
             break;
         case -8 :
-            printf("_ERR_BIOS_NULL_POINTER (code %d)\n" , *status);
+            printf("_ERR_BIOS_NULL_POINTER_ARG (code %d)\n" , *status);
             break;
         case -9 :
             printf("_ERR_OPEN_DEVICE_NOK (code %d)\n" , *status);
@@ -63,19 +63,19 @@ void err_handler(_status* status,char* message)
             printf("----------| Exit Emulator |---------\n"); 
             exit(*status);
             break; 
-        case _ERR_RAM_NULL_POINTER:
+        case _ERR_RAM_NULL_POINTER_ARG:
             printf("----------| Exit Emulator |---------\n"); 
             exit(*status);
             break; 
-        case _ERR_REG_NULL_POINTER:
+        case _ERR_REG_NULL_POINTER_ARG:
             printf("----------| Exit Emulator |---------\n"); 
             exit(*status);
             break; 
-        case _ERR_PIN_NULL_POINTER:
+        case _ERR_PIN_NULL_POINTER_ARG:
             printf("----------| Exit Emulator |---------\n"); 
             exit(*status);
             break; 
-        case _ERR_SYS_NULL_POINTER:
+        case _ERR_SYS_NULL_POINTER_ARG:
             printf("----------| Exit Emulator |---------\n"); 
             exit(*status);
             break; 
@@ -93,7 +93,7 @@ void err_handler(_status* status,char* message)
             printf("----------| Exit Emulator |---------\n"); 
             exit(*status);
             break;
-        case _ERR_BIOS_NULL_POINTER:
+        case _ERR_BIOS_NULL_POINTER_ARG:
             printf("----------| Exit Emulator |---------\n"); 
             exit(*status);
             break; 

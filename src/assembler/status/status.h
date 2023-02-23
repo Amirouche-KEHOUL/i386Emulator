@@ -10,6 +10,9 @@ typedef int _status ;
 
 #define _STATUS_NO_FILE 1 
 #define _ERR_OPEN_ASM_FILE_NOK -1
+#define _ERR_PARSER_NULL_POINTER_ARG -2
+#define _ERR_PARSER_UNKNOWN_ARGS -3
+#define _ERR_PARSER_UNKNOWN_MNEMONIC -4
 
 
 void err_print (_status* status);

@@ -4,7 +4,7 @@ void reg_init_seg (_segment_regs_st* segment_reg_st, _status* status)
 {
     if(segment_reg_st == 0 )
     {
-        *status = _ERR_REG_NULL_POINTER;
+        *status = _ERR_REG_NULL_POINTER_ARG;
         err_handler(status,"");        
         return;
     }
@@ -20,7 +20,7 @@ void reg_init_eip (_eip_st* eip_st, _status* status)
 {
     if (eip_st == NULL)
     {
-        *status = _ERR_REG_NULL_POINTER;
+        *status = _ERR_REG_NULL_POINTER_ARG;
         err_handler(status,"");        
         return;
     }
@@ -68,7 +68,7 @@ void reg_init_eflags(_eflag_reg_st* eflag_register_st , _status* status)
 {   
     if (eflag_register_st == NULL ) 
     {
-        *status = _ERR_REG_NULL_POINTER;
+        *status = _ERR_REG_NULL_POINTER_ARG;
         err_handler(status,"");        
         return;        
     }
@@ -98,7 +98,7 @@ void reg_init_cr0 (_cr0_reg_st* cr0_reg_st,_status* status)
 {
     if (cr0_reg_st == NULL)
     {
-        *status = _ERR_REG_NULL_POINTER;
+        *status = _ERR_REG_NULL_POINTER_ARG;
         err_handler(status,"");
         return;
     }

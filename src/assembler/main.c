@@ -3,6 +3,7 @@
 #include <limits.h>
 #include "status/status.h"
 #include "config.h"
+#include "parser/parser.h"
 
 _status status = _STATUS_OK; // status = 0 : OK, > 0: warnig, < 0: error.
 
@@ -60,14 +61,23 @@ int main (int argc, char** argv)
         err_handler(&status,asm_file_name);
     }
 
+    _instr_st instruction; 
+    
+    instruction.mnem = "XOR";
+    instruction.args = "Ev_Gv";
 
-    // Test 
+
+    printf("The opcode corresponding to %s %s is 0x%x\n",instruction.mnem,instruction.args,get_opcode(&instruction,&status));
+
+    // Test
+    /*
     int ret;
     while (1)
     {   ret = getc(asm_file);
         if (ret == EOF) break;        
         printf("%c",ret);
     }
+    */ 
    
 
     printf("----------| Exit i386asm |----------\n");
