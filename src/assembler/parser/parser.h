@@ -19,12 +19,6 @@
 #define  _ADD_eAX_Iv_OPCODE   0x05
 
 
-/* 
-Temporary assembption :
-    - No label support
-    - No space in the beggening
-    - No comments
-*/
 typedef  unsigned char _opcode ;
 typedef char* _line;
 
@@ -36,12 +30,15 @@ typedef struct instr_st
 
 /* ## Functions ## */
 
-/* Retruns the opcode based on mnemonic and args */
-_opcode get_opcode (_instr_st* instr_st,_status* status);
+
 /* Return a stream of line from an input file */
 _line get_line (FILE* asm_file_post_pro, _status* status );
 /* Retruns a stream of instructions from an input file. Retruns space char for both mnem and args if end of file is reached*/
 _instr_st get_instruction(_line line , _status* status);
+/* Retruns the opcode based on mnemonic and args */
+_opcode get_opcode (_instr_st instr_st,_status* status);
+/* */ 
+void assemble_to_flat_bin(FILE* asm_file_post_pro , char* output_bin_file_path,_status* status );
 
 
 #endif // _PARSER_H_

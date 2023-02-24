@@ -52,10 +52,12 @@ void err_handler(_status* status,char* message)
         case _ERR_PARSER_UNKNOWN_ARGS: 
             printf("While parsing, could not lookup arguments \"%s\"\n", message );
             // return control to the caller to printout the corresponding error line.
+            exit(1);
             break;
         case _ERR_PARSER_UNKNOWN_MNEMONIC: 
             printf("While parsing, could not lookup mnemonic \"%s\"\n", message );
             // return control to the caller to printout the corresponding error line.
+           exit(1);
             break;
         default: // Handle case error code is not known
             printf("----------| Exit i386asm |---------\n"); 

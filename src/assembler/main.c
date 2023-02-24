@@ -61,7 +61,8 @@ int main (int argc, char** argv)
         err_handler(&status,asm_file_name);
     }
 
-
+    char* path = "assembled_file.bin";
+    assemble_to_flat_bin(asm_file,path,&status);
 
     /*
     // TEST Parser
