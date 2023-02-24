@@ -8,6 +8,9 @@ void err_print (_status* status)
     
     switch (*status)
     {
+        case 2:
+            printf("_STATUS_PARSER_EOF_REACHED (code %d)\n", *status);
+            break;
         case 1:
             printf("_STATUS_NO_FILE (code %d)\n", *status);
             break;

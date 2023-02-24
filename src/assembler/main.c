@@ -61,24 +61,36 @@ int main (int argc, char** argv)
         err_handler(&status,asm_file_name);
     }
 
-    _instr_st instruction; 
-    
-    instruction.mnem = "XOR";
-    instruction.args = "Ev_Gv";
 
 
-    printf("The opcode corresponding to %s %s is 0x%x\n",instruction.mnem,instruction.args,get_opcode(&instruction,&status));
-
-    // Test
     /*
-    int ret;
-    while (1)
-    {   ret = getc(asm_file);
-        if (ret == EOF) break;        
-        printf("%c",ret);
-    }
-    */ 
-   
+    // TEST Parser
+    _instr_st instruction ; 
+    printf ("Test get instruction  \n");
+
+    while (status != _STATUS_PARSER_EOF_REACHED )
+    {
+        instruction = get_instruction(get_line(asm_file,&status),&status);
+        int i = 0;
+
+        while (instruction.mnem[i] != '\n' && instruction.mnem[i] != ' ' )
+        {
+            printf("%c", instruction.mnem[i]);
+            i++;
+        };
+
+        i = 0;   
+        printf(" ");
+        while (instruction.args[i] != '\n' && instruction.args[i] != ' ' )
+        {
+            printf("%c", instruction.args[i]);
+            i++;
+        }
+        printf("\n");
+    } 
+    */
+
+
 
     printf("----------| Exit i386asm |----------\n");
     return 0;

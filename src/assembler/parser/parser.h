@@ -1,7 +1,23 @@
 #ifndef _PARSER_H_
 #define _PARSER_H_
 #include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
 #include "../status/status.h"
+
+/* Configuration */
+#define _INSTRUCTION_MAX_LENGTH 10
+#define _INSTRUCTION_MNEM_MAX_LENGTH 10
+#define _INSTRUCTION_ARGS_MAX_LENGTH 15
+
+/* instruction <-> Opcode pairs*/
+#define  _ADD_Eb_Gb_OPCODE   0x00
+#define  _ADD_EV_Gv_OPCODE   0x01
+#define  _ADD_Gb_Eb_OPCODE   0x02
+#define  _ADD_Gv_Ev_OPCODE   0x03
+#define  _ADD_AL_Ib_OPCODE   0x04
+#define  _ADD_eAX_Iv_OPCODE   0x05
+
 
 /* 
 Temporary assembption :
@@ -10,6 +26,7 @@ Temporary assembption :
     - No comments
 */
 typedef  unsigned char _opcode ;
+typedef char* _line;
 
 typedef struct instr_st 
 {
@@ -17,31 +34,14 @@ typedef struct instr_st
     char* args;
 }_instr_st;
 
-/*
-typedef struct instr_st
-{
-    // Prefixe : one or more bytes. Segment override, Address size, Operand size, Repeat
-    
-    struct 
-    {
-        unsigned int chunk0 : 4; //Least significant bits
-        unsigned int chunk1 : 4; 
-        unsigned int chunk2 : 4;
-        unsigned int chunk3 : 4; 
-    }OPCODE;
-
-    // Register specifier : 
-    // Addressing-mode specifier : 
-    // SIB byte (Scale, Index, Base):
-    // Displacement : 8 , 16, 32 bits
-    // Emmediate operand : 8, 16, 32 bits
-}_instr_st;
-*/
-// ## Functions ##
+/* ## Functions ## */
 
 /* Retruns the opcode based on mnemonic and args */
 _opcode get_opcode (_instr_st* instr_st,_status* status);
-
+/* Return a stream of line from an input file */
+_line get_line (FILE* asm_file_post_pro, _status* status );
+/* Retruns a stream of instructions from an input file. Retruns space char for both mnem and args if end of file is reached*/
+_instr_st get_instruction(_line line , _status* status);
 
 
 #endif // _PARSER_H_
