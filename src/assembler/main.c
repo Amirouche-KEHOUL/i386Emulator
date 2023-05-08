@@ -7,12 +7,17 @@
 
 _status status = _STATUS_OK; // status = 0 : OK, > 0: warnig, < 0: error.
 
+
+
 int str_length(char str[]) 
 {
     int count; 
     for (count = 0; str[count] != '\0'; ++count);
     return count; 
 }
+
+
+
 
 int main (int argc, char** argv)
 {
@@ -60,40 +65,23 @@ int main (int argc, char** argv)
         status = _ERR_OPEN_ASM_FILE_NOK;
         err_handler(&status,asm_file_name);
     }
-
-    char* path = "assembled_file.bin";
-    assemble_to_flat_bin(asm_file,path,&status);
-
-
-    /*
-    // TEST Parser
-    _instr_st instruction ; 
-    printf ("Test get instruction  \n");
-
-    while (status != _STATUS_PARSER_EOF_REACHED )
+    
+    _line_st* line; 
+    _token* token_array;
+    for (int i=0 ; i < 132 ; i++)
     {
-        instruction = get_instruction(get_line(asm_file,&status),&status);
-        int i = 0;
-
-        while (instruction.mnem[i] != '\n' && instruction.mnem[i] != ' ' )
+        line = get_line(asm_file,&status);
+        token_array = line_2_tokens(line,&status );
+        printf("LINE   > %s",line->line);
+        printf("TOKENS |");
+        for(int j = 0 ; token_array[j]!= NULL;j++)
         {
-            printf("%c", instruction.mnem[i]);
-            i++;
-        };
-
-        i = 0;   
-        printf(" ");
-        while (instruction.args[i] != '\n' && instruction.args[i] != ' ' )
-        {
-            printf("%c", instruction.args[i]);
-            i++;
+        printf(" %s\" |",token_array[j]);
         }
-        printf("\n");
-    } 
-    */
-
-
-
+        printf("\n\n");
+        free(line);
+    }
+  
     printf("----------| Exit i386asm |----------\n");
     return 0;
 }

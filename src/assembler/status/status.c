@@ -3,8 +3,8 @@
 
 void err_print (_status* status)
 {
-    if (*status < 0 ) printf("Followning error occured : ");
-    if (*status >= 0 ) printf("Followning exception occured : ");
+    if (*status < 0 ) printf("Following error occurred : ");
+    if (*status >= 0 ) printf("Following exception occurred : ");
     
     switch (*status)
     {
@@ -35,7 +35,7 @@ void err_handler(_status* status,char* message)
 {   
     err_print(status);
 
-    // Error are handeled here
+    /* Errors are handled here */
     switch (*status)
     {
         case _STATUS_NO_FILE: 
@@ -47,6 +47,7 @@ void err_handler(_status* status,char* message)
             printf("----------| Exit i386asm |---------\n"); 
             exit(*status);
         case _ERR_PARSER_NULL_POINTER_ARG: 
+            printf("Occurred in %s\n", message );
             printf("----------| Exit i386asm |---------\n"); 
             exit(*status);
         case _ERR_PARSER_UNKNOWN_ARGS: 
@@ -63,4 +64,5 @@ void err_handler(_status* status,char* message)
             printf("----------| Exit i386asm |---------\n"); 
             exit(*status);
     }
+    free(message);
 }

@@ -1,6 +1,0 @@
-ADD Eb_Gb
-ADD EV_Gv
-ADD Gb_Eb
-ADD Gv_Ev
-ADD AL_Ib
-ADD
