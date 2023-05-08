@@ -8,15 +8,12 @@
 _status status = _STATUS_OK; // status = 0 : OK, > 0: warnig, < 0: error.
 
 
-
 int str_length(char str[]) 
 {
     int count; 
     for (count = 0; str[count] != '\0'; ++count);
     return count; 
 }
-
-
 
 
 int main (int argc, char** argv)

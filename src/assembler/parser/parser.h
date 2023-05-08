@@ -12,7 +12,7 @@
 #define _TOKEN_ARRAY_MAX_LENGTH 50
 #define _TOKEN_MAX_LENGTH 50
 
-# define _SINGLE_CHAR_TOKENS "*-+.,;:()[]" // Put here the list of single character tokens. 
+# define _SINGLE_CHAR_TOKENS "*-+.,;:()[]\"" // Put here the list of single character tokens. 
 
 typedef struct line_st
 {

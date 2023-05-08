@@ -78,10 +78,9 @@ _tokens_st* line_2_tokens(_line_st* line_st, _status *status)
     }
     tokens_ret->tokens=token_array;
 
-    /* Init single_token_array : used to recognize then in line_st */
+    /* Init single_token_array */
     char* single_token_array = _SINGLE_CHAR_TOKENS;
    
-    int token_flag = 0; // set to 1 to start acquiring token.   
     int line_index = 0;
     int token_index = 0;
     int token_char_index = 0;
