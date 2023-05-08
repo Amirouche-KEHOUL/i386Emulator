@@ -67,19 +67,20 @@ int main (int argc, char** argv)
     }
     
     _line_st* line; 
-    _token* token_array;
-    for (int i=0 ; i < 132 ; i++)
+    _tokens_st* tokens_st;
+    for (int i=0 ;status != _STATUS_PARSER_EOF_REACHED  ; i++)
     {
         line = get_line(asm_file,&status);
-        token_array = line_2_tokens(line,&status );
+        tokens_st = line_2_tokens(line,&status );
         printf("LINE   > %s",line->line);
-        printf("TOKENS |");
-        for(int j = 0 ; token_array[j]!= NULL;j++)
+        printf("TOKENS |"); 
+        for(int j = 0 ; tokens_st->tokens[j]!= NULL;j++)
         {
-        printf(" %s\" |",token_array[j]);
+        printf(" %s |",tokens_st->tokens[j]);
         }
         printf("\n\n");
-        free(line);
+  
+
     }
   
     printf("----------| Exit i386asm |----------\n");

@@ -12,17 +12,18 @@ _line_st* get_line (FILE* asm_file_post_pro, _status* status )
         err_handler(status,"");
     }
     
-    static unsigned int line_num_record ; // keep track on the line number for debugging information for example
+    static unsigned int line_num_record = 1; // keep track on the line number for debugging information for example
     _line_st* line_st  = (_line_st*) malloc(sizeof(_line_st));
     line_st->line = (char*) malloc(_INSTRUCTION_MAX_LENGTH);   
 
     int index = 0;    
     while (1)
     {
-        while((line_st->line[index] = getc(asm_file_post_pro)) != '\n' && line_st->line[index] != EOF && line_st->line[index] != ';' ) index++;
+        while(((line_st->line[index] = getc(asm_file_post_pro)) != '\n') && (line_st->line[index] != EOF) && (line_st->line[index] != ';')) index++;
         if (line_st->line[index] == '\n') break; //Break while(1);
         if (line_st->line[index] == EOF) 
         {
+            line_st->line[index] = '\n';
             *status = _STATUS_PARSER_EOF_REACHED; // Signal to status that EOF is reached
             break; // Break while(1)
         }
@@ -33,16 +34,15 @@ _line_st* get_line (FILE* asm_file_post_pro, _status* status )
         }
     }    
    
-    line_st->line[index+1]='\0';  //terminate the string by (space)+(\0)    
-    line_st->line_number=line_num_record;
+    line_st->line[index+1] = '\0';  //terminate the string by (space)+(\0)        
+    line_st->line_number = line_num_record;
+    //line_st->file_name = TBC // TODO: add file name.
     line_num_record++; 
 
     return line_st;
 }
 
-
-
-_token* line_2_tokens(_line_st* line_st, _status *status)
+_tokens_st* line_2_tokens(_line_st* line_st, _status *status)
 {
     /* Check arguments */
     if (line_st == NULL )
@@ -50,7 +50,9 @@ _token* line_2_tokens(_line_st* line_st, _status *status)
         *status = _ERR_PARSER_NULL_POINTER_ARG;
         err_handler(status,"\"line_2_tokens()\" function");
     }
-
+    _tokens_st* tokens_ret = ( _tokens_st*)malloc(sizeof(tokens_ret));
+    tokens_ret->file_name = line_st->file_name;
+    tokens_ret->line_number = line_st->line_number;
     /* Token array structure: used to store found tokens in line_st  
             +------------+
             | token_array|
@@ -74,6 +76,7 @@ _token* line_2_tokens(_line_st* line_st, _status *status)
     {
         token_array[i]=(_token)malloc(_TOKEN_MAX_LENGTH*sizeof(char));
     }
+    tokens_ret->tokens=token_array;
 
     /* Init single_token_array : used to recognize then in line_st */
     char* single_token_array = _SINGLE_CHAR_TOKENS;
@@ -125,10 +128,10 @@ _token* line_2_tokens(_line_st* line_st, _status *status)
         }
     }
 
-    /*terminates the array by a null elements */
+    /* Terminate the array by a null elements */
     if (token_char_index == 0) token_array[token_index]=NULL;
     if (token_char_index > 0 ) token_array[token_index+1]=NULL;// handle case ABCD\0   
 
-    //free(line_st); //TODO: kept in comment for test purpose. Uncomment to prevent memory leaks
-    return token_array;
+    //free(line_st); //TODO: kept in comment for test purpose. Uncomment to prevent memory leak.
+    return tokens_ret;
 }
