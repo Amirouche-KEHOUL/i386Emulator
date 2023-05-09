@@ -30,10 +30,10 @@ int main (int argc, char** argv)
 
     /* Open asm_file file */
     FILE* asm_file; 
-    //TODO: check if file is binary, else exit emulator.
-    char* asm_file_name = argv[1];
+   
+    char* asm_file_name = argv[1]; //TODO: check if file is binary, else exit emulator.
     char device_path[PATH_MAX]; 
-        // Construct full path and open the asm_file file
+        /*Construct full path and open the asm_file file*/
     if (getcwd(device_path, sizeof(device_path)) != NULL) // Current Working Directory
     {
         for (int i = 0 ; i < PATH_MAX - _CONF_MAX_LEN_DEVICE_NAME ; i++)

@@ -2,7 +2,7 @@
 BUILD_DIR = ../../build/assembler
 BIN_DIR = ../../bin/assembler
 OBJ = $(BUILD_DIR)/main.o $(BUILD_DIR)/status/status.o $(BUILD_DIR)/parser/parser.o 
-OP = -Wall
+OP = -Wall -g
 
 $(BIN_DIR)/i386asm.out : $(OBJ)
 	gcc $(OP) $(OBJ) -o $(BIN_DIR)/i386asm.out

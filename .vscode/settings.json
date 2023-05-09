@@ -1,0 +1,10 @@
+{
+    "cmake.configureOnOpen": true,
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "/home/amirouche/i386Emulator/bin",
+            "binaryPath": "/home/amirouche/i386Emulator/bin/i386Emulator.out",
+            "binaryArgs": []
+        }
+    ]
+}
