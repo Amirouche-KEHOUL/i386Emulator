@@ -1,7 +1,4 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
         {
@@ -10,7 +7,9 @@
             "request": "launch",
             "program": "${workspaceFolder}/bin/i386Emulator.out",
             "preLaunchTask": "clean_build_i386Emulator",
-            "args": ["device.bin"],
+            "args": [
+                "device.bin"
+            ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/bin/",
             "environment": [],
@@ -35,7 +34,9 @@
             "request": "launch",
             "program": "${workspaceFolder}/bin/assembler/i386asm.out",
             "preLaunchTask": "clean_build_i386asm",
-            "args": ["boot.asm"],
+            "args": [
+                "boot.asm"
+            ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/bin/assembler/",
             "environment": [],
@@ -53,7 +54,32 @@
                     "ignoreFailures": true
                 }
             ]
-        },      
-
+        },
+        {
+            "name": "C/C++: make build and debug active file",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${fileDirname}/${fileBasenameNoExtension}",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "clean_i386asm",
+            "miDebuggerPath": "gdb"
+        }
     ]
 }
