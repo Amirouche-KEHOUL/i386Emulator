@@ -1,7 +1,9 @@
-#include "status.h"
 #include <stdlib.h>
+#include <stdio.h>
 
-void err_print (_status* status)
+#include "status.h"
+
+void err_print (_status *status)
 {
     if (*status < 0 ) printf("Followning error occured : ");
     if (*status >= 0 ) printf("Followning exception occured : ");
@@ -48,7 +50,7 @@ void err_print (_status* status)
 
 }
 
-void err_handler(_status* status,char* message)
+void err_handler(_status *status,char *message)
 {   
     err_print(status);
 

@@ -1,5 +1,8 @@
-#include "ram.h"
 #include <stdio.h>
+#include <stdlib.h>
+
+#include "ram.h"
+
 
 _byte ram_read ( _ram_ptr  ram_ptr, _addr addr, _status *status)
 {
@@ -22,7 +25,7 @@ _byte ram_read ( _ram_ptr  ram_ptr, _addr addr, _status *status)
     return ram_ptr[addr];
 } 
 
-void ram_write(_byte byte, _ram_ptr  ram_ptr, _addr addr,  _status* status)
+void ram_write(_byte byte, _ram_ptr  ram_ptr, _addr addr,  _status *status)
 {   
     //check if _addr < _RAM_SIZE 
     if (addr >= _RAM_SIZE)
@@ -45,9 +48,9 @@ void ram_write(_byte byte, _ram_ptr  ram_ptr, _addr addr,  _status* status)
 }
 
 
-_ram_ptr ram_start( _status* status)
+_ram_ptr ram_start( _status *status)
 {
-    _ram_ptr ram_ptr = (_ram_ptr) malloc(sizeof(char)*_RAM_SIZE);
+    _ram_ptr ram_ptr = (_ram_ptr) malloc(_RAM_SIZE);
     if (ram_ptr == NULL)
     {
         *status = _ERR_RAM_MALLOC;

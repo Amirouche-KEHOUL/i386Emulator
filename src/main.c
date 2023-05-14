@@ -1,13 +1,18 @@
+#include </usr/include/linux/limits.h>
+#include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h> 
-#include <limits.h>
-#include "status/status.h"
+
+#include "bios/bios.h"
+#include "config.h"
 #include "memory/registers.h"
 #include "memory/ram.h"
 #include "pins/pins.h"
-#include "bios/bios.h"
+#include "status/status.h"
+#include "sys/sys.h"
 
 _status status = _STATUS_OK; // status = 0 : OK, > 0: warnig, < 0: error.
+
 _sys_cond_st sys_cond_st ; 
 
 int str_length(char str[]) 
@@ -17,7 +22,7 @@ int str_length(char str[])
     return count; 
 }
 
-int main (int argc, char** argv)
+int main (int argc, char **argv)
 {
     printf("----------| Start Emulator |----------\n");
     /* If no device quit Emulator */
@@ -58,9 +63,9 @@ int main (int argc, char** argv)
     }
     
     /* Load bootable device file */
-    FILE* device; // Bootable device
+    FILE *device; // Bootable device
     //TODO: check if file is binary, else exit emulator.
-    char* device_name = argv[1];
+    char *device_name = argv[1];
     char device_path[PATH_MAX]; 
         // Construct full path and open the device file
     if (getcwd(device_path, sizeof(device_path)) != NULL) // Current Working Directory
@@ -111,10 +116,11 @@ int main (int argc, char** argv)
     printf("value of CS = 0x%X\n",seg_regs_st.CS);
     printf("value of IP = 0x%X\n",eip_st.IP);
     for (int i = 0; i < 512 ; i++)
-    {    
+    {    * 
         printf("0x%X  :  0x%X\n",0x7c00+i,ram_read(ram_ptr,0x7c00+i,&status) );
     }
     */
+   
     printf("----------| Exit Emulator |----------\n");
     return   0;
 }

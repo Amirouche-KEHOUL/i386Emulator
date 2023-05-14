@@ -1,9 +1,11 @@
+#include <stddef.h>
+
 #include "sys.h"
 
-int sys_is_selftest_req (_pins* pins,_status* status)
+int sys_is_selftest_req (const _pins *pins,_status *status)
 {    
     if (pins == 0 )
-    {
+    { 
         *status = _ERR_SYS_NULL_POINTER_ARG; 
         err_handler(status,"");     
     }
@@ -14,7 +16,7 @@ int sys_is_selftest_req (_pins* pins,_status* status)
     return _SYS_SELF_TEST_NOT_REQUEST;
 }
 
-int sys_isfaulty (_sys_cond_st* sys_cond_st, _status* status)
+int sys_isfaulty (const _sys_cond_st *sys_cond_st, _status *status)
 {
     if (sys_cond_st == NULL)
     {

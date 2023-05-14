@@ -1,6 +1,11 @@
-#include "registers.h"
+#include <stddef.h>
 
-void reg_init_seg (_segment_regs_st* segment_reg_st, _status* status)
+#include "registers.h"
+#include "../config.h"
+
+
+
+void reg_init_seg (_segment_regs_st *segment_reg_st, _status *status)
 {
     if(segment_reg_st == 0 )
     {
@@ -16,7 +21,7 @@ void reg_init_seg (_segment_regs_st* segment_reg_st, _status* status)
     segment_reg_st->GS = _CONF_RESET_DEFAULT_GS;
 }
 
-void reg_init_eip (_eip_st* eip_st, _status* status)
+void reg_init_eip (_eip_st *eip_st, _status *status)
 {
     if (eip_st == NULL)
     {
@@ -28,7 +33,7 @@ void reg_init_eip (_eip_st* eip_st, _status* status)
     eip_st->msb = _CONF_RESET_DEFAULT_EIP_msb ;
 }
 
-void reg_init_gen (_general_regs_st* _general_regs_st, _pins* pins,_sys_cond_st* sys_cond_st, _status* status)
+void reg_init_gen (_general_regs_st *_general_regs_st, const _pins *pins,const _sys_cond_st *sys_cond_st, _status *status)
 { 
 
     // EAX: result of power-up self test: 0 if OK  , !0 if NOK (some unit is faulty)
@@ -64,7 +69,7 @@ void reg_init_gen (_general_regs_st* _general_regs_st, _pins* pins,_sys_cond_st*
     _general_regs_st->EDX.DH = _CONF_RESET_DEFAULT_EDX_DH;
 }
 
-void reg_init_eflags(_eflag_reg_st* eflag_register_st , _status* status)
+void reg_init_eflags(_eflag_reg_st *eflag_register_st , _status *status)
 {   
     if (eflag_register_st == NULL ) 
     {
@@ -94,7 +99,7 @@ void reg_init_eflags(_eflag_reg_st* eflag_register_st , _status* status)
     eflag_register_st->RES18_31 = _CONF_RESET_DEFAULT_EFLAG_RES18_31;
 }
 
-void reg_init_cr0 (_cr0_reg_st* cr0_reg_st,_status* status)
+void reg_init_cr0 (_cr0_reg_st *cr0_reg_st,_status *status)
 {
     if (cr0_reg_st == NULL)
     {

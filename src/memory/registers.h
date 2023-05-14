@@ -1,9 +1,9 @@
 #ifndef _REGISTERS_H_
 #define _REGISTERS_H_
 
-#include "../status/status.h"
-#include "../config.h"
+#include "../pins/pins.h"
 #include "../sys/sys.h"
+#include "../status/status.h"
 
 typedef  unsigned int _reg16; 
 typedef  unsigned long _reg32;
@@ -495,10 +495,10 @@ typedef struct tlb_reg_st
  }_tlb_reg_st;
 
 // #### Functions ####
-void reg_init_seg (_segment_regs_st* segment_reg_st, _status* status);
-void reg_init_eip (_eip_st* eip_st, _status* status);
-void reg_init_gen (_general_regs_st* _general_regs_st, _pins* pins,_sys_cond_st* sys_cond_st, _status* status);
-void reg_init_eflags(_eflag_reg_st* eflag_register, _status* status);
-void reg_init_cr0 (_cr0_reg_st* cr0_reg_st,_status* status);
+void reg_init_seg (_segment_regs_st *segment_reg_st, _status *status);
+void reg_init_eip (_eip_st *eip_st, _status *status);
+void reg_init_gen (_general_regs_st *_general_regs_st, const _pins *pins,const _sys_cond_st *sys_cond_st, _status *status);
+void reg_init_eflags(_eflag_reg_st *eflag_register, _status *status);
+void reg_init_cr0 (_cr0_reg_st *cr0_reg_st,_status *status);
 
 #endif //_REGISTERS_H_

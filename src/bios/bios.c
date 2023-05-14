@@ -1,6 +1,10 @@
+#include <stddef.h>
+#include <stdio.h>
+
 #include "bios.h"
 
-unsigned int bios_is_bootable (FILE* device_name,_status* status)
+
+unsigned int bios_is_bootable (const FILE* device_name,_status* status)
 {
     // Arguments check
     if (device_name == NULL)
@@ -24,9 +28,10 @@ unsigned int bios_is_bootable (FILE* device_name,_status* status)
     // If signature not found
     *status = _STATUS_DEVICE_BOOT_SIG_NOT_FOUND;
     err_handler(status,"");
+    return 3;
 }
 
-unsigned int bios_load_MBR_TO_RAM (FILE* device,_ram_ptr ram_ptr,_segment_regs_st* segment_regs_st,_eip_st* eip_st, _status* status)
+unsigned int bios_load_MBR_TO_RAM (const FILE* device,_ram_ptr ram_ptr,_segment_regs_st* segment_regs_st,_eip_st* eip_st, _status* status)
 {
     // Arguments check
     if ((device == NULL) | (ram_ptr == NULL)|(segment_regs_st == NULL) | (eip_st == NULL))

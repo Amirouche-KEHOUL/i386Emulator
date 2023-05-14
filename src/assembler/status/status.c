@@ -1,7 +1,9 @@
-#include "status.h"
 #include <stdlib.h>
+#include <stdio.h>
 
-void err_print (_status* status)
+#include "status.h"
+
+void err_print (_status *status)
 {
     if (*status < 0 ) printf("Following error occurred : ");
     if (*status >= 0 ) printf("Following exception occurred : ");
@@ -31,11 +33,11 @@ void err_print (_status* status)
     }
 }
 
-void err_handler(_status* status,char* message)
+void err_handler(_status *status,char *message)
 {   
     err_print(status);
 
-    /* Errors are handled here */
+    / *Errors are handled here */
     switch (*status)
     {
         case _STATUS_NO_FILE: 

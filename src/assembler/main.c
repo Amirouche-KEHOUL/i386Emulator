@@ -16,7 +16,7 @@ int str_length(char str[])
 }
 
 
-int main (int argc, char** argv)
+int main (int argc, char **argv)
 {
     printf("----------| Start i386asm |----------\n");
 
@@ -29,9 +29,9 @@ int main (int argc, char** argv)
 
 
     /* Open asm_file file */
-    FILE* asm_file; 
+    FILE *asm_file; 
    
-    char* asm_file_name = argv[1]; //TODO: check if file is binary, else exit emulator.
+    char *asm_file_name = argv[1]; //TODO: check if file is binary, else exit emulator.
     char device_path[PATH_MAX]; 
         /*Construct full path and open the asm_file file*/
     if (getcwd(device_path, sizeof(device_path)) != NULL) // Current Working Directory
@@ -63,8 +63,8 @@ int main (int argc, char** argv)
         err_handler(&status,asm_file_name);
     }
     
-    _line_st* line; 
-    _tokens_st* tokens_st;
+    _line_st *line; 
+    _tokens_st *tokens_st;
     for (int i=0 ;status != _STATUS_PARSER_EOF_REACHED  ; i++)
     {
         line = get_line(asm_file,&status);

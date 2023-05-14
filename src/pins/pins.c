@@ -1,6 +1,9 @@
-#include "pins.h"
+#include <stddef.h>
 
-_pin_state_enum pin_read (const _pins* pins,_pin_name_enum pin_name_enum, _status* status)
+#include "pins.h"
+#include "../config.h"
+
+_pin_state_enum pin_read (const _pins *pins,_pin_name_enum pin_name_enum, _status *status)
 {
     if (pins == NULL)
     {
@@ -16,7 +19,7 @@ _pin_state_enum pin_read (const _pins* pins,_pin_name_enum pin_name_enum, _statu
 }
 
 
-void  pin_write (_pins* pins,_pin_name_enum pin_name_enum,_pin_state_enum pin_state_enum, _status* status)
+void  pin_write (_pins *pins,_pin_name_enum pin_name_enum,_pin_state_enum pin_state_enum, _status *status)
 {
     if (pins == NULL)
     {
@@ -38,7 +41,7 @@ void  pin_write (_pins* pins,_pin_name_enum pin_name_enum,_pin_state_enum pin_st
 
 
 
-void pin_pow_up (_pins* pins, _status* status)
+void pin_pow_up (_pins *pins, _status *status)
 {
     if (pins == NULL )
     {

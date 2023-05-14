@@ -1,8 +1,6 @@
 #ifndef _STATUS_H
 #define _STATUS_H
 
-#include <stdio.h>
-
 typedef int _status ; 
 
 /* _STATUS */
@@ -16,7 +14,7 @@ typedef int _status ;
 #define _ERR_PARSER_UNKNOWN_MNEMONIC -4
 
 
-void err_print (_status* status);
-void err_handler(_status* status,char* message);
+void err_print (_status *status);
+void err_handler(_status *status,char *message);
 
 #endif //_STATUS_H

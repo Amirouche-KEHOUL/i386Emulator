@@ -2,7 +2,7 @@
 SRC = src/main.c src/memory/ram.c src/bios/bios.c src/sys/sys.c src/pins/pins.c src/memory/registers.c src/status/status.c
 OBJ = build/main.o build/bios/bios.o build/sys/sys.o build/status/status.o build/memory/ram.o build/memory/registers.o build/pins/pins.o
 ASM_DIR = src/assembler
-OP = -Wall -g 
+OP = -Wall -Wvla -g 
 
 bin/i386Emulator.out : $(OBJ)
 	gcc $(OP) $(OBJ) -o bin/i386Emulator.out

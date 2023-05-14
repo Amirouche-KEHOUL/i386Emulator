@@ -6,5 +6,17 @@
             "binaryPath": "/home/amirouche/i386Emulator/bin/i386Emulator.out",
             "binaryArgs": []
         }
-    ]
+    ],
+    "files.associations": {
+        "cstdio": "c",
+        "pins.h": "c",
+        "status.h": "c",
+        "registers.h": "c",
+        "limits.h": "c",
+        "stddef.h": "c",
+        "atomic": "c",
+        "*.tcc": "c",
+        "cstdint": "c",
+        "random": "c"
+    }
 }

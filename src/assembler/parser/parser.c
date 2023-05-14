@@ -1,3 +1,8 @@
+#include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <sys/stat.h>
+
 #include "parser.h"
 
 #define SPACE_CHAR ' '
@@ -13,8 +18,18 @@ _line_st* get_line (FILE* asm_file_post_pro, _status* status )
     }
     
     static unsigned int line_num_record = 1; // keep track on the line number for debugging information for example
-    _line_st* line_st  = (_line_st*) malloc(sizeof(_line_st));
-    line_st->line = (char*) malloc(_INSTRUCTION_MAX_LENGTH);   
+    _line_st* line_st  = (_line_st*) malloc(sizeof(_line_st));    
+    if (line_st == NULL)
+    {
+        *status = _ERR_PARSER_NULL_POINTER_ARG;
+        err_handler(status,"");
+    }
+    line_st->line = (char*) malloc(_INSTRUCTION_MAX_LENGTH); 
+    if (line_st->line  == NULL)
+    {
+        *status = _ERR_PARSER_NULL_POINTER_ARG;
+        err_handler(status,"");
+    }  
 
     int index = 0;    
     while (1)
@@ -44,42 +59,43 @@ _line_st* get_line (FILE* asm_file_post_pro, _status* status )
 
 _tokens_st* line_2_tokens(_line_st* line_st, _status *status)
 {
+    
     /* Check arguments */
     if (line_st == NULL )
     {
         *status = _ERR_PARSER_NULL_POINTER_ARG;
         err_handler(status,"\"line_2_tokens()\" function");
     }
-    _tokens_st* tokens_ret = ( _tokens_st*)malloc(sizeof(tokens_ret));
+    _tokens_st *tokens_ret = ( _tokens_st*)malloc(sizeof(tokens_ret));
     tokens_ret->file_name = line_st->file_name;
     tokens_ret->line_number = line_st->line_number;
-    /* Token array structure: used to store found tokens in line_st  
+    /*Token array structure: used to store found tokens in line_st  
             +------------+
             | token_array|
             +------------+
             |            |
             |  _token    |
             |  +------+  |
-            |  |char* |--|----> [0]---->[_][_][_][_][_][_][_][_][_][_]
+            |  |char *|--|----> [0]---->[_][_][_][_][_][_][_][_][_][_]
             |  +------+  |      [1]---->[_][_][_][_][_][_][_][_][_][_]
             |            |       ...
             |  _token    |       [max-1]->[_][_][_][_][_][_][_][_][_][_]
             |  +------+  |
-            |  |char* |--|----> [0]---->[_][_][_][_][_][_][_][_][_][_]
+            |  |char *|--|----> [0]---->[_][_][_][_][_][_][_][_][_][_]
             |  +------+  |      [1]---->[_][_][_][_][_][_][_][_][_][_]
             |    ...     |       ...
             |            |
             +------------+
     */
-    _token* token_array = (_token*) malloc(_TOKEN_ARRAY_MAX_LENGTH*sizeof(_token));
+    _token *token_array = (_token*) malloc(_TOKEN_ARRAY_MAX_LENGTH*sizeof(_token));
     for(int i= 0 ; i < _TOKEN_MAX_LENGTH;i++ )
     {
         token_array[i]=(_token)malloc(_TOKEN_MAX_LENGTH*sizeof(char));
     }
     tokens_ret->tokens=token_array;
 
-    /* Init single_token_array */
-    char* single_token_array = _SINGLE_CHAR_TOKENS;
+    /*Init single_token_array */
+    char *single_token_array = _SINGLE_CHAR_TOKENS;
    
     int line_index = 0;
     int token_index = 0;
