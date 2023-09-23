@@ -19,6 +19,7 @@
         "cstdint": "c",
         "random": "c",
         "bios.h": "c",
-        "ram.h": "c"
+        "ram.h": "c",
+        "screen.h": "c"
     }
 }

@@ -10,6 +10,7 @@
 #include "memory/ram.h"
 #include "pins/pins.h"
 #include "sys/sys.h"
+#include "screen/screen.h"
 
 int status = _STATUS_OK; // status = 0 : OK, > 0: warnig, < 0: error.
 
@@ -63,6 +64,8 @@ int main(int argc, char **argv)
         err_handler("");
     }
 
+    /* Start the screen */
+    start_screen();
     /* Load bootable device file */
     FILE *device = NULL; // Bootable device
     // TODO: check if file is binary, else exit emulator.

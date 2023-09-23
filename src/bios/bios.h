@@ -1,3 +1,11 @@
+/**
+ * @file bios.h
+ * @author Amirouche KEHOUL (amirouchekehoul7@gmail.com)
+ * @brief
+ * @version 0.1
+ * @date 2023-09-23
+ *
+ */
 #ifndef _BIOS_H_
 #define _BIOS_H_
 
@@ -10,7 +18,12 @@
 #define _DEVICE_IS_BOOTABLE 1
 #define _MBR_LOAD_RAM_ADDR 0x7c00
 
-/* Checks for BIOS signature. returns 1 if found*/
+/**
+ * @brief Checks if device is bootable MSB (Master Block Record).
+ *
+ * @param device_name
+ * @return _DEVICE_IS_BOOTABLE if MSB found. _STATUS_DEVICE_BOOT_SIG_NOT_FOUND else.
+ */
 unsigned int bios_is_bootable(FILE *device_name);
 
 /*

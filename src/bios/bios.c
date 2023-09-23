@@ -32,7 +32,7 @@ unsigned int bios_is_bootable(FILE *device_name)
     // If signature not found
     status = _STATUS_DEVICE_BOOT_SIG_NOT_FOUND;
     err_handler("");
-    return 3;
+    return _STATUS_DEVICE_BOOT_SIG_NOT_FOUND;
 }
 
 unsigned int bios_load_MBR_TO_RAM(FILE *device, _ram_ptr ram_ptr, _segment_regs_st *segment_regs_st, _eip_st *eip_st)
