@@ -3,14 +3,14 @@
 #include "registers.h"
 #include "../config.h"
 
+extern int status;
 
-
-void reg_init_seg (_segment_regs_st *segment_reg_st, _status *status)
+void reg_init_seg (_segment_regs_st *segment_reg_st)
 {
     if(segment_reg_st == 0 )
     {
-        *status = _ERR_REG_NULL_POINTER_ARG;
-        err_handler(status,"");        
+        status = _ERR_REG_NULL_POINTER_ARG;
+        err_handler("");        
         return;
     }
     segment_reg_st->CS = (segment_reg_st->CS) & _CONF_RESET_DEFAULT_CS; // init to 0x000
@@ -21,40 +21,40 @@ void reg_init_seg (_segment_regs_st *segment_reg_st, _status *status)
     segment_reg_st->GS = _CONF_RESET_DEFAULT_GS;
 }
 
-void reg_init_eip (_eip_st *eip_st, _status *status)
+void reg_init_eip (_eip_st *eip_st)
 {
     if (eip_st == NULL)
     {
-        *status = _ERR_REG_NULL_POINTER_ARG;
-        err_handler(status,"");        
+        status = _ERR_REG_NULL_POINTER_ARG;
+        err_handler("");        
         return;
     }
     eip_st->IP = _CONF_RESET_DEFAULT_EIP_IP ;
     eip_st->msb = _CONF_RESET_DEFAULT_EIP_msb ;
 }
 
-void reg_init_gen (_general_regs_st *_general_regs_st, const _pins *pins,const _sys_cond_st *sys_cond_st, _status *status)
+void reg_init_gen (_general_regs_st *_general_regs_st, const _pins *pins,const _sys_cond_st *sys_cond_st)
 { 
 
     // EAX: result of power-up self test: 0 if OK  , !0 if NOK (some unit is faulty)
     int ret = 0;
-    ret = sys_is_selftest_req(pins,status);
+    ret = sys_is_selftest_req(pins);
     if ( _general_regs_st == NULL || pins == NULL || sys_cond_st == NULL) 
     {
-        *status = _ERR_REG_INIT;
-        err_handler(status,"");        
+        status = _ERR_REG_INIT;
+        err_handler("");        
         return ;
     }       
 
     if (ret == _SYS_SELF_TEST_REQUEST)
     {
-        if (sys_isfaulty(sys_cond_st,status) == _SYS_NOT_FAULTY)
+        if (sys_isfaulty(sys_cond_st) == _SYS_NOT_FAULTY)
         {
             _general_regs_st->EAX.AL = 0;
             _general_regs_st->EAX.AH = 0;
             _general_regs_st->EAX.msb = 0;
         }
-        if (sys_isfaulty(sys_cond_st, status) == _SYS_FAULTY)
+        if (sys_isfaulty(sys_cond_st) == _SYS_FAULTY)
         {
             // TODO: these values are radonm. Correct value to be confirmed later on
             _general_regs_st->EAX.AL = 0xFF;
@@ -69,12 +69,12 @@ void reg_init_gen (_general_regs_st *_general_regs_st, const _pins *pins,const _
     _general_regs_st->EDX.DH = _CONF_RESET_DEFAULT_EDX_DH;
 }
 
-void reg_init_eflags(_eflag_reg_st *eflag_register_st , _status *status)
+void reg_init_eflags(_eflag_reg_st *eflag_register_st)
 {   
     if (eflag_register_st == NULL ) 
     {
-        *status = _ERR_REG_NULL_POINTER_ARG;
-        err_handler(status,"");        
+        status = _ERR_REG_NULL_POINTER_ARG;
+        err_handler("");        
         return;        
     }
 
@@ -99,12 +99,12 @@ void reg_init_eflags(_eflag_reg_st *eflag_register_st , _status *status)
     eflag_register_st->RES18_31 = _CONF_RESET_DEFAULT_EFLAG_RES18_31;
 }
 
-void reg_init_cr0 (_cr0_reg_st *cr0_reg_st,_status *status)
+void reg_init_cr0 (_cr0_reg_st *cr0_reg_st)
 {
     if (cr0_reg_st == NULL)
     {
-        *status = _ERR_REG_NULL_POINTER_ARG;
-        err_handler(status,"");
+        status = _ERR_REG_NULL_POINTER_ARG;
+        err_handler("");
         return;
     }
     cr0_reg_st->PE = _CONF_RESET_DEFAULT_CR0_PE;

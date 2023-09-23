@@ -3,15 +3,15 @@
 #include <stdio.h>
 #include <unistd.h> 
 
+#include "status/status.h"
 #include "bios/bios.h"
 #include "config.h"
 #include "memory/registers.h"
 #include "memory/ram.h"
 #include "pins/pins.h"
-#include "status/status.h"
 #include "sys/sys.h"
 
-_status status = _STATUS_OK; // status = 0 : OK, > 0: warnig, < 0: error.
+int status = _STATUS_OK; // status = 0 : OK, > 0: warnig, < 0: error.
 
 _sys_cond_st sys_cond_st ; 
 
@@ -29,11 +29,11 @@ int main (int argc, char **argv)
 
     /* Create and init pins */
     _pins pins ;
-    pin_pow_up (&pins,&status);  
+    pin_pow_up (&pins);  
 
     /* Create and init RAM */
     printf("== Create and initialise RAM\n");
-    _ram_ptr ram_ptr = ram_start(&status);
+    _ram_ptr ram_ptr = ram_start();
 
     /* Create registers */
     printf("== Create and initialise registers\n");
@@ -50,16 +50,16 @@ int main (int argc, char **argv)
     _cr3_reg_pdbr cr3_reg_pdbr;
     _tlb_reg_st tlb_reg_st;
         // init regs
-    reg_init_eflags(&eflag_reg_st,&status);
-    reg_init_eip(&eip_st, &status);
-    reg_init_seg(&seg_regs_st,&status);
-    reg_init_gen(&gen_regs_st,&pins,&sys_cond_st, &status);
-    reg_init_cr0(&cr0_reg_st,&status);
+    reg_init_eflags(&eflag_reg_st);
+    reg_init_eip(&eip_st);
+    reg_init_seg(&seg_regs_st);
+    reg_init_gen(&gen_regs_st,&pins,&sys_cond_st);
+    reg_init_cr0(&cr0_reg_st);
         
     if (argv[1] == NULL)
     {
         status = _STATUS_NO_DEVICE;
-        err_handler(&status,"");
+        err_handler("");
     }
     
     /* Load bootable device file */
@@ -89,18 +89,18 @@ int main (int argc, char **argv)
         if (device == NULL)
         {
             status = _ERR_OPEN_DEVICE_NOK;
-            err_handler(&status,device_name);
+            err_handler(device_name);
         }
     } else // If getcwd fails
     {
         status = _ERR_OPEN_DEVICE_NOK;
-        err_handler(&status,device_name);
+        err_handler(device_name);
     }
    
     printf("Disk : %s ",device_name);
 
     /* Check is device is bootable */
-    if (bios_is_bootable(device,&status) == _DEVICE_IS_BOOTABLE) printf ("(bootable).\n");
+    if (bios_is_bootable(device) == _DEVICE_IS_BOOTABLE) printf ("(bootable).\n");
         // in case of device not bootable
     if (status == _STATUS_DEVICE_BOOT_SIG_NOT_FOUND) 
     {
@@ -109,7 +109,7 @@ int main (int argc, char **argv)
         exit(status);
     }
     /* Load MBR Master Block Record */
-    bios_load_MBR_TO_RAM(device,ram_ptr,&seg_regs_st,&eip_st,&status);
+    bios_load_MBR_TO_RAM(device,ram_ptr,&seg_regs_st,&eip_st);
     printf("== LOAD Master Boot Record to RAM location 0x%X\n",_MBR_LOAD_RAM_ADDR);    
 
     /* 
@@ -117,7 +117,7 @@ int main (int argc, char **argv)
     printf("value of IP = 0x%X\n",eip_st.IP);
     for (int i = 0; i < 512 ; i++)
     {    * 
-        printf("0x%X  :  0x%X\n",0x7c00+i,ram_read(ram_ptr,0x7c00+i,&status) );
+        printf("0x%X  :  0x%X\n",0x7c00+i,ram_read(ram_ptr,0x7c00+i,) );
     }
     */
    

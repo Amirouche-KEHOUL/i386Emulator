@@ -24,7 +24,7 @@ int main (int argc, char **argv)
     if (argv[1] == NULL)
     {
         status = _STATUS_NO_FILE;
-        err_handler(&status,"");
+        err_handler("");
     }
 
 
@@ -55,12 +55,12 @@ int main (int argc, char **argv)
         if (asm_file == NULL)
         {
             status = _ERR_OPEN_ASM_FILE_NOK;
-            err_handler(&status,asm_file_name);
+            err_handler(asm_file_name);
         }
     } else // If getcwd fails
     {
         status = _ERR_OPEN_ASM_FILE_NOK;
-        err_handler(&status,asm_file_name);
+        err_handler(asm_file_name);
     }
     
     _line_st *line; 

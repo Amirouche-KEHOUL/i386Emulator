@@ -1,8 +1,6 @@
 #ifndef _STATUS_H
 #define _STATUS_H
 
-typedef int _status ; 
-
 /* _STATUS */
 #define _STATUS_OK 0
 #define _STATUS_END_OF_RESET 1
@@ -21,7 +19,7 @@ typedef int _status ;
 #define _ERR_OPEN_DEVICE_NOK -9
 
 
-void err_print (_status *status);
-void err_handler(_status *status,char *message);
+void err_print ();
+void err_handler(char *message);
 
 #endif //_STATUS_H

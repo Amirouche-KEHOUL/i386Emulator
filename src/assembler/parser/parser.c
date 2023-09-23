@@ -14,7 +14,7 @@ _line_st* get_line (FILE* asm_file_post_pro, _status* status )
     if (asm_file_post_pro == NULL )
     {
         *status = _ERR_PARSER_NULL_POINTER_ARG;
-        err_handler(status,"");
+        err_handler("");
     }
     
     static unsigned int line_num_record = 1; // keep track on the line number for debugging information for example
@@ -22,13 +22,13 @@ _line_st* get_line (FILE* asm_file_post_pro, _status* status )
     if (line_st == NULL)
     {
         *status = _ERR_PARSER_NULL_POINTER_ARG;
-        err_handler(status,"");
+        err_handler("");
     }
     line_st->line = (char*) malloc(_INSTRUCTION_MAX_LENGTH); 
     if (line_st->line  == NULL)
     {
         *status = _ERR_PARSER_NULL_POINTER_ARG;
-        err_handler(status,"");
+        err_handler("");
     }  
 
     int index = 0;    

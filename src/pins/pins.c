@@ -3,12 +3,14 @@
 #include "pins.h"
 #include "../config.h"
 
-_pin_state_enum pin_read (const _pins *pins,_pin_name_enum pin_name_enum, _status *status)
+extern int status;
+
+_pin_state_enum pin_read (const _pins *pins,_pin_name_enum pin_name_enum)
 {
     if (pins == NULL)
     {
-        *status = _ERR_PIN_NULL_POINTER_ARG;
-        err_handler(status,"");
+        status = _ERR_PIN_NULL_POINTER_ARG;
+        err_handler("");
         return -1 ;
     }
     if (*pins & (1 << pin_name_enum )) 
@@ -19,12 +21,12 @@ _pin_state_enum pin_read (const _pins *pins,_pin_name_enum pin_name_enum, _statu
 }
 
 
-void  pin_write (_pins *pins,_pin_name_enum pin_name_enum,_pin_state_enum pin_state_enum, _status *status)
+void  pin_write (_pins *pins,_pin_name_enum pin_name_enum,_pin_state_enum pin_state_enum)
 {
     if (pins == NULL)
     {
-        *status = _ERR_PIN_NULL_POINTER_ARG;
-        err_handler(status,"");
+        status = _ERR_PIN_NULL_POINTER_ARG;
+        err_handler("");
         return;
     }
     if ( pin_state_enum == OFF )
@@ -41,12 +43,12 @@ void  pin_write (_pins *pins,_pin_name_enum pin_name_enum,_pin_state_enum pin_st
 
 
 
-void pin_pow_up (_pins *pins, _status *status)
+void pin_pow_up (_pins *pins)
 {
     if (pins == NULL )
     {
-        *status = _ERR_PIN_NULL_POINTER_ARG;
-        err_handler(status,"");        
+        status = _ERR_PIN_NULL_POINTER_ARG;
+        err_handler("");        
         return ;
     }
                 

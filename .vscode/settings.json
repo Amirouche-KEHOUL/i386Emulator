@@ -17,6 +17,8 @@
         "atomic": "c",
         "*.tcc": "c",
         "cstdint": "c",
-        "random": "c"
+        "random": "c",
+        "bios.h": "c",
+        "ram.h": "c"
     }
 }
