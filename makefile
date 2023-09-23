@@ -2,10 +2,11 @@
 SRC = src/main.c src/memory/ram.c src/bios/bios.c src/sys/sys.c src/pins/pins.c src/memory/registers.c src/status/status.c src/screen/screen.c
 OBJ = build/main.o build/bios/bios.o build/sys/sys.o build/status/status.o build/memory/ram.o build/memory/registers.o build/pins/pins.o build/screen/screen.o
 
-OP = -Wall -Wvla -g 
+OP = -Wall -Wvla -g -Wno-unused-variable
 
-bin/i386Emulator.out : $(OBJ) 
+bin/i386Emulator.out : mkdir  $(OBJ) 
 	gcc $(OP) $(OBJ) -o bin/i386Emulator.out
+	@echo "----SUCCESSFUL----"
 
 build/main.o : $(SRC) 
 	gcc $(OP) -c src/main.c -o build/main.o
@@ -31,15 +32,15 @@ build/bios/bios.o : src/bios/bios.c src/bios/bios.h
 build/screen/screen.o : src/screen/screen.c src/screen/screen.h
 	gcc $(OP) -c src/screen/screen.c -o build/screen/screen.o	
 
+mkdir: 
+	mkdir -p bin/ build/memory build/pins build/status build/sys build/bios build/screen
 
 run: 
 	bin/i386Emulator.out $(word 2, $(MAKECMDGOALS))
 
 clean: 
-	rm -f $(OBJ)
+	rm -rf build bin
 
-mkdir: 
-	mkdir -p bin/ build/memory build/pins build/status build/sys build/bios build/screen
 mkdoc: 
 	mkdir -p documentation
 	doxygen 
