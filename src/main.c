@@ -63,7 +63,7 @@ int main (int argc, char **argv)
     }
     
     /* Load bootable device file */
-    FILE *device; // Bootable device
+    FILE *device = NULL; // Bootable device
     //TODO: check if file is binary, else exit emulator.
     char *device_name = argv[1];
     char device_path[PATH_MAX]; 
