@@ -12,9 +12,8 @@
 #include "sys/sys.h"
 #include "screen/screen.h"
 
-int status = _STATUS_OK; // status = 0 : OK, > 0: warnig, < 0: error.
-
-_sys_cond_st sys_cond_st;
+int status = _STATUS_OK;  // Status = 0 : OK, > 0: warnig, < 0: error.
+_sys_cond_st sys_cond_st; // System  condition
 
 int str_length(char str[])
 {
@@ -64,11 +63,8 @@ int main(int argc, char **argv)
         err_handler("");
     }
 
-    /* Start the screen */
-    start_screen();
     /* Load bootable device file */
     FILE *device = NULL; // Bootable device
-    // TODO: check if file is binary, else exit emulator.
     char *device_name = argv[1];
     char device_path[PATH_MAX];
     // Construct full path and open the device file
@@ -116,16 +112,7 @@ int main(int argc, char **argv)
     }
     /* Load MBR Master Block Record */
     bios_load_MBR_TO_RAM(device, ram_ptr, &seg_regs_st, &eip_st);
-    printf("== LOAD Master Boot Record to RAM location 0x%X\n", _MBR_LOAD_RAM_ADDR);
-
-    /*
-    printf("value of CS = 0x%X\n",seg_regs_st.CS);
-    printf("value of IP = 0x%X\n",eip_st.IP);
-    for (int i = 0; i < 512 ; i++)
-    {    *
-        printf("0x%X  :  0x%X\n",0x7c00+i,ram_read(ram_ptr,0x7c00+i,) );
-    }
-    */
+    printf("== LOAD MSB (Master Boot Record) to RAM location 0x%X\n", _MBR_LOAD_RAM_ADDR);
 
     printf("----------| Exit Emulator |----------\n");
     return 0;

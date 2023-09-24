@@ -6,6 +6,7 @@ OP = -Wall -Wvla -g -Wno-unused-variable
 
 bin/i386Emulator.out : mkdir  $(OBJ) 
 	gcc $(OP) $(OBJ) -o bin/i386Emulator.out
+	@cp device.bin bin/
 	@echo "----SUCCESSFUL----"
 
 build/main.o : $(SRC) 
@@ -41,7 +42,7 @@ run:
 clean: 
 	rm -rf build bin
 
-mkdoc: 
+doc: 
 	mkdir -p documentation
 	doxygen 
 rmdoc:

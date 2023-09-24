@@ -497,8 +497,20 @@ typedef struct tlb_reg_st
 // #### Functions ####
 void reg_init_seg(_segment_regs_st *segment_reg_st);
 void reg_init_eip(_eip_st *eip_st);
+
+/**
+ * @brief Inilialize the general purpose registers
+ *
+ * @param _general_regs_st
+ * @param pins
+ * @param sys_cond_st: global variable storing the system condition values.
+ * @par Specifications:
+ * [SPEC-10.1.1]
+ */
 void reg_init_gen(_general_regs_st *_general_regs_st, const _pins *pins, const _sys_cond_st *sys_cond_st);
+
 void reg_init_eflags(_eflag_reg_st *eflag_register);
+
 void reg_init_cr0(_cr0_reg_st *cr0_reg_st);
 
 #endif //_REGISTERS_H_
