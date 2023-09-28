@@ -20,6 +20,8 @@
         "random": "c",
         "bios.h": "c",
         "ram.h": "c",
-        "screen.h": "c"
+        "screen.h": "c",
+        "sys.h": "c",
+        "stdio.h": "c"
     }
 }

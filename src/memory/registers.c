@@ -1,7 +1,6 @@
 #include <stddef.h>
 
 #include "registers.h"
-#include "../config.h"
 
 extern int status;
 
@@ -111,6 +110,17 @@ void reg_init_cr0(_cr0_reg_st *cr0_reg_st)
     cr0_reg_st->MP = _CONF_RESET_DEFAULT_CR0_MP;
     cr0_reg_st->EM = _CONF_RESET_DEFAULT_CR0_EM;
     cr0_reg_st->TS = _CONF_RESET_DEFAULT_CR0_TS;
-    cr0_reg_st->ET = _CONF_RESET_DEFAULT_CR0_ET; // TODO: this is a tempo solution. refer to Initialization chapter in resources
+    cr0_reg_st->ET = _CONF_RESET_DEFAULT_CR0_ET; // TODO: this is a tempo solution. refer to Initialization chapter 10.1 paragraph 3 in resources directory
     cr0_reg_st->PG = _CONF_RESET_DEFAULT_CR0_PG;
+}
+
+void reg_init_idtr(_idtr_reg *idtr_reg)
+{
+    if (idtr_reg == NULL)
+    {
+        status = _ERR_REG_NULL_POINTER_ARG;
+        err_handler("");
+        return;
+    }
+    *idtr_reg = _CONF_RESET_DEFAULT_IDTR;
 }

@@ -11,17 +11,10 @@
 #include "pins/pins.h"
 #include "sys/sys.h"
 #include "screen/screen.h"
+#include "utils/utils.h"
 
 int status = _STATUS_OK;  // Status = 0 : OK, > 0: warnig, < 0: error.
 _sys_cond_st sys_cond_st; // System  condition
-
-int str_length(char str[])
-{
-    int count;
-    for (count = 0; str[count] != '\0'; ++count)
-        ;
-    return count;
-}
 
 int main(int argc, char **argv)
 {
@@ -50,12 +43,14 @@ int main(int argc, char **argv)
     _cr2_reg cr2_reg;
     _cr3_reg_pdbr cr3_reg_pdbr;
     _tlb_reg_st tlb_reg_st;
+
     // init regs
     reg_init_eflags(&eflag_reg_st);
     reg_init_eip(&eip_st);
     reg_init_seg(&seg_regs_st);
     reg_init_gen(&gen_regs_st, &pins, &sys_cond_st);
     reg_init_cr0(&cr0_reg_st);
+    reg_init_idtr(&idtr_reg);
 
     if (argv[1] == NULL)
     {
@@ -64,45 +59,12 @@ int main(int argc, char **argv)
     }
 
     /* Load bootable device file */
-    FILE *device = NULL; // Bootable device
-    char *device_name = argv[1];
-    char device_path[PATH_MAX];
-    // Construct full path and open the device file
-    if (getcwd(device_path, sizeof(device_path)) != NULL) // Current Working Directory
-    {
-        for (int i = 0; i < PATH_MAX - _CONF_MAX_LEN_DEVICE_NAME; i++)
-        {
-            if (device_path[i] == 0)
-            {
-                device_path[i] = '/';
-                i++;
-                int j;
-                for (j = 0; j < str_length(device_name); j++)
-                {
-                    device_path[i + j] = device_name[j];
-                }
-                device_path[i + j] = '\0';
-                break;
-            }
-        }
-        device = fopen(device_path, "r");
-        if (device == NULL)
-        {
-            status = _ERR_OPEN_DEVICE_NOK;
-            err_handler(device_name);
-        }
-    }
-    else // If getcwd fails
-    {
-        status = _ERR_OPEN_DEVICE_NOK;
-        err_handler(device_name);
-    }
-
-    printf("Disk : %s ", device_name);
+    FILE *device = open_file_ro(argv[1]); // Bootable device
 
     /* Check is device is bootable */
     if (bios_is_bootable(device) == _DEVICE_IS_BOOTABLE)
         printf("(bootable).\n");
+
     // in case of device not bootable
     if (status == _STATUS_DEVICE_BOOT_SIG_NOT_FOUND)
     {
@@ -110,7 +72,7 @@ int main(int argc, char **argv)
         printf("----------| Exit Emulator |---------\n");
         exit(status);
     }
-    /* Load MBR Master Block Record */
+    /* Load MBR Master Boot Record */
     bios_load_MBR_TO_RAM(device, ram_ptr, &seg_regs_st, &eip_st);
     printf("== LOAD MSB (Master Boot Record) to RAM location 0x%X\n", _MBR_LOAD_RAM_ADDR);
 
