@@ -1,6 +1,8 @@
 
-SRC = src/main.c src/memory/ram.c src/bios/bios.c src/sys/sys.c src/pins/pins.c src/memory/registers.c src/status/status.c src/screen/screen.c src/utils/utils.c
-OBJ = build/main.o build/bios/bios.o build/sys/sys.o build/status/status.o build/memory/ram.o build/memory/registers.o build/pins/pins.o build/screen/screen.o build/utils/utils.o
+SRC = src/main.c src/memory/ram.c src/bios/bios.c src/sys/sys.c src/pins/pins.c src/memory/registers.c src/status/status.c src/screen/screen.c src/utils/utils.c \
+		src/interrupts/interrupts.c
+OBJ = build/main.o build/bios/bios.o build/sys/sys.o build/status/status.o build/memory/ram.o build/memory/registers.o build/pins/pins.o build/screen/screen.o \
+		build/utils/utils.o build/interrupts/interrupts.o 
 
 OP = -Wall -Wvla -g -Wno-unused-variable
 
@@ -36,9 +38,11 @@ build/screen/screen.o : src/screen/screen.c src/screen/screen.h
 build/utils/utils.o : src/utils/utils.c src/utils/utils.h
 	gcc $(OP) -c src/utils/utils.c -o build/utils/utils.o	
 
+build/interrupts/interrupts.o : src/interrupts/interrupts.c src/interrupts/interrupts.h
+	gcc $(OP) -c src/interrupts/interrupts.c -o build/interrupts/interrupts.o	
 
 mkdir: 
-	mkdir -p bin/ build/memory build/pins build/status build/sys build/bios build/screen build/utils
+	mkdir -p bin/ build/memory build/pins build/status build/sys build/bios build/screen build/utils build/interrupts
 
 run: 
 	bin/i386Emulator.out $(word 2, $(MAKECMDGOALS))

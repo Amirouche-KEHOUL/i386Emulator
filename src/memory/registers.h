@@ -79,10 +79,10 @@ typedef struct eflag_reg_st
     _reg32 RES3 : 1;
     _reg32 auxilary_carry_s : 1;
     _reg32 RES5 : 1;
-    _reg32 zero_s : 1;
+    _reg32 zero_s : 1; 
     _reg32 sign_s : 1;
     _reg32 trap_s : 1;
-    _reg32 interrupt_enable_x : 1;
+    _reg32 interrupt_enable_x : 1; // Controls the acceptance of external interrupts signalled via the INTR pin
     _reg32 direction_c : 1;
     _reg32 overflow_s : 1;
     _reg32 io_previlege_level_x : 2;

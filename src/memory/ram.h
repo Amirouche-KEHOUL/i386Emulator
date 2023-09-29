@@ -16,6 +16,6 @@ _byte ram_read(_ram_ptr ram_ptr, _addr addr);
 void ram_write(_byte byte, _ram_ptr ram_ptr, _addr addr);
 
 /*Allocate memory and inits the RAM*/
-_ram_ptr ram_start();
+_ram_ptr ram_start(void);
 
 #endif //_RAM_H_

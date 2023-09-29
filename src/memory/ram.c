@@ -48,7 +48,7 @@ void ram_write(_byte byte, _ram_ptr ram_ptr, _addr addr)
     status = _STATUS_OK;
 }
 
-_ram_ptr ram_start()
+_ram_ptr ram_start(void)
 {
     _ram_ptr ram_ptr = (_ram_ptr)malloc(_RAM_SIZE);
     if (ram_ptr == NULL)

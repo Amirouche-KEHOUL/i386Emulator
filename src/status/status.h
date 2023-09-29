@@ -18,7 +18,7 @@
 #define _ERR_BIOS_NULL_POINTER_ARG -8
 #define _ERR_OPEN_DEVICE_NOK -9
 
-void err_print();
+void err_print(void);
 void err_handler(char *message);
 
 #endif //_STATUS_H

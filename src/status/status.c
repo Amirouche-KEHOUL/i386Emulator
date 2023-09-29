@@ -5,7 +5,7 @@
 
 extern int status;
 
-void err_print()
+void err_print(void)
 {
     if (status < 0)
         printf("Followning error occured : ");

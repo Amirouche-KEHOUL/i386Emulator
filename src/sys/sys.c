@@ -13,7 +13,9 @@ int sys_is_selftest_req(const _pins *pins)
     }
     // if selftest requested
     if (pin_read(pins, pin_busy) && (status == _STATUS_END_OF_RESET))
+    {
         return _SYS_SELF_TEST_REQUEST;
+    }
 
     // else
     return _SYS_SELF_TEST_NOT_REQUEST;

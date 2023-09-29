@@ -14,8 +14,8 @@ typedef enum pin_name_enum
     pin_reset = 0,
     pin_busy = 1,
     pin_error = 2,
-    ping_INTR = 3, // used to signal Maskable interrupts
-    ping_NMI = 4,  // used to signal Non Maskable Interrupts
+    pin_INTR = 3, // used to signal Maskable interrupts
+    pin_NMI = 4,  // used to signal Non Maskable Interrupts
 
 } _pin_name_enum;
 
