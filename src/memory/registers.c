@@ -2,8 +2,6 @@
 
 #include "registers.h"
 
-extern int status;
-
 void reg_init_seg(_segment_regs_st *segment_reg_st)
 {
     if (segment_reg_st == 0)

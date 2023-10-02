@@ -103,6 +103,8 @@ void err_handler(char *message)
         break;
     case _STATUS_DEVICE_BOOT_SIG_NOT_FOUND: // Return before exiting emulator
         printf("\nThe device does not contains the required boot signature (0xAA55 at addr 510)\n");
+        printf("----------| Exit Emulator |---------\n");
+        exit(status);
         break;
 
     default: // Handle case error code is not known

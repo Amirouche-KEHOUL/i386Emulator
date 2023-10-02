@@ -27,7 +27,10 @@ unsigned int bios_is_bootable(FILE *device_name)
     }
     rewind(device_name);
     if ((boot_sig[0] == 0x55) & (boot_sig[1] == 0xAA))
+    {
+        printf("(bootable).\n");
         return _DEVICE_IS_BOOTABLE;
+    }
 
     // If signature not found
     status = _STATUS_DEVICE_BOOT_SIG_NOT_FOUND;

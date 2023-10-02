@@ -1,8 +1,4 @@
-#include <stddef.h>
-
 #include "sys.h"
-
-extern int status;
 
 int sys_is_selftest_req(const _pins *pins)
 {
@@ -33,4 +29,23 @@ int sys_isfaulty(const _sys_cond_st *sys_cond_st)
     if (sys_cond_st->unit_faulty)
         return _SYS_FAULTY;
     return _SYS_NOT_FAULTY;
+}
+
+void sys_init(void)
+{
+    /* Initialize pins */
+    pin_pow_up(&pins);
+
+    /* Start RAM */
+    printf("== Initialize RAM\n");
+    ram_ptr = ram_start();
+
+    /* Initilize registers */
+    printf("== Initialize registers\n");
+    reg_init_eflags(&eflag_reg_st);
+    reg_init_eip(&eip_st);
+    reg_init_seg(&seg_regs_st);
+    reg_init_gen(&gen_regs_st, &pins, &sys_cond_st);
+    reg_init_cr0(&cr0_reg_st);
+    reg_init_idtr(&idtr_reg);
 }

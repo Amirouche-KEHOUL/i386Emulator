@@ -13,6 +13,12 @@ extern int status;
 
 int str_length(char str[]);
 
+/**
+ * @brief Open a binary file as read only
+ *
+ * @param device_name (file name)
+ * @return FILE*: file descriptor pointer
+ */
 FILE *open_file_ro(char *device_name);
 
 #endif // _UTILS_H_

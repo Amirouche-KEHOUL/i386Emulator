@@ -23,6 +23,8 @@
         "screen.h": "c",
         "sys.h": "c",
         "stdio.h": "c",
-        "interrupts.h": "c"
+        "interrupts.h": "c",
+        "config.h": "c",
+        "cstdlib": "c"
     }
 }

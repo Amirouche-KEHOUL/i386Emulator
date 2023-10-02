@@ -2,9 +2,12 @@
 #define _REGISTERS_H_
 
 #include "../pins/pins.h"
-#include "../sys/sys.h"
 #include "../status/status.h"
 #include "../config.h"
+#include "../sys/sys.h"
+
+extern int status; // Global main.c
+// extern _sys_cond_st sys_cond_st; // Global main.c
 
 typedef unsigned int _reg16;
 typedef unsigned long _reg32;
@@ -79,7 +82,7 @@ typedef struct eflag_reg_st
     _reg32 RES3 : 1;
     _reg32 auxilary_carry_s : 1;
     _reg32 RES5 : 1;
-    _reg32 zero_s : 1; 
+    _reg32 zero_s : 1;
     _reg32 sign_s : 1;
     _reg32 trap_s : 1;
     _reg32 interrupt_enable_x : 1; // Controls the acceptance of external interrupts signalled via the INTR pin
@@ -494,6 +497,64 @@ typedef struct tlb_reg_st
     } set11;
 
 } _tlb_reg_st;
+
+/**
+ * @brief Debug registers
+ */
+typedef struct debug_reg_st
+{
+    struct
+    {
+        _reg32 L0 : 1;
+        _reg32 G0 : 1;
+        _reg32 L1 : 1;
+        _reg32 G1 : 1;
+        _reg32 L2 : 1;
+        _reg32 G2 : 1;
+        _reg32 L3 : 1;
+        _reg32 G3 : 1;
+        _reg32 LE : 1;
+        _reg32 GE : 1;
+        _reg32 reserved : 6; // TODO: reserved ? => TBC
+        _reg32 RW0 : 2;
+        _reg32 LEN0 : 2;
+        _reg32 RW1 : 2;
+        _reg32 LEN1 : 2;
+        _reg32 RW2 : 2;
+        _reg32 LEN2 : 2;
+        _reg32 RW3 : 2;
+        _reg32 LEN3 : 2;
+
+    } DR7; // Debug control register
+    struct
+    {
+        _reg32 B0 : 1;
+        _reg32 B1 : 1;
+        _reg32 B2 : 1;
+        _reg32 B3 : 1;
+        _reg32 reserved : 9; // TODO: reserved ? => TBC
+        _reg32 BD : 1;
+        _reg32 BS : 1;
+        _reg32 BT : 1;
+
+    } DR6; // Debug status register
+
+    _reg32 DR3; // Breakpoint 3 linear address
+    _reg32 DR2; // Breakpoint 2 linear address
+    _reg32 DR1; // Breakpoint 1 linear address
+    _reg32 DR0; // Breakpoint 0 linear address
+
+    /*
+    struct
+    {
+
+    } DR5; // Reserved
+    struct
+    {
+
+    } DR4; // Reserved
+    */
+} _debug_reg_st;
 
 /**
  * @brief Initialize Instruction Descriptor Table Register (IDTR)
