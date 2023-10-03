@@ -8,12 +8,15 @@ extern int status;
 void err_print(void)
 {
     if (status < 0)
-        printf("Followning error occured : ");
+        printf("ERROR : ");
     if (status >= 0)
-        printf("Followning exception occured : ");
+        printf("Warning : ");
 
     switch (status)
     {
+    case _STATUS_SYSTEM_SHUTDOWN:
+        printf("_STATUS_SYSTEM_SHUTDOWN (code %d)\n", status);
+        break;
     case 3:
         printf("_STATUS_DEVICE_BOOT_SIG_NOT_FOUND (code %d)\n", status);
         break;
@@ -98,6 +101,10 @@ void err_handler(char *message)
         exit(status);
         break;
     case _ERR_BIOS_NULL_POINTER_ARG:
+        printf("----------| Exit Emulator |---------\n");
+        exit(status);
+        break;
+    case _STATUS_SYSTEM_SHUTDOWN:
         printf("----------| Exit Emulator |---------\n");
         exit(status);
         break;

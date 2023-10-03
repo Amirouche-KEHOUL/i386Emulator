@@ -25,6 +25,7 @@
         "stdio.h": "c",
         "interrupts.h": "c",
         "config.h": "c",
-        "cstdlib": "c"
+        "cstdlib": "c",
+        "typedefs.h": "c"
     }
 }

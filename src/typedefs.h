@@ -58,8 +58,8 @@ typedef struct general_reg_st
 // 16-bit segement registers
 typedef struct segment_reg_st
 {
-    _reg16 CS; // code segment
-    _reg16 SS; // stack segment
+    _reg16 CS; // code selector
+    _reg16 SS; // stack selector
     /* data segments */
     _reg16 DS;
     _reg16 ES;
@@ -101,7 +101,14 @@ typedef struct eip_st
 // Memory management registers
 typedef _reg32 _gdtr_reg; // Global Descriptor Table Register. TODO : should store base + limit addresses. size TBC
 typedef _reg32 _ldtr_reg; // Local Descriptor Table Register. TODO : should store base + limit addresses. size TBC
-typedef _reg32 _idtr_reg; // Interrupt Descriptor Table Register
+// Interrupt Descriptor Table Register
+typedef struct idtr_st
+{
+    _reg32 base;
+    _reg16 limit;
+
+} _idtr_st;
+
 typedef struct task_reg_st
 {
     unsigned int selector : 16;

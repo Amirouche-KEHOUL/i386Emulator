@@ -42,7 +42,9 @@ FILE *open_file_ro(char *device_name)
         status = _ERR_OPEN_DEVICE_NOK;
         err_handler(device_name);
     }
+#ifdef VERBOSE
     printf("Disk : %s ", device_name);
+#endif
 
     return device;
 }

@@ -1,12 +1,7 @@
 #include "sys.h"
 
-int sys_is_selftest_req(const _pins *pins)
+int sys_is_selftest_req(void)
 {
-    if (pins == 0)
-    {
-        status = _ERR_SYS_NULL_POINTER_ARG;
-        err_handler("");
-    }
     // if selftest requested
     if (pin_read(pins, pin_busy) && (status == _STATUS_END_OF_RESET))
     {
@@ -37,15 +32,26 @@ void sys_init(void)
     pin_pow_up(&pins);
 
     /* Start RAM */
+#ifdef VERBOSE
     printf("== Initialize RAM\n");
+#endif
     ram_ptr = ram_start();
 
     /* Initilize registers */
+#ifdef VERBOSE
     printf("== Initialize registers\n");
+#endif
     reg_init_eflags(&eflag_reg_st);
     reg_init_eip(&eip_st);
     reg_init_seg(&seg_regs_st);
     reg_init_gen(&gen_regs_st, &pins, &sys_cond_st);
     reg_init_cr0(&cr0_reg_st);
-    reg_init_idtr(&idtr_reg);
+    reg_init_idtr();
+}
+
+void sys_shutdown(void)
+{
+    // TODO: compelete the shutdown process
+    status = _STATUS_SYSTEM_SHUTDOWN;
+    err_handler("");
 }

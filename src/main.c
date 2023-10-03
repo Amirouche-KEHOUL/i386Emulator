@@ -25,7 +25,7 @@ _eflag_reg_st eflag_reg_st;
 _eip_st eip_st;
 _gdtr_reg gdtr_reg = {0};
 _ldtr_reg ldtr_reg = {0};
-_idtr_reg idtr_reg;
+_idtr_st idtr_st;
 _interrupts_flags_st interrupts_flags_st = {0};
 _task_reg_st task_reg_st = {0};
 _cr0_reg_st cr0_reg_st;
@@ -54,13 +54,17 @@ int main(int argc, char **argv)
 
     /* Load MBR Master Boot Record */
     bios_load_MBR_TO_RAM(device, ram_ptr, &seg_regs_st, &eip_st);
-    printf("== LOAD MSB (Master Boot Record) to RAM location 0x%X\n", _MBR_LOAD_RAM_ADDR);
 
+#ifdef VERBOSE
+    printf("== LOAD MSB (Master Boot Record) to RAM location 0x%X\n", _MBR_LOAD_RAM_ADDR);
+#endif
+
+    // Processor starts in real mode
     while (1)
     {
         // system
         // test
-        eflag_reg_st.interrupt_enable_x = ACCEPT_EXTERNAL_INTERRUPT_VIA_INTR_PIN;
+        idtr_st.limit = 0UL;
         interrupts_flags_st.exceptions.trap.overflow = 1;
         check_and_service_interrupts();
         // instruction execution

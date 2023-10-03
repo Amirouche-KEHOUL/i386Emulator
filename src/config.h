@@ -46,7 +46,8 @@
 #define _CONF_RESET_DEFAULT_CR0_ET 0UL // indicates presense of 80387
 #define _CONF_RESET_DEFAULT_CR0_PG 0UL // if 0: paging disabled
 
-#define _CONF_RESET_DEFAULT_IDTR 0x0000fff0
+#define _CONF_RESET_DEFAULT_BASE_IDTR 0UL
+#define _CONF_RESET_DEFAULT_LIMIT_IDTR 0x03FF
 
 /* Pins power up  values */
 #define _CONF_PIN_BUSY_POW_UP 0UL

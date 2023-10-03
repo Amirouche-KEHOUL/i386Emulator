@@ -2,68 +2,51 @@
 
 #include "registers.h"
 
-void reg_init_seg(_segment_regs_st *segment_reg_st)
+void reg_init_seg(void)
 {
-    if (segment_reg_st == 0)
-    {
-        status = _ERR_REG_NULL_POINTER_ARG;
-        err_handler("");
-        return;
-    }
-    segment_reg_st->CS = (segment_reg_st->CS) & _CONF_RESET_DEFAULT_CS; // init to 0x000
-    segment_reg_st->DS = _CONF_RESET_DEFAULT_DS;
-    segment_reg_st->ES = _CONF_RESET_DEFAULT_ES;
-    segment_reg_st->SS = _CONF_RESET_DEFAULT_SS;
-    segment_reg_st->FS = _CONF_RESET_DEFAULT_FS;
-    segment_reg_st->GS = _CONF_RESET_DEFAULT_GS;
+
+    seg_regs_st.CS = (seg_regs_st.CS) & _CONF_RESET_DEFAULT_CS; // init to 0x000
+    seg_regs_st.DS = _CONF_RESET_DEFAULT_DS;
+    seg_regs_st.ES = _CONF_RESET_DEFAULT_ES;
+    seg_regs_st.SS = _CONF_RESET_DEFAULT_SS;
+    seg_regs_st.FS = _CONF_RESET_DEFAULT_FS;
+    seg_regs_st.GS = _CONF_RESET_DEFAULT_GS;
 }
 
-void reg_init_eip(_eip_st *eip_st)
+void reg_init_eip(void)
 {
-    if (eip_st == NULL)
-    {
-        status = _ERR_REG_NULL_POINTER_ARG;
-        err_handler("");
-        return;
-    }
-    eip_st->IP = _CONF_RESET_DEFAULT_EIP_IP;
-    eip_st->msb = _CONF_RESET_DEFAULT_EIP_msb;
+    eip_st.IP = _CONF_RESET_DEFAULT_EIP_IP;
+    eip_st.msb = _CONF_RESET_DEFAULT_EIP_msb;
 }
 
-void reg_init_gen(_general_regs_st *_general_regs_st, const _pins *pins, const _sys_cond_st *sys_cond_st)
+void reg_init_gen(void)
 {
 
     // EAX: result of power-up self test: 0 if OK  , !0 if NOK (some unit is faulty)
     int ret = 0;
-    ret = sys_is_selftest_req(pins);
-    if (_general_regs_st == NULL || pins == NULL || sys_cond_st == NULL)
-    {
-        status = _ERR_REG_INIT;
-        err_handler("");
-        return;
-    }
+    ret = sys_is_selftest_req();
 
     if (ret == _SYS_SELF_TEST_REQUEST)
     {
         if (sys_isfaulty(sys_cond_st) == _SYS_NOT_FAULTY)
         {
-            _general_regs_st->EAX.AL = 0;
-            _general_regs_st->EAX.AH = 0;
-            _general_regs_st->EAX.msb = 0;
+            gen_regs_st.EAX.AL = 0;
+            gen_regs_st.EAX.AH = 0;
+            gen_regs_st.EAX.msb = 0;
         }
         if (sys_isfaulty(sys_cond_st) == _SYS_FAULTY)
         {
             // TODO: these values are radonm. Correct value to be confirmed later on
-            _general_regs_st->EAX.AL = 0xFF;
-            _general_regs_st->EAX.AH = 0xFF;
-            _general_regs_st->EAX.msb = 0xFFFF;
+            gen_regs_st.EAX.AL = 0xFF;
+            gen_regs_st.EAX.AH = 0xFF;
+            gen_regs_st.EAX.msb = 0xFFFF;
         }
     }
     // EAX value is undefined otherwise
 
     // DX: DX holds a component identifier and revision number after RESET
-    _general_regs_st->EDX.DL = _CONF_RESET_DEFAULT_EDX_DL;
-    _general_regs_st->EDX.DH = _CONF_RESET_DEFAULT_EDX_DH;
+    gen_regs_st.EDX.DL = _CONF_RESET_DEFAULT_EDX_DL;
+    gen_regs_st.EDX.DH = _CONF_RESET_DEFAULT_EDX_DH;
 }
 
 void reg_init_eflags(_eflag_reg_st *eflag_register_st)
@@ -112,13 +95,8 @@ void reg_init_cr0(_cr0_reg_st *cr0_reg_st)
     cr0_reg_st->PG = _CONF_RESET_DEFAULT_CR0_PG;
 }
 
-void reg_init_idtr(_idtr_reg *idtr_reg)
+void reg_init_idtr(void)
 {
-    if (idtr_reg == NULL)
-    {
-        status = _ERR_REG_NULL_POINTER_ARG;
-        err_handler("");
-        return;
-    }
-    *idtr_reg = _CONF_RESET_DEFAULT_IDTR;
+    idtr_st.base = _CONF_RESET_DEFAULT_BASE_IDTR;
+    idtr_st.limit = _CONF_RESET_DEFAULT_LIMIT_IDTR;
 }
