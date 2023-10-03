@@ -3,18 +3,13 @@
 
 #include <stddef.h>
 #include <stdio.h>
+#include "../typedefs.h"
 #include "../pins/pins.h"
 #include "../status/status.h"
 #include "../memory/ram.h"
 #include "../memory/registers.h"
 
 extern _sys_cond_st sys_cond_st;
-
-typedef struct sys_cond_st
-{
-    int unit_faulty : 1;
-} _sys_cond_st;
-
 extern int status;
 
 extern _pins pins;

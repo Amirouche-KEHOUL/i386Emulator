@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
-
+#include "typedefs.h"
 #include "status/status.h"
 #include "bios/bios.h"
 #include "config.h"
@@ -15,7 +15,7 @@
 #include "sys/sys.h"
 
 int status = _STATUS_OK;        // Errors/warning reported by functions. [status = 0]=>OK, [status > 0 ]=>warnig, [status <0 ]=>error.
-_sys_cond_st sys_cond_st = {0}; // CPU system  condition is recorder here.
+_sys_cond_st sys_cond_st = {0}; // Processor system  condition is recorder here.
 
 _pins pins;
 _ram_ptr ram_ptr;
@@ -44,7 +44,7 @@ int main(int argc, char **argv)
     }
 
     /* Initialize system */
-    // sys_init();
+    sys_init();
 
     /* Load bootable device file */
     FILE *device = open_file_ro(argv[1]);

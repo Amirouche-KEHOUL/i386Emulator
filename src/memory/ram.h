@@ -1,13 +1,10 @@
 #ifndef _RAM_H_
 #define _RAM_H_
 
+#include "../typedefs.h"
 #include "../status/status.h"
 
 #define _RAM_SIZE 4294967296UL // 4GB. This Value should not be changed!
-
-typedef unsigned long *_ram_ptr;
-typedef unsigned char _byte;
-typedef unsigned long _addr;
 
 /*Reads a byte from the RAM*/
 _byte ram_read(_ram_ptr ram_ptr, _addr addr);

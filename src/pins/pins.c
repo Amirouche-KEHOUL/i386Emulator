@@ -1,7 +1,7 @@
 #include <stddef.h>
 
 #include "pins.h"
-#include "../config.h"
+
 
 extern int status;
 
