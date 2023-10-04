@@ -42,9 +42,20 @@ FILE *open_file_ro(char *device_name)
         status = _ERR_OPEN_DEVICE_NOK;
         err_handler(device_name);
     }
-#ifdef VERBOSE
+#ifdef DBG
     printf("Disk : %s ", device_name);
 #endif
 
     return device;
+}
+
+void print_start(void)
+{
+    printf("----------| Start i386 Emulator |----------\n");
+    // TODO: print meta data about software (ex. version)
+}
+
+void print_end(void)
+{
+    printf("----------| Exit i386 Emulator |----------\n");
 }

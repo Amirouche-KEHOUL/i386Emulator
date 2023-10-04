@@ -18,6 +18,9 @@
 #define _DEVICE_IS_BOOTABLE 1
 #define _MBR_LOAD_RAM_ADDR 0x7c00
 
+extern _segment_regs_st seg_regs_st;
+extern _eip_st eip_st;
+
 /**
  * @brief Checks if device is bootable MSB (Master Block Record).
  *
@@ -30,6 +33,6 @@ unsigned int bios_is_bootable(FILE *device_name);
 Loads the MBR Master Block Record to _MBR_LOAD_RAM_ADDR RAM address.
 Forces CS:IP to 0x(0000:_MBR_LOAD_RAM_ADDR).
 */
-unsigned int bios_load_MBR_TO_RAM(FILE *device, _ram_ptr ram_ptr0, _segment_regs_st *segment_regs_st, _eip_st *eip_st);
+unsigned int bios_load_MBR_TO_RAM(FILE *device);
 
 #endif // _BIOS_H_

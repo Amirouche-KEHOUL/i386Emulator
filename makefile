@@ -4,12 +4,13 @@ SRC = src/main.c src/memory/ram.c src/bios/bios.c src/sys/sys.c src/pins/pins.c 
 OBJ = build/main.o build/bios/bios.o build/sys/sys.o build/status/status.o build/memory/ram.o build/memory/registers.o build/pins/pins.o build/screen/screen.o \
 		build/utils/utils.o build/interrupts/interrupts.o 
 
-OP = -Wall -Wvla -g -Wno-unused-variable -D VERBOSE
+OP = -Wall -Wvla -g -Wno-unused-variable -D DBG
 
 bin/i386Emulator.out : mkdir  $(OBJ) 
 	gcc $(OP) $(OBJ) -o bin/i386Emulator.out
 	@cp device.bin bin/
-	@echo "----SUCCESSFUL----"
+	@echo
+	@echo "|-----------SUCCESSFUL-----------|"
 
 build/main.o : $(SRC) 
 	gcc $(OP) -c src/main.c -o build/main.o

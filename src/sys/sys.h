@@ -27,7 +27,7 @@ extern _cr0_reg_st cr0_reg_st;
 #define _SYS_SELF_TEST_NOT_REQUEST 0
 
 int sys_is_selftest_req(void);
-int sys_isfaulty(const _sys_cond_st *sys_cond_st);
+int sys_isfaulty(void);
 void sys_init(void);
 void sys_shutdown(void);
 

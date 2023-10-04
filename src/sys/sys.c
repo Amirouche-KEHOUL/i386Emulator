@@ -3,7 +3,7 @@
 int sys_is_selftest_req(void)
 {
     // if selftest requested
-    if (pin_read(pins, pin_busy) && (status == _STATUS_END_OF_RESET))
+    if (pin_read(pin_busy) && (status == _STATUS_END_OF_RESET))
     {
         return _SYS_SELF_TEST_REQUEST;
     }
@@ -12,16 +12,9 @@ int sys_is_selftest_req(void)
     return _SYS_SELF_TEST_NOT_REQUEST;
 }
 
-int sys_isfaulty(const _sys_cond_st *sys_cond_st)
+int sys_isfaulty(void)
 {
-    if (sys_cond_st == NULL)
-    {
-        status = _ERR_SYS_NULL_POINTER_ARG;
-        err_handler("");
-        return -1;
-    }
-
-    if (sys_cond_st->unit_faulty)
+    if (sys_cond_st.unit_faulty)
         return _SYS_FAULTY;
     return _SYS_NOT_FAULTY;
 }
@@ -29,23 +22,23 @@ int sys_isfaulty(const _sys_cond_st *sys_cond_st)
 void sys_init(void)
 {
     /* Initialize pins */
-    pin_pow_up(&pins);
+    pin_pow_up();
 
     /* Start RAM */
-#ifdef VERBOSE
+#ifdef DBG
     printf("== Initialize RAM\n");
 #endif
     ram_ptr = ram_start();
 
     /* Initilize registers */
-#ifdef VERBOSE
+#ifdef DBG
     printf("== Initialize registers\n");
 #endif
-    reg_init_eflags(&eflag_reg_st);
-    reg_init_eip(&eip_st);
-    reg_init_seg(&seg_regs_st);
-    reg_init_gen(&gen_regs_st, &pins, &sys_cond_st);
-    reg_init_cr0(&cr0_reg_st);
+    reg_init_eflags();
+    reg_init_eip();
+    reg_init_seg();
+    reg_init_gen();
+    reg_init_cr0();
     reg_init_idtr();
 }
 

@@ -35,7 +35,7 @@ _tlb_reg_st tlb_reg_st = {0};
 
 int main(int argc, char **argv)
 {
-    printf("----------| Start Emulator |----------\n");
+    print_start();
 
     if (argv[1] == NULL)
     {
@@ -53,9 +53,9 @@ int main(int argc, char **argv)
     bios_is_bootable(device);
 
     /* Load MBR Master Boot Record */
-    bios_load_MBR_TO_RAM(device, ram_ptr, &seg_regs_st, &eip_st);
+    bios_load_MBR_TO_RAM(device);
 
-#ifdef VERBOSE
+#ifdef DBG
     printf("== LOAD MSB (Master Boot Record) to RAM location 0x%X\n", _MBR_LOAD_RAM_ADDR);
 #endif
 
@@ -64,13 +64,14 @@ int main(int argc, char **argv)
     {
         // system
         // test
-        idtr_st.limit = 0UL;
+        idtr_st.limit = 0UL; // casues shutdown in case of interruption
         interrupts_flags_st.exceptions.trap.overflow = 1;
         check_and_service_interrupts();
         // instruction execution
         break;
     }
 
-    printf("----------| Exit Emulator |----------\n");
+    print_end();
+
     return 0;
 }

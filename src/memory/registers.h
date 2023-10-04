@@ -69,7 +69,7 @@ void reg_init_gen(void);
  * @par Specifications:
  * [SPEC-10.1.4]
  */
-void reg_init_eflags(_eflag_reg_st *eflag_register);
+void reg_init_eflags(void);
 
 /**
  * @brief Initialize the conrtol register 0
@@ -78,6 +78,6 @@ void reg_init_eflags(_eflag_reg_st *eflag_register);
  * @par Specification:
  * [SPEC-10.1.3]
  */
-void reg_init_cr0(_cr0_reg_st *cr0_reg_st);
+void reg_init_cr0(void);
 
 #endif //_REGISTERS_H_

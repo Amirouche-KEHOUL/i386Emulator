@@ -28,7 +28,7 @@ unsigned int bios_is_bootable(FILE *device_name)
     rewind(device_name);
     if ((boot_sig[0] == 0x55) & (boot_sig[1] == 0xAA))
     {
-#ifdef VERBOSE
+#ifdef DBG
         printf("(bootable).\n");
 #endif
         return _DEVICE_IS_BOOTABLE;
@@ -40,14 +40,8 @@ unsigned int bios_is_bootable(FILE *device_name)
     return _STATUS_DEVICE_BOOT_SIG_NOT_FOUND;
 }
 
-unsigned int bios_load_MBR_TO_RAM(FILE *device, _ram_ptr ram_ptr, _segment_regs_st *segment_regs_st, _eip_st *eip_st)
+unsigned int bios_load_MBR_TO_RAM(FILE *device)
 {
-    // Arguments check
-    if ((device == NULL) | (ram_ptr == NULL) | (segment_regs_st == NULL) | (eip_st == NULL))
-    {
-        status = _ERR_BIOS_NULL_POINTER_ARG;
-        err_handler("");
-    }
     // copy MBR to RAM
     _byte byte_stream = 0;
     for (int i = 0; i < 512; i++)
@@ -56,7 +50,7 @@ unsigned int bios_load_MBR_TO_RAM(FILE *device, _ram_ptr ram_ptr, _segment_regs_
         ram_write(byte_stream, ram_ptr, (_MBR_LOAD_RAM_ADDR + i));
     }
     // Force CS:IP to 0x 0000:_MBR_LOAD_RAM_ADDR
-    segment_regs_st->CS = 0x0000;
-    eip_st->IP = _MBR_LOAD_RAM_ADDR;
+    seg_regs_st.CS = 0x0000;
+    eip_st.IP = _MBR_LOAD_RAM_ADDR;
     return 1;
 }

@@ -21,4 +21,7 @@ int str_length(char str[]);
  */
 FILE *open_file_ro(char *device_name);
 
+void print_start(void);
+void print_end(void);
+
 #endif // _UTILS_H_
