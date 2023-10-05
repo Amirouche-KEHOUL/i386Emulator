@@ -6,16 +6,16 @@
 #include "../typedefs.h"
 #include "../pins/pins.h"
 #include "../status/status.h"
-#include "../memory/ram.h"
+#include "../memory/physical_memory.h"
 #include "../memory/registers.h"
 
 extern _sys_cond_st sys_cond_st;
 extern int status;
-
+extern _bus16 A3120;
 extern _pins pins;
-extern _ram_ptr ram_ptr;
-extern _general_regs_st gen_regs_st;
-extern _segment_regs_st seg_regs_st;
+extern _physical_memory_ptr physical_memory_ptr;
+extern _general_regs_st general_regs_st;
+extern _segment_regs_st segment_regs_st;
 extern _eflag_reg_st eflag_reg_st;
 extern _eip_st eip_st;
 extern _idtr_st idtr_st;

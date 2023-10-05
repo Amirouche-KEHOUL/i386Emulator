@@ -27,7 +27,7 @@ void err_print(void)
         printf("_ERR_RAM_ADDR_OUTRANGE (code %d)\n", status);
         break;
     case -2:
-        printf("_ERR_RAM_MALLOC (code %d)\n", status);
+        printf("_ERR_PHYSICAL_MEMORY_MALLOC (code %d)\n", status);
         break;
     case -3:
         printf("_ERR_RAM_NULL_POINTER_ARG (code %d)\n", status);
@@ -66,7 +66,7 @@ void err_handler(char *message)
         printf("----------| Exit Emulator |---------\n");
         exit(status);
         break;
-    case _ERR_RAM_MALLOC:
+    case _ERR_PHYSICAL_MEMORY_MALLOC:
         printf("----------| Exit Emulator |---------\n");
         exit(status);
         break;

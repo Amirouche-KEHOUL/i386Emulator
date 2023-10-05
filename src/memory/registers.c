@@ -5,12 +5,12 @@
 void reg_init_seg(void)
 {
 
-    seg_regs_st.CS = (seg_regs_st.CS) & _CONF_RESET_DEFAULT_CS; // init to 0x000
-    seg_regs_st.DS = _CONF_RESET_DEFAULT_DS;
-    seg_regs_st.ES = _CONF_RESET_DEFAULT_ES;
-    seg_regs_st.SS = _CONF_RESET_DEFAULT_SS;
-    seg_regs_st.FS = _CONF_RESET_DEFAULT_FS;
-    seg_regs_st.GS = _CONF_RESET_DEFAULT_GS;
+    segment_regs_st.CS = (segment_regs_st.CS) | _CONF_RESET_DEFAULT_CS; // TODO: TBC doc typo ? 0xF000 intead of 0x000 ?
+    segment_regs_st.DS = _CONF_RESET_DEFAULT_DS;
+    segment_regs_st.ES = _CONF_RESET_DEFAULT_ES;
+    segment_regs_st.SS = _CONF_RESET_DEFAULT_SS;
+    segment_regs_st.FS = _CONF_RESET_DEFAULT_FS;
+    segment_regs_st.GS = _CONF_RESET_DEFAULT_GS;
 }
 
 void reg_init_eip(void)
@@ -30,23 +30,23 @@ void reg_init_gen(void)
     {
         if (sys_isfaulty() == _SYS_NOT_FAULTY)
         {
-            gen_regs_st.EAX.AL = 0;
-            gen_regs_st.EAX.AH = 0;
-            gen_regs_st.EAX.msb = 0;
+            general_regs_st.EAX.AL = 0;
+            general_regs_st.EAX.AH = 0;
+            general_regs_st.EAX.msb = 0;
         }
         if (sys_isfaulty() == _SYS_FAULTY)
         {
             // TODO: these values are radonm. Correct value to be confirmed later on
-            gen_regs_st.EAX.AL = 0xFF;
-            gen_regs_st.EAX.AH = 0xFF;
-            gen_regs_st.EAX.msb = 0xFFFF;
+            general_regs_st.EAX.AL = 0xFF;
+            general_regs_st.EAX.AH = 0xFF;
+            general_regs_st.EAX.msb = 0xFFFF;
         }
     }
     // EAX value is undefined otherwise
 
     // DX: DX holds a component identifier and revision number after RESET
-    gen_regs_st.EDX.DL = _CONF_RESET_DEFAULT_EDX_DL;
-    gen_regs_st.EDX.DH = _CONF_RESET_DEFAULT_EDX_DH;
+    general_regs_st.EDX.DL = _CONF_RESET_DEFAULT_EDX_DL;
+    general_regs_st.EDX.DH = _CONF_RESET_DEFAULT_EDX_DH;
 }
 
 void reg_init_eflags(void)

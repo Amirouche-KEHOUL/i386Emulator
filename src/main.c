@@ -6,7 +6,7 @@
 #include "status/status.h"
 #include "bios/bios.h"
 #include "config.h"
-#include "memory/ram.h"
+#include "memory/physical_memory.h"
 #include "memory/registers.h"
 #include "pins/pins.h"
 #include "screen/screen.h"
@@ -17,10 +17,11 @@
 int status = _STATUS_OK;        // Errors/warning reported by functions. [status = 0]=>OK, [status > 0 ]=>warnig, [status <0 ]=>error.
 _sys_cond_st sys_cond_st = {0}; // Processor system  condition is recorder here.
 
+_bus16 A3120 = 0; // Address lines 20->31 (12 bits), asserted at reset
 _pins pins;
-_ram_ptr ram_ptr;
-_general_regs_st gen_regs_st;
-_segment_regs_st seg_regs_st;
+_physical_memory_ptr physical_memory_ptr;
+_general_regs_st general_regs_st;
+_segment_regs_st segment_regs_st;
 _eflag_reg_st eflag_reg_st;
 _eip_st eip_st;
 _gdtr_reg gdtr_reg = {0};
@@ -56,7 +57,7 @@ int main(int argc, char **argv)
     bios_load_MBR_TO_RAM(device);
 
 #ifdef DBG
-    printf("== LOAD MSB (Master Boot Record) to RAM location 0x%X\n", _MBR_LOAD_RAM_ADDR);
+    printf("== LOAD MSB (Master Boot Record) to physical memory location 0x%X\n", _MBR_LOAD_RAM_ADDR);
 #endif
 
     // Processor starts in real mode

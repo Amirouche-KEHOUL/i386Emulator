@@ -24,11 +24,11 @@ void sys_init(void)
     /* Initialize pins */
     pin_pow_up();
 
-    /* Start RAM */
+    /* Start physical memory */
 #ifdef DBG
-    printf("== Initialize RAM\n");
+    printf("== Start physical memory\n");
 #endif
-    ram_ptr = ram_start();
+    physical_memory_ptr = physical_memory_start();
 
     /* Initilize registers */
 #ifdef DBG
@@ -40,6 +40,12 @@ void sys_init(void)
     reg_init_gen();
     reg_init_cr0();
     reg_init_idtr();
+
+/* Assert A{31-20} address lines (Chapter 10.2.3)*/
+#ifdef DBG
+    printf("== Assert A {31-20} address lines \n");
+#endif
+    A3120 = 0x0FFF;
 }
 
 void sys_shutdown(void)

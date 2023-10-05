@@ -11,14 +11,14 @@
 
 #include "../pins/pins.h"
 #include "../sys/sys.h"
-#include "../memory/ram.h"
+#include "../memory/physical_memory.h"
 #include "../memory/registers.h"
 #include "../status/status.h"
 
 #define _DEVICE_IS_BOOTABLE 1
 #define _MBR_LOAD_RAM_ADDR 0x7c00
 
-extern _segment_regs_st seg_regs_st;
+extern _segment_regs_st segment_regs_st;
 extern _eip_st eip_st;
 
 /**

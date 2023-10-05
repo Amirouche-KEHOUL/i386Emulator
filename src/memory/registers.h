@@ -11,9 +11,9 @@ extern int status;
 extern _sys_cond_st sys_cond_st;
 
 extern _pins pins;
-extern _ram_ptr ram_ptr;
-extern _general_regs_st gen_regs_st;
-extern _segment_regs_st seg_regs_st;
+extern _physical_memory_ptr physical_memory_ptr;
+extern _general_regs_st general_regs_st;
+extern _segment_regs_st segment_regs_st;
 extern _eflag_reg_st eflag_reg_st;
 extern _eip_st eip_st;
 extern _gdtr_reg gdtr_reg;

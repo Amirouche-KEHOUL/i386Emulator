@@ -1,10 +1,9 @@
-
-
 #ifndef _TYPEDEFS_H_
 #define _TYPEDEFS_H_
 
 typedef unsigned int _reg16;
 typedef unsigned long _reg32;
+typedef unsigned int _bus16;
 
 // 32-bit general-perpose register
 typedef struct general_reg_st
@@ -578,7 +577,7 @@ typedef enum pin_state_enum
 } _pin_state_enum;
 
 /* RAM */
-typedef unsigned long *_ram_ptr;
+typedef unsigned long *_physical_memory_ptr;
 typedef unsigned char _byte;
 typedef unsigned long _addr;
 
