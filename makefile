@@ -1,7 +1,7 @@
 
-SRC = src/main.c src/memory/physical_memory.c src/bios/bios.c src/sys/sys.c src/pins/pins.c src/memory/registers.c src/status/status.c src/screen/screen.c src/utils/utils.c \
-		src/interrupts/interrupts.c
-OBJ = build/main.o build/bios/bios.o build/sys/sys.o build/status/status.o build/memory/physical_memory.o build/memory/registers.o build/pins/pins.o build/screen/screen.o \
+SRC = src/main.c src/memory/physical_memory.c src/memory/IO.c src/bios/bios.c src/sys/sys.c src/pins/pins.c src/memory/registers.c src/status/status.c src/screen/screen.c src/utils/utils.c \
+		src/interrupts/interrupts.c 
+OBJ = build/main.o build/bios/bios.o build/sys/sys.o build/status/status.o build/memory/physical_memory.o build/memory/IO.o build/memory/registers.o build/pins/pins.o build/screen/screen.o \
 		build/utils/utils.o build/interrupts/interrupts.o 
 
 OP = -Wall -Wvla -g -Wno-unused-variable -D DBG
@@ -42,6 +42,11 @@ build/utils/utils.o : src/utils/utils.c src/utils/utils.h
 build/interrupts/interrupts.o : src/interrupts/interrupts.c src/interrupts/interrupts.h
 	gcc $(OP) -c src/interrupts/interrupts.c -o build/interrupts/interrupts.o	
 
+build/memory/IO.o : src/memory/IO.c src/memory/IO.h
+	gcc $(OP) -c src/memory/IO.c -o build/memory/IO.o	
+
+remake: 
+	make clean && make
 mkdir: 
 	mkdir -p bin/ build/memory build/pins build/status build/sys build/bios build/screen build/utils build/interrupts
 

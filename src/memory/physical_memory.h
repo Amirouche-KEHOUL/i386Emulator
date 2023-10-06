@@ -4,6 +4,8 @@
 #include "../typedefs.h"
 #include "../status/status.h"
 
+extern int status;
+
 /*
 The physical memory of an 80386 system is organized as a sequence of 8-bit bytes.
 Each byte is assigned a unique address that ranges from zero to a maximum of 232-1 (4 gigabytes).
@@ -26,13 +28,13 @@ misaligned data transfers reduce performance by requiring extra memory
 cycles
 */
 
-#define _PHYSICAL_MEMORY_ADDRESS_SPACE 4294967296UL // 4GB. This Value should not be changed!
+#define _PHYSICAL_MEMORY_ADDRESS_SPACE 4294967296UL // 4G. This Value should not be changed!
 
 /*Reads a byte from the physical memory*/
-_byte physical_memory_read(_physical_memory_ptr physical_memory_ptr, _addr addr);
+_byte physical_memory_read(_physical_memory_ptr physical_memory_ptr, _32b_addr addr);
 
 /*Writes a byte to the physical memory*/
-void physical_memory_write(_byte byte, _physical_memory_ptr physical_memory_ptr, _addr addr);
+void physical_memory_write(_byte byte, _physical_memory_ptr physical_memory_ptr, _32b_addr addr);
 
 /*Allocate memory and inits the  physical memory*/
 _physical_memory_ptr physical_memory_start(void);

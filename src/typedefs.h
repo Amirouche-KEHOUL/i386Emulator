@@ -137,88 +137,88 @@ typedef struct tlb_reg_st
         {
             unsigned int attribute : 3;
             unsigned int valid : 1;
-            unsigned int linear_addr : 20;
+            unsigned int linear_32b_addr : 20;
         } tag0;
         struct
         {
-            unsigned int physical_addr : 20;
+            unsigned int physical_32b_addr : 20;
         } data0;
 
         struct
         {
             unsigned int attribute : 3;
             unsigned int valid : 1;
-            unsigned int linear_addr : 20;
+            unsigned int linear_32b_addr : 20;
         } tag1;
         struct
         {
-            unsigned int physical_addr : 20;
+            unsigned int physical_32b_addr : 20;
         } data1;
 
         struct
         {
             unsigned int attribute : 3;
             unsigned int valid : 1;
-            unsigned int linear_addr : 20;
+            unsigned int linear_32b_addr : 20;
         } tag2;
         struct
         {
-            unsigned int physical_addr : 20;
+            unsigned int physical_32b_addr : 20;
         } data2;
 
         struct
         {
             unsigned int attribute : 3;
             unsigned int valid : 1;
-            unsigned int linear_addr : 20;
+            unsigned int linear_32b_addr : 20;
         } tag3;
         struct
         {
-            unsigned int physical_addr : 20;
+            unsigned int physical_32b_addr : 20;
         } data3;
 
         struct
         {
             unsigned int attribute : 3;
             unsigned int valid : 1;
-            unsigned int linear_addr : 20;
+            unsigned int linear_32b_addr : 20;
         } tag4;
         struct
         {
-            unsigned int physical_addr : 20;
+            unsigned int physical_32b_addr : 20;
         } data4;
 
         struct
         {
             unsigned int attribute : 3;
             unsigned int valid : 1;
-            unsigned int linear_addr : 20;
+            unsigned int linear_32b_addr : 20;
         } tag5;
         struct
         {
-            unsigned int physical_addr : 20;
+            unsigned int physical_32b_addr : 20;
         } data5;
 
         struct
         {
             unsigned int attribute : 3;
             unsigned int valid : 1;
-            unsigned int linear_addr : 20;
+            unsigned int linear_32b_addr : 20;
         } tag6;
         struct
         {
-            unsigned int physical_addr : 20;
+            unsigned int physical_32b_addr : 20;
         } data6;
 
         struct
         {
             unsigned int attribute : 3;
             unsigned int valid : 1;
-            unsigned int linear_addr : 20;
+            unsigned int linear_32b_addr : 20;
         } tag7;
         struct
         {
-            unsigned int physical_addr : 20;
+            unsigned int physical_32b_addr : 20;
         } data7;
     } set00;
 
@@ -228,88 +228,88 @@ typedef struct tlb_reg_st
         {
             unsigned int attribute : 3;
             unsigned int valid : 1;
-            unsigned int linear_addr : 20;
+            unsigned int linear_32b_addr : 20;
         } tag0;
         struct
         {
-            unsigned int physical_addr : 20;
+            unsigned int physical_32b_addr : 20;
         } data0;
 
         struct
         {
             unsigned int attribute : 3;
             unsigned int valid : 1;
-            unsigned int linear_addr : 20;
+            unsigned int linear_32b_addr : 20;
         } tag1;
         struct
         {
-            unsigned int physical_addr : 20;
+            unsigned int physical_32b_addr : 20;
         } data1;
 
         struct
         {
             unsigned int attribute : 3;
             unsigned int valid : 1;
-            unsigned int linear_addr : 20;
+            unsigned int linear_32b_addr : 20;
         } tag2;
         struct
         {
-            unsigned int physical_addr : 20;
+            unsigned int physical_32b_addr : 20;
         } data2;
 
         struct
         {
             unsigned int attribute : 3;
             unsigned int valid : 1;
-            unsigned int linear_addr : 20;
+            unsigned int linear_32b_addr : 20;
         } tag3;
         struct
         {
-            unsigned int physical_addr : 20;
+            unsigned int physical_32b_addr : 20;
         } data3;
 
         struct
         {
             unsigned int attribute : 3;
             unsigned int valid : 1;
-            unsigned int linear_addr : 20;
+            unsigned int linear_32b_addr : 20;
         } tag4;
         struct
         {
-            unsigned int physical_addr : 20;
+            unsigned int physical_32b_addr : 20;
         } data4;
 
         struct
         {
             unsigned int attribute : 3;
             unsigned int valid : 1;
-            unsigned int linear_addr : 20;
+            unsigned int linear_32b_addr : 20;
         } tag5;
         struct
         {
-            unsigned int physical_addr : 20;
+            unsigned int physical_32b_addr : 20;
         } data5;
 
         struct
         {
             unsigned int attribute : 3;
             unsigned int valid : 1;
-            unsigned int linear_addr : 20;
+            unsigned int linear_32b_addr : 20;
         } tag6;
         struct
         {
-            unsigned int physical_addr : 20;
+            unsigned int physical_32b_addr : 20;
         } data6;
 
         struct
         {
             unsigned int attribute : 3;
             unsigned int valid : 1;
-            unsigned int linear_addr : 20;
+            unsigned int linear_32b_addr : 20;
         } tag7;
         struct
         {
-            unsigned int physical_addr : 20;
+            unsigned int physical_32b_addr : 20;
         } data7;
     } set01;
 
@@ -319,88 +319,88 @@ typedef struct tlb_reg_st
         {
             unsigned int attribute : 3;
             unsigned int valid : 1;
-            unsigned int linear_addr : 20;
+            unsigned int linear_32b_addr : 20;
         } tag0;
         struct
         {
-            unsigned int physical_addr : 20;
+            unsigned int physical_32b_addr : 20;
         } data0;
 
         struct
         {
             unsigned int attribute : 3;
             unsigned int valid : 1;
-            unsigned int linear_addr : 20;
+            unsigned int linear_32b_addr : 20;
         } tag1;
         struct
         {
-            unsigned int physical_addr : 20;
+            unsigned int physical_32b_addr : 20;
         } data1;
 
         struct
         {
             unsigned int attribute : 3;
             unsigned int valid : 1;
-            unsigned int linear_addr : 20;
+            unsigned int linear_32b_addr : 20;
         } tag2;
         struct
         {
-            unsigned int physical_addr : 20;
+            unsigned int physical_32b_addr : 20;
         } data2;
 
         struct
         {
             unsigned int attribute : 3;
             unsigned int valid : 1;
-            unsigned int linear_addr : 20;
+            unsigned int linear_32b_addr : 20;
         } tag3;
         struct
         {
-            unsigned int physical_addr : 20;
+            unsigned int physical_32b_addr : 20;
         } data3;
 
         struct
         {
             unsigned int attribute : 3;
             unsigned int valid : 1;
-            unsigned int linear_addr : 20;
+            unsigned int linear_32b_addr : 20;
         } tag4;
         struct
         {
-            unsigned int physical_addr : 20;
+            unsigned int physical_32b_addr : 20;
         } data4;
 
         struct
         {
             unsigned int attribute : 3;
             unsigned int valid : 1;
-            unsigned int linear_addr : 20;
+            unsigned int linear_32b_addr : 20;
         } tag5;
         struct
         {
-            unsigned int physical_addr : 20;
+            unsigned int physical_32b_addr : 20;
         } data5;
 
         struct
         {
             unsigned int attribute : 3;
             unsigned int valid : 1;
-            unsigned int linear_addr : 20;
+            unsigned int linear_32b_addr : 20;
         } tag6;
         struct
         {
-            unsigned int physical_addr : 20;
+            unsigned int physical_32b_addr : 20;
         } data6;
 
         struct
         {
             unsigned int attribute : 3;
             unsigned int valid : 1;
-            unsigned int linear_addr : 20;
+            unsigned int linear_32b_addr : 20;
         } tag7;
         struct
         {
-            unsigned int physical_addr : 20;
+            unsigned int physical_32b_addr : 20;
         } data7;
     } set10;
 
@@ -410,88 +410,88 @@ typedef struct tlb_reg_st
         {
             unsigned int attribute : 3;
             unsigned int valid : 1;
-            unsigned int linear_addr : 20;
+            unsigned int linear_32b_addr : 20;
         } tag0;
         struct
         {
-            unsigned int physical_addr : 20;
+            unsigned int physical_32b_addr : 20;
         } data0;
 
         struct
         {
             unsigned int attribute : 3;
             unsigned int valid : 1;
-            unsigned int linear_addr : 20;
+            unsigned int linear_32b_addr : 20;
         } tag1;
         struct
         {
-            unsigned int physical_addr : 20;
+            unsigned int physical_32b_addr : 20;
         } data1;
 
         struct
         {
             unsigned int attribute : 3;
             unsigned int valid : 1;
-            unsigned int linear_addr : 20;
+            unsigned int linear_32b_addr : 20;
         } tag2;
         struct
         {
-            unsigned int physical_addr : 20;
+            unsigned int physical_32b_addr : 20;
         } data2;
 
         struct
         {
             unsigned int attribute : 3;
             unsigned int valid : 1;
-            unsigned int linear_addr : 20;
+            unsigned int linear_32b_addr : 20;
         } tag3;
         struct
         {
-            unsigned int physical_addr : 20;
+            unsigned int physical_32b_addr : 20;
         } data3;
 
         struct
         {
             unsigned int attribute : 3;
             unsigned int valid : 1;
-            unsigned int linear_addr : 20;
+            unsigned int linear_32b_addr : 20;
         } tag4;
         struct
         {
-            unsigned int physical_addr : 20;
+            unsigned int physical_32b_addr : 20;
         } data4;
 
         struct
         {
             unsigned int attribute : 3;
             unsigned int valid : 1;
-            unsigned int linear_addr : 20;
+            unsigned int linear_32b_addr : 20;
         } tag5;
         struct
         {
-            unsigned int physical_addr : 20;
+            unsigned int physical_32b_addr : 20;
         } data5;
 
         struct
         {
             unsigned int attribute : 3;
             unsigned int valid : 1;
-            unsigned int linear_addr : 20;
+            unsigned int linear_32b_addr : 20;
         } tag6;
         struct
         {
-            unsigned int physical_addr : 20;
+            unsigned int physical_32b_addr : 20;
         } data6;
 
         struct
         {
             unsigned int attribute : 3;
             unsigned int valid : 1;
-            unsigned int linear_addr : 20;
+            unsigned int linear_32b_addr : 20;
         } tag7;
         struct
         {
-            unsigned int physical_addr : 20;
+            unsigned int physical_32b_addr : 20;
         } data7;
 
     } set11;
@@ -576,10 +576,11 @@ typedef enum pin_state_enum
     ON = 1
 } _pin_state_enum;
 
-/* RAM */
-typedef unsigned long *_physical_memory_ptr;
+/* memory */
 typedef unsigned char _byte;
-typedef unsigned long _addr;
+typedef unsigned long _32b_addr;
+typedef _32b_addr *_physical_memory_ptr;
+typedef _32b_addr *_IO_ptr;
 
 /* INterrupts */
 typedef struct interrupts_flags_st

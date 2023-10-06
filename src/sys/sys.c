@@ -30,6 +30,12 @@ void sys_init(void)
 #endif
     physical_memory_ptr = physical_memory_start();
 
+    /* Start IO memory */
+#ifdef DBG
+    printf("== Start IO memory\n");
+#endif
+    IO_ptr = IO_start();
+
     /* Initilize registers */
 #ifdef DBG
     printf("== Initialize registers\n");

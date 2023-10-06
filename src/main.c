@@ -20,6 +20,7 @@ _sys_cond_st sys_cond_st = {0}; // Processor system  condition is recorder here.
 _bus16 A3120 = 0; // Address lines 20->31 (12 bits), asserted at reset
 _pins pins;
 _physical_memory_ptr physical_memory_ptr;
+_IO_ptr IO_ptr;
 _general_regs_st general_regs_st;
 _segment_regs_st segment_regs_st;
 _eflag_reg_st eflag_reg_st;
@@ -68,7 +69,7 @@ int main(int argc, char **argv)
         idtr_st.limit = 0UL; // casues shutdown in case of interruption
         interrupts_flags_st.exceptions.trap.overflow = 1;
         check_and_service_interrupts();
-        // instruction execution
+        // instruction executio
         break;
     }
 

@@ -17,38 +17,32 @@ void err_print(void)
     case _STATUS_SYSTEM_SHUTDOWN:
         printf("_STATUS_SYSTEM_SHUTDOWN (code %d)\n", status);
         break;
-    case 3:
+    case _STATUS_DEVICE_BOOT_SIG_NOT_FOUND:
         printf("_STATUS_DEVICE_BOOT_SIG_NOT_FOUND (code %d)\n", status);
         break;
-    case 2:
+    case _STATUS_NO_DEVICE:
         printf("_STATUS_NO_DEVICE (code %d)\n", status);
         break;
-    case -1:
-        printf("_ERR_RAM_ADDR_OUTRANGE (code %d)\n", status);
+    case _ERR_PYSICAL_MEMORY_ADDR_OUTRANGE:
+        printf("_ERR_PYSICAL_MEMORY_ADDR_OUTRANGE (code %d)\n", status);
         break;
-    case -2:
+    case _ERR_PHYSICAL_MEMORY_MALLOC:
         printf("_ERR_PHYSICAL_MEMORY_MALLOC (code %d)\n", status);
         break;
-    case -3:
-        printf("_ERR_RAM_NULL_POINTER_ARG (code %d)\n", status);
+    case _ERR_PHYSICAL_MEMORY_NULL_POINTER_ARG:
+        printf("_ERR_PHYSICAL_MEMORY_NULL_POINTER_ARG (code %d)\n", status);
         break;
-    case -4:
-        printf("_ERR_REG_NULL_POINTER_ARG (code %d)\n", status);
-        break;
-    case -5:
-        printf("_ERR_PIN_NULL_POINTER_ARG (code %d)\n", status);
-        break;
-    case -6:
-        printf("_ERR_SYS_NULL_POINTER_ARG (code %d)\n", status);
-        break;
-    case -7:
-        printf("_ERR_REG_INIT (code %d)\n", status);
-        break;
-    case -8:
+    case _ERR_BIOS_NULL_POINTER_ARG:
         printf("_ERR_BIOS_NULL_POINTER_ARG (code %d)\n", status);
         break;
-    case -9:
+    case _ERR_REG_INIT:
+        printf("_ERR_REG_INIT (code %d)\n", status);
+        break;
+    case _ERR_OPEN_DEVICE_NOK:
         printf("_ERR_OPEN_DEVICE_NOK (code %d)\n", status);
+        break;
+    case _ERR_IO_MEMORY_ADDR_OUTRANGE:
+        printf("_ERR_IO_MEMORY_ADDR_OUTRANGE (code %d)\n", status);
         break;
     default:
         printf("Unknown error code! (code %d)\n", status);
@@ -62,7 +56,11 @@ void err_handler(char *message)
     // Error are handeled here
     switch (status)
     {
-    case _ERR_RAM_ADDR_OUTRANGE:
+    case _ERR_IO_MEMORY_ADDR_OUTRANGE:
+        printf("----------| Exit Emulator |---------\n");
+        exit(status);
+        break;
+    case _ERR_PYSICAL_MEMORY_ADDR_OUTRANGE:
         printf("----------| Exit Emulator |---------\n");
         exit(status);
         break;
@@ -70,19 +68,11 @@ void err_handler(char *message)
         printf("----------| Exit Emulator |---------\n");
         exit(status);
         break;
-    case _ERR_RAM_NULL_POINTER_ARG:
+    case _ERR_PHYSICAL_MEMORY_NULL_POINTER_ARG:
         printf("----------| Exit Emulator |---------\n");
         exit(status);
         break;
-    case _ERR_REG_NULL_POINTER_ARG:
-        printf("----------| Exit Emulator |---------\n");
-        exit(status);
-        break;
-    case _ERR_PIN_NULL_POINTER_ARG:
-        printf("----------| Exit Emulator |---------\n");
-        exit(status);
-        break;
-    case _ERR_SYS_NULL_POINTER_ARG:
+    case _ERR_BIOS_NULL_POINTER_ARG:
         printf("----------| Exit Emulator |---------\n");
         exit(status);
         break;
@@ -100,10 +90,6 @@ void err_handler(char *message)
         printf("----------| Exit Emulator |---------\n");
         exit(status);
         break;
-    case _ERR_BIOS_NULL_POINTER_ARG:
-        printf("----------| Exit Emulator |---------\n");
-        exit(status);
-        break;
     case _STATUS_SYSTEM_SHUTDOWN:
         printf("----------| Exit Emulator |---------\n");
         exit(status);
@@ -115,6 +101,7 @@ void err_handler(char *message)
         break;
 
     default: // Handle case error code is not known
+        printf("Event not handled\n");
         printf("----------| Exit Emulator |---------\n");
         exit(status);
     }

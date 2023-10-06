@@ -8,12 +8,14 @@
 #include "../status/status.h"
 #include "../memory/physical_memory.h"
 #include "../memory/registers.h"
+#include "../memory/IO.h"
 
 extern _sys_cond_st sys_cond_st;
 extern int status;
 extern _bus16 A3120;
 extern _pins pins;
 extern _physical_memory_ptr physical_memory_ptr;
+extern _IO_ptr IO_ptr;
 extern _general_regs_st general_regs_st;
 extern _segment_regs_st segment_regs_st;
 extern _eflag_reg_st eflag_reg_st;
