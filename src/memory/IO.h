@@ -3,6 +3,12 @@
 
 #include "../typedefs.h"
 #include "../status/status.h"
+/**
+I/O Addressing:
+    - separate I/O address space (using specific I/O instructions)
+    - Memory-mapped I/O (using general-purpose operand manipulationinstructions).
+*/
+
 
 extern int status;
 

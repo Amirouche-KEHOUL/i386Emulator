@@ -579,8 +579,8 @@ typedef enum pin_state_enum
 /* memory */
 typedef unsigned char _byte;
 typedef unsigned long _32b_addr;
-typedef _32b_addr *_physical_memory_ptr;
-typedef _32b_addr *_IO_ptr;
+typedef _byte *_physical_memory_ptr;
+typedef _byte *_IO_ptr;
 
 /* INterrupts */
 typedef struct interrupts_flags_st

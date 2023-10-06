@@ -29,7 +29,7 @@ unsigned int bios_is_bootable(FILE *device_name)
     if ((boot_sig[0] == 0x55) & (boot_sig[1] == 0xAA))
     {
 #ifdef DBG
-        printf("(bootable).\n");
+        printf("== Disk is bootable\n");
 #endif
         return _DEVICE_IS_BOOTABLE;
     }

@@ -43,7 +43,7 @@ FILE *open_file_ro(char *device_name)
         err_handler(device_name);
     }
 #ifdef DBG
-    printf("Disk : %s ", device_name);
+    printf("Disk : %s \n", device_name);
 #endif
 
     return device;

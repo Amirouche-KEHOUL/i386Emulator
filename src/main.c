@@ -3,16 +3,16 @@
 #include <stdio.h>
 #include <unistd.h>
 #include "typedefs.h"
-#include "status/status.h"
-#include "bios/bios.h"
+#include "sys/sys.h"
 #include "config.h"
+#include "status/status.h"
+#include "pins/pins.h"
+#include "bios/bios.h"
 #include "memory/physical_memory.h"
 #include "memory/registers.h"
-#include "pins/pins.h"
-#include "screen/screen.h"
-#include "utils/utils.h"
+#include "memory/address_translator.h"
 #include "interrupts/interrupts.h"
-#include "sys/sys.h"
+#include "utils/utils.h"
 
 int status = _STATUS_OK;        // Errors/warning reported by functions. [status = 0]=>OK, [status > 0 ]=>warnig, [status <0 ]=>error.
 _sys_cond_st sys_cond_st = {0}; // Processor system  condition is recorder here.
@@ -45,11 +45,11 @@ int main(int argc, char **argv)
         err_handler("");
     }
 
-    /* Initialize system */
-    sys_init();
-
     /* Load bootable device file */
     FILE *device = open_file_ro(argv[1]);
+    
+    /* Initialize system */
+    sys_init();
 
     /* Check is device is bootable */
     bios_is_bootable(device);
@@ -65,9 +65,6 @@ int main(int argc, char **argv)
     while (1)
     {
         // system
-        // test
-        idtr_st.limit = 0UL; // casues shutdown in case of interruption
-        interrupts_flags_st.exceptions.trap.overflow = 1;
         check_and_service_interrupts();
         // instruction executio
         break;

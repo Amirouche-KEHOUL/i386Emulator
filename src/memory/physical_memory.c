@@ -49,6 +49,7 @@ void physical_memory_write(_byte byte, _physical_memory_ptr physical_memory_ptr,
 _physical_memory_ptr physical_memory_start(void)
 {
     _physical_memory_ptr physical_memory_ptr = (_physical_memory_ptr)malloc(_PHYSICAL_MEMORY_ADDRESS_SPACE);
+    
     if (physical_memory_ptr == NULL)
     {
         status = _ERR_PHYSICAL_MEMORY_MALLOC;
