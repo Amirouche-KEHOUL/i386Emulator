@@ -31,7 +31,7 @@ extern _tlb_reg_st tlb_reg_st;
  * @par Specifications:
  * [SPEC-10.1.4]
  */
-void reg_init_idtr(void);
+void init_idtr_reg(void);
 
 /**
  * @brief Initialize segment registers
@@ -40,7 +40,7 @@ void reg_init_idtr(void);
  * @par Specifications:
  * [SPEC-10.1.4]
  */
-void reg_init_seg(void);
+void init_seg_reg(void);
 
 /**
  * @brief Inilialize Intruction pointer
@@ -49,7 +49,7 @@ void reg_init_seg(void);
  * @par Specifications:
  * [SPEC-10.1.4]
  */
-void reg_init_eip(void);
+void init_eip_reg(void);
 
 /**
  * @brief Inilialize the general purpose registers
@@ -60,7 +60,7 @@ void reg_init_eip(void);
  * @par Specifications:
  * [SPEC-10.1.1-2]
  */
-void reg_init_gen(void);
+void init_gen_reg(void);
 
 /**
  * @brief Initialize EFLAGS
@@ -69,7 +69,7 @@ void reg_init_gen(void);
  * @par Specifications:
  * [SPEC-10.1.4]
  */
-void reg_init_eflags(void);
+void init_eflags_reg(void);
 
 /**
  * @brief Initialize the conrtol register 0
@@ -78,6 +78,6 @@ void reg_init_eflags(void);
  * @par Specification:
  * [SPEC-10.1.3]
  */
-void reg_init_cr0(void);
+void init_cr0_reg(void);
 
 #endif //_REGISTERS_H_

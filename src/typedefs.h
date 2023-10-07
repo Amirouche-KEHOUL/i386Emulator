@@ -1,6 +1,7 @@
 #ifndef _TYPEDEFS_H_
 #define _TYPEDEFS_H_
 
+typedef unsigned char _reg8;
 typedef unsigned int _reg16;
 typedef unsigned long _reg32;
 typedef unsigned int _bus16;
@@ -54,16 +55,66 @@ typedef struct general_reg_st
     } ESP;
 } _general_regs_st;
 
+// Data segment descriptor
+typedef struct data_segment_descriptor_st
+{
+    _reg32 base;
+    _reg16 limit : 20;
+    _reg8 segment_present : 1;               // P
+    _reg8 granularity : 1;                   // G
+    _reg8 descriptor_privilege_level : 1;    // DPL
+    _reg8 available_for_programmer_user : 1; // AVL
+    _reg8 big : 1;                           // B
+    _reg8 expand_down : 1;                   // E
+    _reg8 writable : 1;                      // W
+    _reg8 accessed : 1;                      // A
+} _data_segment_descriptor_st;
+
+// Code segment descriptor
+typedef struct code_segment_descriptor_st
+{
+    _reg32 base;
+    _reg16 limit : 20;
+    _reg8 segment_present : 1;               // P
+    _reg8 granularity : 1;                   // G
+    _reg8 descriptor_privilege_level : 1;    // DPL
+    _reg8 available_for_programmer_user : 1; // AVL
+    _reg8 DEFAULT : 1;                       // D
+    _reg8 conforming : 1;                    // C
+    _reg8 readable : 1;                      // R
+    _reg8 accessed : 1;                      // A
+} _code_segment_descriptor_st;
+
+// System segment descriptor
+typedef struct system_segment_descriptor_st
+{
+    _reg32 base;
+    _reg16 limit : 20;
+    _reg8 segment_present : 1;               // P
+    _reg8 granularity : 1;                   // G
+    _reg8 descriptor_privilege_level : 1;    // DPL
+    _reg8 available_for_programmer_user : 1; // AVL
+    // TODO: add TYPE field ?
+} _system_segment_descriptor_st;
+
 // 16-bit segement registers
 typedef struct segment_reg_st
 {
-    _reg16 CS; // code selector
-    _reg16 SS; // stack selector
+    _reg16 CS; // Code segmment : The segment containing the currently executing sequence of instructions.
+    _reg16 SS; // Stack segment
     /* data segments */
     _reg16 DS;
     _reg16 ES;
     _reg16 FS;
     _reg16 GS;
+    // Hidden part (seen only by the processor)
+    _code_segment_descriptor_st *CS_hidden_code_segment_descriptor;
+    _system_segment_descriptor_st *SS_hidden_stack_segment_descriptor; // TODO: TBC the the type of the descriptor
+    _data_segment_descriptor_st *DS_hidden_data_segment_descriptor;
+    _data_segment_descriptor_st *ES_hidden_data_segment_descriptor;
+    _data_segment_descriptor_st *FS_hidden_data_segment_descriptor;
+    _data_segment_descriptor_st *GS_hidden_data_segment_descriptor;
+
 } _segment_regs_st;
 
 // EFLAG register._s = status, _c = control, _x= system flag
@@ -100,6 +151,7 @@ typedef struct eip_st
 // Memory management registers
 typedef _reg32 _gdtr_reg; // Global Descriptor Table Register. TODO : should store base + limit addresses. size TBC
 typedef _reg32 _ldtr_reg; // Local Descriptor Table Register. TODO : should store base + limit addresses. size TBC
+
 // Interrupt Descriptor Table Register
 typedef struct idtr_st
 {
@@ -125,8 +177,9 @@ typedef struct cr0_reg_st
     unsigned int ET : 1; // Extension Type
     unsigned int PG : 1; // Paging
 } _cr0_reg_st;
+
 typedef _reg32 _cr2_reg;      // Page fault linear address
-typedef _reg32 _cr3_reg_pdbr; // Page directory base register
+typedef _reg32 _cr3_reg_pdbr; // Page directory base register. Stores the physical address of the current page directory
 
 // TLB Translation lookaside Buffer
 typedef struct tlb_reg_st

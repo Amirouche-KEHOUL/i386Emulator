@@ -40,12 +40,12 @@ void sys_init(void)
 #ifdef DBG
     printf("== Initialize registers\n");
 #endif
-    reg_init_eflags();
-    reg_init_eip();
-    reg_init_seg();
-    reg_init_gen();
-    reg_init_cr0();
-    reg_init_idtr();
+    init_eflags_reg();
+    init_eip_reg();
+    init_seg_reg();
+    init_gen_reg();
+    init_cr0_reg();
+    init_idtr_reg();
 
 /* Assert A{31-20} address lines (Chapter 10.2.3)*/
 #ifdef DBG
