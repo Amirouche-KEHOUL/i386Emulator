@@ -15,10 +15,10 @@ extern int status;
 #define _IO_ADDRESS_SPACE 65536UL // 64K. This Value should not be changed!
 
 /*Reads a byte from the IO space */
-_byte IO_read(_IO_ptr IO_ptr, _32b_addr addr);
+_byte IO_read(_IO_ptr IO_ptr, _32addr addr);
 
 /*Writes a byte to the IO space */
-void IO_write(_byte byte, _IO_ptr IO_ptr, _32b_addr addr);
+void IO_write(_byte byte, _IO_ptr IO_ptr, _32addr addr);
 
 /*Allocate memory and inits the  IO memory*/
 _IO_ptr IO_start(void);

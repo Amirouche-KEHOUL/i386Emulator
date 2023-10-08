@@ -3,9 +3,9 @@
 
 #include "physical_memory.h"
 
-_byte physical_memory_read(_physical_memory_ptr physical_memory_ptr, _32b_addr addr)
+_byte physical_memory_read(_physical_memory_ptr physical_memory_ptr, _32addr addr)
 {
-    // check if _32b_addr < _PHYSICAL_MEMORY_ADDRESS_SPACE
+    // check if _32addr < _PHYSICAL_MEMORY_ADDRESS_SPACE
     if (addr >= _PHYSICAL_MEMORY_ADDRESS_SPACE)
     {
         status = _ERR_PYSICAL_MEMORY_ADDR_OUTRANGE;
@@ -24,9 +24,9 @@ _byte physical_memory_read(_physical_memory_ptr physical_memory_ptr, _32b_addr a
     return physical_memory_ptr[addr];
 }
 
-void physical_memory_write(_byte byte, _physical_memory_ptr physical_memory_ptr, _32b_addr addr)
+void physical_memory_write(_byte byte, _physical_memory_ptr physical_memory_ptr, _32addr addr)
 {
-    // check if _32b_addr < _PHYSICAL_MEMORY_ADDRESS_SPACE
+    // check if _32addr < _PHYSICAL_MEMORY_ADDRESS_SPACE
     if (addr >= _PHYSICAL_MEMORY_ADDRESS_SPACE)
     {
         status = _ERR_PYSICAL_MEMORY_ADDR_OUTRANGE;

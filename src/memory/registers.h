@@ -14,10 +14,16 @@ extern _pins pins;
 extern _physical_memory_ptr physical_memory_ptr;
 extern _general_regs_st general_regs_st;
 extern _segment_regs_st segment_regs_st;
+extern _code_segment_descriptor_st CS_hidden_code_segment_descriptor;
+extern _system_segment_descriptor_st SS_hidden_stack_segment_descriptor;
+extern _data_segment_descriptor_st DS_hidden_data_segment_descriptor;
+extern _data_segment_descriptor_st ES_hidden_data_segment_descriptor;
+extern _data_segment_descriptor_st FS_hidden_data_segment_descriptor;
+extern _data_segment_descriptor_st GS_hidden_data_segment_descriptor;
+extern _dtr_reg_st gdtr_reg_st;
+extern _dtr_reg_st ldtr_reg_st;
 extern _eflag_reg_st eflag_reg_st;
 extern _eip_st eip_st;
-extern _gdtr_reg gdtr_reg;
-extern _ldtr_reg ldtr_reg;
 extern _idtr_st idtr_st;
 extern _interrupts_flags_st interrupts_flags_st;
 extern _task_reg_st task_reg_st;
@@ -35,8 +41,6 @@ void init_idtr_reg(void);
 
 /**
  * @brief Initialize segment registers
- *
- * @param segment_reg_st
  * @par Specifications:
  * [SPEC-10.1.4]
  */
@@ -44,8 +48,6 @@ void init_seg_reg(void);
 
 /**
  * @brief Inilialize Intruction pointer
- *
- * @param eip_st
  * @par Specifications:
  * [SPEC-10.1.4]
  */
@@ -53,9 +55,6 @@ void init_eip_reg(void);
 
 /**
  * @brief Inilialize the general purpose registers
- *
- * @param _general_regs_st
- * @param pins
  * @param sys_cond_st: global variable storing the system condition values.
  * @par Specifications:
  * [SPEC-10.1.1-2]
@@ -64,8 +63,6 @@ void init_gen_reg(void);
 
 /**
  * @brief Initialize EFLAGS
- *
- * @param eflag_register
  * @par Specifications:
  * [SPEC-10.1.4]
  */
@@ -73,11 +70,16 @@ void init_eflags_reg(void);
 
 /**
  * @brief Initialize the conrtol register 0
- *
- * @param cr0_reg_st
  * @par Specification:
  * [SPEC-10.1.3]
  */
 void init_cr0_reg(void);
+
+/**
+ * @brief Initialize the global and local descriptor tables
+ * @par Specification:
+ * [SPEC-10.1.3]
+ */
+void init_dtr_regs(void);
 
 #endif //_REGISTERS_H_

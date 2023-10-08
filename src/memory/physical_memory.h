@@ -31,10 +31,10 @@ cycles
 #define _PHYSICAL_MEMORY_ADDRESS_SPACE 4294967296UL // 4G. This Value should not be changed!
 
 /*Reads a byte from the physical memory*/
-_byte physical_memory_read(_physical_memory_ptr physical_memory_ptr, _32b_addr addr);
+_byte physical_memory_read(_physical_memory_ptr physical_memory_ptr, _32addr addr);
 
 /*Writes a byte to the physical memory*/
-void physical_memory_write(_byte byte, _physical_memory_ptr physical_memory_ptr, _32b_addr addr);
+void physical_memory_write(_byte byte, _physical_memory_ptr physical_memory_ptr, _32addr addr);
 
 /*Allocate memory and inits the  physical memory*/
 _physical_memory_ptr physical_memory_start(void);

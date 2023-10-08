@@ -7,7 +7,7 @@ OBJ = build/main.o build/bios/bios.o build/sys/sys.o build/status/status.o build
 
 BINDIRS = bin/ build/memory build/pins build/status build/sys build/bios build/utils build/interrupts
 
-OP = -std=c99 -Wall -Wvla -g -Wno-unused-variable -D DBG
+OP = -std=c99 -Wall -Wvla -g -Wno-unused-variable -Wno-unused-but-set-variable -D DBG 
 
 GCC=gcc
 

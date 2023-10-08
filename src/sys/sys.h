@@ -12,7 +12,7 @@
 
 extern _sys_cond_st sys_cond_st;
 extern int status;
-extern _bus16 A3120;
+extern _16bus A3120;
 extern _pins pins;
 extern _physical_memory_ptr physical_memory_ptr;
 extern _IO_ptr IO_ptr;

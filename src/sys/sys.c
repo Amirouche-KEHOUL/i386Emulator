@@ -46,6 +46,7 @@ void sys_init(void)
     init_gen_reg();
     init_cr0_reg();
     init_idtr_reg();
+    init_dtr_regs();
 
 /* Assert A{31-20} address lines (Chapter 10.2.3)*/
 #ifdef DBG

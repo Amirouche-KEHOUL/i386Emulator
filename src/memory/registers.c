@@ -11,6 +11,13 @@ void init_seg_reg(void)
     segment_regs_st.SS = _CONF_RESET_DEFAULT_SS;
     segment_regs_st.FS = _CONF_RESET_DEFAULT_FS;
     segment_regs_st.GS = _CONF_RESET_DEFAULT_GS;
+
+    segment_regs_st.CS_hidden_code_segment_descriptor = &CS_hidden_code_segment_descriptor;
+    segment_regs_st.DS_hidden_data_segment_descriptor = &DS_hidden_data_segment_descriptor;
+    segment_regs_st.ES_hidden_data_segment_descriptor = &ES_hidden_data_segment_descriptor;
+    segment_regs_st.SS_hidden_stack_segment_descriptor = &SS_hidden_stack_segment_descriptor;
+    segment_regs_st.FS_hidden_data_segment_descriptor = &FS_hidden_data_segment_descriptor;
+    segment_regs_st.GS_hidden_data_segment_descriptor = &GS_hidden_data_segment_descriptor;
 }
 
 void init_eip_reg(void)
@@ -86,4 +93,10 @@ void init_idtr_reg(void)
 {
     idtr_st.base = _CONF_RESET_DEFAULT_BASE_IDTR;
     idtr_st.limit = _CONF_RESET_DEFAULT_LIMIT_IDTR;
+}
+
+void init_dtr_regs(void)
+{
+    gdtr_reg_st.type = _GDT;
+    ldtr_reg_st.type = _LDT;
 }

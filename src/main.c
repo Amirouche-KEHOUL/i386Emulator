@@ -17,16 +17,22 @@
 int status = _STATUS_OK;        // Errors/warning reported by functions. [status = 0]=>OK, [status > 0 ]=>warnig, [status <0 ]=>error.
 _sys_cond_st sys_cond_st = {0}; // Processor system  condition is recorder here.
 
-_bus16 A3120 = 0; // Address lines 20->31 (12 bits), asserted at reset
+_16bus A3120 = 0; // Address lines 20->31 (12 bits), asserted at reset
 _pins pins = 0;
 _physical_memory_ptr physical_memory_ptr = NULL;
 _IO_ptr IO_ptr = NULL;
 _general_regs_st general_regs_st = {0};
 _segment_regs_st segment_regs_st = {0};
+_code_segment_descriptor_st CS_hidden_code_segment_descriptor = {0};
+_system_segment_descriptor_st SS_hidden_stack_segment_descriptor = {0};
+_data_segment_descriptor_st DS_hidden_data_segment_descriptor = {0};
+_data_segment_descriptor_st ES_hidden_data_segment_descriptor = {0};
+_data_segment_descriptor_st FS_hidden_data_segment_descriptor = {0};
+_data_segment_descriptor_st GS_hidden_data_segment_descriptor = {0};
 _eflag_reg_st eflag_reg_st = {0};
 _eip_st eip_st = {0};
-_gdtr_reg gdtr_reg = {0};
-_ldtr_reg ldtr_reg = {0};
+_dtr_reg_st gdtr_reg_st = {0};
+_dtr_reg_st ldtr_reg_st = {0};
 _idtr_st idtr_st = {0};
 _interrupts_flags_st interrupts_flags_st = {0};
 _task_reg_st task_reg_st = {0};
@@ -60,13 +66,16 @@ int main(int argc, char **argv)
 #ifdef DBG
     printf("== LOAD MSB (Master Boot Record) to physical memory location 0x%X\n", _MBR_LOAD_RAM_ADDR);
 #endif
-
+    _code_segment_descriptor_st code_seg = {0};
+    code_seg.base = 1024UL;
     // Processor starts in real mode
     while (1)
     {
+        // test
+        translate_segment(15UL, &code_seg, _CODE_SEGMENT);
         // system
         check_and_service_interrupts();
-        // instruction executio
+        // instruction execution
         break;
     }
 
