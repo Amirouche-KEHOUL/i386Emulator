@@ -26,6 +26,7 @@
         "interrupts.h": "c",
         "config.h": "c",
         "cstdlib": "c",
-        "typedefs.h": "c"
+        "typedefs.h": "c",
+        "address_translator.h": "c"
     }
 }
