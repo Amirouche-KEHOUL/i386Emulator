@@ -3,9 +3,9 @@
 
 #include "IO.h"
 
-_byte IO_read(_IO_ptr IO_ptr, _32addr addr)
+_byte IO_read(_IO_ptr IO_ptr, _32_physical_addr addr)
 {
-    // check if _32addr < _IO_ADDRESS_SPACE
+    // check if addr < _IO_ADDRESS_SPACE
     if (addr >= _IO_ADDRESS_SPACE)
     {
         status = _ERR_IO_MEMORY_ADDR_OUTRANGE;
@@ -24,9 +24,9 @@ _byte IO_read(_IO_ptr IO_ptr, _32addr addr)
     return IO_ptr[addr];
 }
 
-void IO_write(_byte byte, _IO_ptr IO_ptr, _32addr addr)
+void IO_write(_byte byte, _IO_ptr IO_ptr, _32_physical_addr addr)
 {
-    // check if _32addr < _IO_ADDRESS_SPACE
+    // check if addr < _IO_ADDRESS_SPACE
     if (addr >= _IO_ADDRESS_SPACE)
     {
         status = _ERR_IO_MEMORY_ADDR_OUTRANGE;

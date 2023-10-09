@@ -2,18 +2,18 @@
 #define _TYPEDEFS_H_
 
 // TODO: change the location of these defines?
-#define _GDT 0
-#define _LDT 1
+#define _GDT 0U
+#define _LDT 1U
 
 #define _CODE_SEGMENT_DESCRIPTOR 1U
 #define _DATA_SEGMENT_DESCRIPTOR 2U
 #define _SYS_SEGMENT_DESCRIPTOR 3U
-#define _CS_REG 0U
-#define _SS_REG 1U
-#define _DS_REG 2U
-#define _ES_REG 3U
-#define _FS_REG 4U
-#define _GS_REG 5U
+#define _CS_REG 0
+#define _SS_REG 1
+#define _DS_REG 2
+#define _ES_REG 3
+#define _FS_REG 4
+#define _GS_REG 5
 #define _NOT_READABLE_CODE_SEGMENT 0U
 #define _NOT_WRITABLE_CODE_SEGMENT 0U
 #define _READABLE_CODE_SEGMENT 1U
@@ -25,7 +25,9 @@ typedef unsigned long _32reg;
 typedef unsigned int _16bus;
 typedef unsigned char _byte;
 typedef unsigned char _16addr;
-typedef unsigned long _32addr;
+typedef unsigned long _32_linear_addr;
+typedef unsigned long _32_logical_addr;
+typedef unsigned long _32_physical_addr;
 
 // 32-bit general-perpose register
 typedef struct general_reg_st
@@ -189,8 +191,8 @@ typedef struct eip_st
 // Memory management registers
 typedef struct dtr_reg_st // Descriptor Table Register. TODO : should store base + limit addresses. size TBC
 {
-    _32addr DTR;
-    int type; // _GDT or _LDT
+    _32_linear_addr DTR; //
+    int type;            // _GDT or _LDT
 } _dtr_reg_st;
 
 // Interrupt Descriptor Table Register
@@ -676,7 +678,7 @@ typedef _byte *_IO_ptr;
 
 typedef struct selector_st
 {
-    _16reg index : 13;
+    _16reg index : 13;                    // Selects one of 8192 descriptors in a descriptor table. The processor multiplies this index value by 8(the length of a descriptor)
     _16reg table_indicator : 1;           //  If 0 -> _GDT. If 1 -> _LDT
     _16reg requestor_privilege_level : 2; // 0->3 : 0 == highest privilege
 
