@@ -24,7 +24,7 @@ _IO_ptr IO_ptr = NULL;
 _general_regs_st general_regs_st = {0};
 _segment_regs_st segment_regs_st = {0};
 _code_segment_descriptor_st CS_hidden_code_segment_descriptor = {0};
-_system_segment_descriptor_st SS_hidden_stack_segment_descriptor = {0};
+_data_segment_descriptor_st SS_hidden_stack_segment_descriptor = {0};
 _data_segment_descriptor_st DS_hidden_data_segment_descriptor = {0};
 _data_segment_descriptor_st ES_hidden_data_segment_descriptor = {0};
 _data_segment_descriptor_st FS_hidden_data_segment_descriptor = {0};
@@ -72,7 +72,8 @@ int main(int argc, char **argv)
     while (1)
     {
         // test
-        translate_segment(15UL, &code_seg, _CODE_SEGMENT);
+        translate_segment(15UL, &code_seg, _CODE_SEGMENT_DESCRIPTOR);
+
         // system
         check_and_service_interrupts();
         // instruction execution

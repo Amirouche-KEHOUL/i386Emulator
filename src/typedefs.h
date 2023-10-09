@@ -5,6 +5,20 @@
 #define _GDT 0
 #define _LDT 1
 
+#define _CODE_SEGMENT_DESCRIPTOR 1U
+#define _DATA_SEGMENT_DESCRIPTOR 2U
+#define _SYS_SEGMENT_DESCRIPTOR 3U
+#define _CS_REG 0U
+#define _SS_REG 1U
+#define _DS_REG 2U
+#define _ES_REG 3U
+#define _FS_REG 4U
+#define _GS_REG 5U
+#define _NOT_READABLE_CODE_SEGMENT 0U
+#define _NOT_WRITABLE_CODE_SEGMENT 0U
+#define _READABLE_CODE_SEGMENT 1U
+#define _WRITABLE_CODE_SEGMENT 1U
+
 typedef unsigned char _8reg;
 typedef unsigned int _16reg;
 typedef unsigned long _32reg;
@@ -66,42 +80,47 @@ typedef struct general_reg_st
 typedef struct data_segment_descriptor_st
 {
     _32reg base;
-    _16reg limit : 20;
-    _8reg segment_present : 1;               // P
-    _8reg granularity : 1;                   // G
-    _8reg descriptor_privilege_level : 1;    // DPL
-    _8reg available_for_programmer_user : 1; // AVL
-    _8reg big : 1;                           // B
-    _8reg expand_down : 1;                   // E
-    _8reg writable : 1;                      // W : specifies whether instructions can write into the segment
-    _8reg accessed : 1;                      // A
+    _32reg limit : 20;
+    _32reg segment_present : 1;               // P
+    _32reg descriptor_privilege_level : 2;    // DPL
+    _32reg Code_data_OR_sys_segment : 1;      // CODE/DATA OR system.Must be set to (1) here.
+    _32reg executable : 1;                    // Must be set to (0) here.
+    _32reg available_for_programmer_user : 1; // AVL
+    _32reg granularity : 1;                   // G: If clear (0), the Limit is in 1 Byte blocks (byte granularity). If set (1), the Limit is in 4 KiB blocks (page granularity).
+    _32reg big : 1;                           // B:if clear (0), the descriptor defines a 16-bit protected mode segment. If set (1) it defines a 32-bit protected mode segment. A GDT can have both 16-bit and 32-bit selectors at once.
+    _32reg expand_down : 1;                   // E: is clear (0), segments expands grows UP is set (1) it grows down.
+    _32reg writable : 1;                      // W : specifies whether instructions can write into the segment
+    _32reg accessed : 1;                      // A: accessed bit. The CPU will set it when the segment is accessed unless set to 1 in advance. This means that in case the GDT descriptor is stored in read only pages and this bit is set to 0, the CPU trying to set this bit will trigger a page fault. Best left set to 1 unless otherwise needed.
 } _data_segment_descriptor_st;
 
 // Code segment descriptor
 typedef struct code_segment_descriptor_st
 {
     _32reg base;
-    _16reg limit : 20;
-    _8reg segment_present : 1;               // P
-    _8reg granularity : 1;                   // G
-    _8reg descriptor_privilege_level : 1;    // DPL
-    _8reg available_for_programmer_user : 1; // AVL
-    _8reg DEFAULT : 1;                       // D
-    _8reg conforming : 1;                    // C
-    _8reg readable : 1;                      // R : specifies whether instructions are allowed to read from the segment
-    _8reg accessed : 1;                      // A
+    _32reg limit : 20;
+    _32reg segment_present : 1;               // P
+    _32reg descriptor_privilege_level : 2;    // DPL
+    _32reg Code_data_OR_sys_segment : 1;      // CODE/DATA OR system.Must be set to (1) here.
+    _32reg executable : 1;                    // Must be set to (1) here.
+    _32reg granularity : 1;                   // G: If clear (0), the Limit is in 1 Byte blocks (byte granularity). If set (1), the Limit is in 4 KiB blocks (page granularity).
+    _32reg available_for_programmer_user : 1; // AVL
+    _32reg DEFAULT : 1;                       // D: if clear (0), the descriptor defines a 16-bit protected mode segment. If set (1) it defines a 32-bit protected mode segment. A GDT can have both 16-bit and 32-bit selectors at once.(TODO : confirm the comment)
+    _32reg conforming : 1;                    // C: If clear (0) code in this segment can only be executed from the ring set in DPL.If set (1) code in this segment can be executed from an equal or lower privilege level
+    _32reg readable : 1;                      // R : if (1) segment is readable. Specifies whether instructions are allowed to read from the segment
+    _32reg accessed : 1;                      // A : Accessed bit. The CPU will set it when the segment is accessed unless set to 1 in advance. This means that in case the GDT descriptor is stored in read only pages and this bit is set to 0, the CPU trying to set this bit will trigger a page fault. Best left set to 1 unless otherwise needed.
 } _code_segment_descriptor_st;
 
 // System segment descriptor
 typedef struct system_segment_descriptor_st
 {
     _32reg base;
-    _16reg limit : 20;
-    _8reg segment_present : 1;               // P
-    _8reg granularity : 1;                   // G
-    _8reg descriptor_privilege_level : 1;    // DPL
-    _8reg available_for_programmer_user : 1; // AVL
-    // TODO: add TYPE field ?
+    _32reg limit : 20;
+    _32reg segment_present : 1;               // P
+    _32reg descriptor_privilege_level : 1;    // DPL
+    _32reg Code_data_OR_sys_segment : 1;      // CODE/DATA OR system.Must be set to (0) here.
+    _32reg granularity : 1;                   // G: If clear (0), the Limit is in 1 Byte blocks (byte granularity). If set (1), the Limit is in 4 KiB blocks (page granularity).
+    _32reg available_for_programmer_user : 1; // AVL
+    _32reg type : 4;                          // Type of the system segment.
 } _system_segment_descriptor_st;
 
 // 16-bit segement registers
@@ -116,7 +135,7 @@ typedef struct segment_regs_st
     _16reg GS;
     // Hidden part (seen only by the processor)
     _code_segment_descriptor_st *CS_hidden_code_segment_descriptor;
-    _system_segment_descriptor_st *SS_hidden_stack_segment_descriptor; // TODO: TBC the the type of the descriptor
+    _data_segment_descriptor_st *SS_hidden_stack_segment_descriptor; // TODO: TBC the the type of the descriptor
     _data_segment_descriptor_st *DS_hidden_data_segment_descriptor;
     _data_segment_descriptor_st *ES_hidden_data_segment_descriptor;
     _data_segment_descriptor_st *FS_hidden_data_segment_descriptor;
