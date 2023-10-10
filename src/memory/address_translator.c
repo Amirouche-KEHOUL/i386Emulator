@@ -227,6 +227,7 @@ void init_data_segment_descriptor(_data_segment_descriptor_st *data_segment_desc
     data_segment_descriptor_st_ptr->segment_present = 0U;
 }
 
+// Returns a code descriptor structure pointer for a given selector.
 _code_segment_descriptor_st *get_code_seg_desc(_selector_st selector_st)
 {
     if ((selector_st.table_indicator == _GDT) && (selector_st.index == 0U)) // Can not index[0] of a GDT
@@ -240,6 +241,10 @@ _code_segment_descriptor_st *get_code_seg_desc(_selector_st selector_st)
         return 0;
     }
     _code_segment_descriptor_st *code_segment_descriptor_st_ptr = (_code_segment_descriptor_st *)malloc(sizeof(_code_segment_descriptor_st));
+    if (code_segment_descriptor_st_ptr == NULL)
+    {
+        // TODO: handle malloc error
+    }
     init_code_segment_descriptor(code_segment_descriptor_st_ptr);
 
     _byte byte_v[8] = {0U};
@@ -256,6 +261,7 @@ _code_segment_descriptor_st *get_code_seg_desc(_selector_st selector_st)
     return code_segment_descriptor_st_ptr;
 }
 
+// Memory leak risk ! THE CALLER FUNCTION HAVE THE RESPONSIBILITY TO FREE (OR NOT) ALLOCATED MEMORY ! Returns a pointer to a data segment pointed by selector_st.
 _data_segment_descriptor_st *get_data_seg_desc(_selector_st selector_st)
 {
     if ((selector_st.table_indicator == _GDT) && (selector_st.index == 0U)) // Can not index[0] of a GDT
@@ -269,6 +275,10 @@ _data_segment_descriptor_st *get_data_seg_desc(_selector_st selector_st)
         return 0;
     }
     _data_segment_descriptor_st *data_segment_descriptor_st_ptr = (_data_segment_descriptor_st *)malloc(sizeof(_data_segment_descriptor_st));
+    if (data_segment_descriptor_st_ptr == NULL)
+    {
+        // TODO: handle malloc error
+    }
     init_data_segment_descriptor(data_segment_descriptor_st_ptr);
 
     _byte byte_v[8] = {0U};
@@ -350,8 +360,10 @@ void load_selector_into_seg_reg(_selector_st selector_st, int segment_reg)
     {
         if (check_segment_type(selector_st) == _CODE_SEGMENT_DESCRIPTOR)
         {
-            if ((get_code_seg_desc(selector_st)->readable) == _NOT_READABLE_CODE_SEGMENT) // TODO : fix memeory leak
+            _code_segment_descriptor_st *code_segment_descriptor_st_ptr = get_code_seg_desc(selector_st);
+            if ((code_segment_descriptor_st_ptr->readable) == _NOT_READABLE_CODE_SEGMENT) // TODO : fix memeory leak
             {
+                free(code_segment_descriptor_st_ptr);
 #ifdef DBG
                 printf("Exception: Selectors of executable segments that are not readable cannot be loaded into data-segment registers\n");
 #endif
@@ -377,7 +389,8 @@ void load_selector_into_seg_reg(_selector_st selector_st, int segment_reg)
             // TODO: rise exception ?
             return;
         }
-        if ((get_data_seg_desc(selector_st)->writable) == _NOT_WRITABLE_CODE_SEGMENT)
+        _data_segment_descriptor_st *data_segment_descriptor_st_ptr = get_data_seg_desc(selector_st);
+        if ((data_segment_descriptor_st_ptr->writable) == _NOT_WRITABLE_CODE_SEGMENT)
         {
 #ifdef DBG
             printf("Exception: Only selectors of writable data segments can be loaded into SS.\n");
