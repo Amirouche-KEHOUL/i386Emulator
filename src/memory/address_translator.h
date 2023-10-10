@@ -4,12 +4,14 @@
 // logical address consisting of a segment selector and segment offset
 
 #include <stdio.h>
+#include <stdlib.h>
 #include "../typedefs.h"
 #include "physical_memory.h"
 
 extern _segment_regs_st segment_regs_st;
 extern _physical_memory_ptr physical_memory_ptr;
 extern _dtr_reg_st gdtr_reg_st;
+extern _dtr_reg_st ldtr_reg_st;
 
 // This function assumes that entries does not generate errors or exceptions (check done by the caller)
 _32_linear_addr
