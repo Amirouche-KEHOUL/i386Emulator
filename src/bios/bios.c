@@ -17,11 +17,19 @@ unsigned int bios_is_bootable(FILE *device_name)
     // Look for boot signature in sector 0 (0x55 0xAA at addr 510 and 511 respectively)
     unsigned int byte_stream = 0;
     unsigned int boot_sig[2];
+    int ret_getc = 0;
     for (int i = 0; i < 512; i++)
     {
-        byte_stream = getc(device_name);
-        if (i == 510)
-            boot_sig[0] = byte_stream;
+        ret_getc = getc(device_name);
+        if (ret_getc == EOF)
+        {
+            // TODO handle error
+            return 0;
+        }
+        byte_stream = (_byte)ret_getc;
+        if (byte_stream)
+            if (i == 510)
+                boot_sig[0] = byte_stream;
         if (i == 511)
             boot_sig[1] = byte_stream;
     }
@@ -44,10 +52,17 @@ unsigned int bios_load_MBR_TO_RAM(FILE *device)
 {
     // copy MBR to RAM
     _byte byte_stream = 0;
+    int ret_getc = 0;
     for (int i = 0; i < 512; i++)
     {
-        byte_stream = getc(device);
-        physical_memory_write(byte_stream, physical_memory_ptr, (_MBR_LOAD_RAM_ADDR + i));
+        ret_getc = getc(device);
+        if (ret_getc == EOF)
+        {
+            // TODO handle error
+            return 0;
+        }
+        byte_stream = (_byte)ret_getc;
+        physical_memory_write(byte_stream, physical_memory_ptr, (_32_physical_addr)(_MBR_LOAD_RAM_ADDR + i));
     }
     // Force CS:IP to 0x 0000:_MBR_LOAD_RAM_ADDR
     segment_regs_st.CS = 0x0000;

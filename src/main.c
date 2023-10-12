@@ -66,14 +66,54 @@ int main(int argc, char **argv)
 #ifdef DBG
     printf("== LOAD MSB (Master Boot Record) to physical memory location 0x%X\n", _MBR_LOAD_RAM_ADDR);
 #endif
-    _code_segment_descriptor_st code_seg = {0};
-    code_seg.base = 1024UL;
+
+    /*
+     */
+    _byte byte = 0b10101111;
+
+    _32_linear_addr linear_addr = 500U;
+
+    physical_memory_write(byte, physical_memory_ptr, linear_to_physical_addr(linear_addr));
+
+    _byte ret = 0;
+
+    ret = (is_bit_set(byte, 3U) == 0);
+
+    int cond = (ret == 1U);
+
+    // Test binary representation
+    int a = 10;
+    unsigned int b = (unsigned int)-10;
+
+    /*
+    gdtr_reg_st.DTR = 20U;
+
+    _byte byte_v[8] = {0};
+    byte_v[0] = (_byte)0xFF;
+    byte_v[1] = (_byte)0xCD;
+    byte_v[2] = (_byte)0xEE;
+    byte_v[3] = (_byte)0xDD;
+    byte_v[4] = (_byte)0xBB;
+    byte_v[5] = (_byte)0b10010000;
+    byte_v[6] = (_byte)0x34;
+    byte_v[7] = (_byte)0xCC;
+
+    for (int i = 0; i < 8; i++)
+    {
+        physical_memory_write(byte_v[i], physical_memory_ptr, linear_to_physical_addr((gdtr_reg_st.DTR + 8) + i));
+    }
+
+    _selector_st selector_st;
+    selector_st.index = 1U;
+    selector_st.requestor_privilege_level = 0U;
+    selector_st.table_indicator = _GDT;
+
+    load_selector_into_seg_reg(selector_st, _CS_REG);
+     */
+
     // Processor starts in real mode
     while (1)
     {
-        // test
-        translate_segment(15UL, &code_seg, _CODE_SEGMENT_DESCRIPTOR);
-
         // system
         check_and_service_interrupts();
         // instruction execution

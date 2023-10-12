@@ -8,26 +8,33 @@
 #define _CODE_SEGMENT_DESCRIPTOR 1U
 #define _DATA_SEGMENT_DESCRIPTOR 2U
 #define _SYS_SEGMENT_DESCRIPTOR 3U
+
 #define _CS_REG 0
 #define _SS_REG 1
 #define _DS_REG 2
 #define _ES_REG 3
 #define _FS_REG 4
 #define _GS_REG 5
+
 #define _NOT_READABLE_CODE_SEGMENT 0U
 #define _NOT_WRITABLE_CODE_SEGMENT 0U
 #define _READABLE_CODE_SEGMENT 1U
 #define _WRITABLE_CODE_SEGMENT 1U
 
+#define _EXECUTABLE__BIT_LOCATION 3U
+#define _CODE_DATA_OR_SYSTEM_SEG__BIT_LOCATION 4U
+
+typedef unsigned char _8bit_index;
+typedef unsigned int _16bit_index;
 typedef unsigned char _8reg;
 typedef unsigned int _16reg;
-typedef unsigned long _32reg;
+typedef unsigned int _32reg;
 typedef unsigned int _16bus;
 typedef unsigned char _byte;
 typedef unsigned char _16addr;
-typedef unsigned long _32_linear_addr;
-typedef unsigned long _32_logical_addr;
-typedef unsigned long _32_physical_addr;
+typedef unsigned int _32_linear_addr;
+typedef unsigned int _32_logical_addr;
+typedef unsigned int _32_physical_addr;
 
 // 32-bit general-perpose register
 typedef struct general_reg_st
@@ -658,18 +665,18 @@ typedef unsigned int _pins;
 
 typedef enum pin_name_enum
 {
-    pin_reset = 0,
-    pin_busy = 1,
-    pin_error = 2,
-    pin_INTR = 3, // used to signal Maskable interrupts
-    pin_NMI = 4,  // used to signal Non Maskable Interrupts
+    pin_reset = 0U,
+    pin_busy = 1U,
+    pin_error = 2U,
+    pin_INTR = 3U, // used to signal Maskable interrupts
+    pin_NMI = 4U,  // used to signal Non Maskable Interrupts
 
 } _pin_name_enum;
 
 typedef enum pin_state_enum
 {
-    OFF = 0,
-    ON = 1
+    OFF = 0U,
+    ON = 1U,
 } _pin_state_enum;
 
 /* memory */

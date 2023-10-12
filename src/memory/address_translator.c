@@ -31,35 +31,30 @@ Certain segment registers can contain only certain descriptor types. For example
  - Only selectors of writable data segments can be loaded into SS.
 */
 
-typedef unsigned char _8bit_index;
-typedef unsigned int _16bit_index;
-
-#define _CODE_DATA_OR_SYSTEM_SEG__BIT_LOCATION 4U
-#define _EXECUTABLE__BIT_LOCATION 3U
-
 _32_physical_addr linear_to_physical_addr(_32_linear_addr linear_addr)
 {
     return linear_addr; // TODO: this is a tomporary solution
 }
 
 // Returns (1) if read value is (1), (0) if read value is (0), (2) if error
-_byte is_bit_set(_byte byte, _8bit_index index)
+int is_bit_set(_byte byte, _8bit_index index)
 {
-    if (index > 7)
+    if (index > (_8bit_index)7)
     {
-        // TODO : add error handling ?
-        return 2U;
+        // TODO : add error handling ?e specified relation is true and 0 if it is false. The result has type int
+        return -1;
     }
     _byte SET = 1;
 
-    if (((SET << _CODE_DATA_OR_SYSTEM_SEG__BIT_LOCATION) & byte) != 0U)
+    if (((SET << index) & byte) != 0U)
     {
-        return 1U;
+        return 1;
     }
 
     return 0U;
 }
 
+// Returns a byte located in a given linear address.
 _byte get_byte_from_linear_addr(_32_linear_addr linear_addr)
 {
     _32_physical_addr physical_addr = linear_to_physical_addr(linear_addr);
@@ -97,15 +92,15 @@ int check_segment_type(_selector_st selector_st)
     _32_linear_addr byteN5_linear_addr = calc_linear_addr_of_byte_in_seg_desc(selector_st, 5U); // Byte field holding the type bits
     _byte byte = get_byte_from_linear_addr(byteN5_linear_addr);
 
-    if ((is_bit_set(byte, _CODE_DATA_OR_SYSTEM_SEG__BIT_LOCATION) == 1U) && !(is_bit_set(byte, _EXECUTABLE__BIT_LOCATION) == 0U))
+    if ((is_bit_set(byte, _CODE_DATA_OR_SYSTEM_SEG__BIT_LOCATION) == 1) && !(is_bit_set(byte, _EXECUTABLE__BIT_LOCATION) == 0))
     {
         return _DATA_SEGMENT_DESCRIPTOR;
     }
-    if ((is_bit_set(byte, _CODE_DATA_OR_SYSTEM_SEG__BIT_LOCATION) == 1U) && (is_bit_set(byte, _EXECUTABLE__BIT_LOCATION) == 1U))
+    if ((is_bit_set(byte, _CODE_DATA_OR_SYSTEM_SEG__BIT_LOCATION) == 1) && (is_bit_set(byte, _EXECUTABLE__BIT_LOCATION) == 1))
     {
         return _CODE_SEGMENT_DESCRIPTOR;
     }
-    if (!(is_bit_set(byte, _CODE_DATA_OR_SYSTEM_SEG__BIT_LOCATION) == 0U))
+    if (!(is_bit_set(byte, _CODE_DATA_OR_SYSTEM_SEG__BIT_LOCATION) == 0))
     {
         return _SYS_SEGMENT_DESCRIPTOR;
     }
@@ -160,39 +155,47 @@ _32reg return_limit(_byte byte_v[8])
 
     limit = byte0 | byte1 | byte2;
 
+    if (limit > 1048575U) // check if "limit" does not exceed 20bit Max range value
+    {
+        // TODO handle error
+        printf("Error: Exceed Max 20 bit field value\n");
+    }
+
     return limit;
 }
 
 void flat_bin_to_code_seg_descriptor_st(_byte byte_v[8], _code_segment_descriptor_st *code_segment_descriptor_st_ptr)
 {
-    code_segment_descriptor_st_ptr->base = return_base(byte_v);
-    code_segment_descriptor_st_ptr->limit = return_limit(byte_v);
-    code_segment_descriptor_st_ptr->descriptor_privilege_level = byte_v[5] >> 5;
-    code_segment_descriptor_st_ptr->segment_present = byte_v[5] >> 7;
-    code_segment_descriptor_st_ptr->Code_data_OR_sys_segment = byte_v[5] >> 4;
-    code_segment_descriptor_st_ptr->executable = byte_v[5] >> 3;
-    code_segment_descriptor_st_ptr->conforming = byte_v[5] >> 2;
-    code_segment_descriptor_st_ptr->readable = byte_v[5] >> 1;
-    code_segment_descriptor_st_ptr->accessed = byte_v[5];
-    code_segment_descriptor_st_ptr->granularity = byte_v[6] >> 7;
-    code_segment_descriptor_st_ptr->DEFAULT = byte_v[6] >> 6;
-    code_segment_descriptor_st_ptr->available_for_programmer_user = byte_v[6] >> 4;
+    // TODO: secure the possible conversion Warninig below
+    // Used & to spress -Wconversion warning
+    code_segment_descriptor_st_ptr->base = (_32reg)return_base(byte_v);
+    code_segment_descriptor_st_ptr->limit = (_32reg)return_limit(byte_v) & 0xFFFFF;
+    code_segment_descriptor_st_ptr->descriptor_privilege_level = (_32reg)(byte_v[5] >> 5) & 0b11;
+    code_segment_descriptor_st_ptr->segment_present = (_32reg)(byte_v[5] >> 7) & 0b1;
+    code_segment_descriptor_st_ptr->Code_data_OR_sys_segment = (_32reg)(byte_v[5] >> 4) & 0b1;
+    code_segment_descriptor_st_ptr->executable = (_32reg)(byte_v[5] >> 3) & 0b1;
+    code_segment_descriptor_st_ptr->conforming = (_32reg)(byte_v[5] >> 2) & 0b1;
+    code_segment_descriptor_st_ptr->readable = (_32reg)(byte_v[5] >> 1) & 0b1;
+    code_segment_descriptor_st_ptr->accessed = (_32reg)(byte_v[5]) & 0b1;
+    code_segment_descriptor_st_ptr->granularity = (_32reg)(byte_v[6] >> 7) & 0b1;
+    code_segment_descriptor_st_ptr->DEFAULT = (_32reg)(byte_v[6] >> 6) & 0b1;
+    code_segment_descriptor_st_ptr->available_for_programmer_user = (_32reg)(byte_v[6] >> 4) & 0b1;
 }
 
 void flat_bin_to_data_seg_descriptor_st(_byte byte_v[8], _data_segment_descriptor_st *data_segment_descriptor_st_ptr)
 {
-    data_segment_descriptor_st_ptr->base = return_base(byte_v);
-    data_segment_descriptor_st_ptr->limit = return_limit(byte_v);
-    data_segment_descriptor_st_ptr->descriptor_privilege_level = byte_v[5] >> 5;
-    data_segment_descriptor_st_ptr->segment_present = byte_v[5] >> 7;
-    data_segment_descriptor_st_ptr->Code_data_OR_sys_segment = byte_v[5] >> 4;
-    data_segment_descriptor_st_ptr->executable = byte_v[5] >> 3;
-    data_segment_descriptor_st_ptr->expand_down = byte_v[5] >> 2;
-    data_segment_descriptor_st_ptr->writable = byte_v[5] >> 1;
-    data_segment_descriptor_st_ptr->accessed = byte_v[5];
-    data_segment_descriptor_st_ptr->granularity = byte_v[6] >> 7;
-    data_segment_descriptor_st_ptr->big = byte_v[6] >> 6;
-    data_segment_descriptor_st_ptr->available_for_programmer_user = byte_v[6] >> 4;
+    data_segment_descriptor_st_ptr->base = (_32reg)return_base(byte_v);
+    data_segment_descriptor_st_ptr->limit = (_32reg)return_limit(byte_v) & 0xFFFFF;
+    data_segment_descriptor_st_ptr->descriptor_privilege_level = (_32reg)(byte_v[5] >> 5) & 0b11;
+    data_segment_descriptor_st_ptr->segment_present = (_32reg)(byte_v[5] >> 7) & 0b1;
+    data_segment_descriptor_st_ptr->Code_data_OR_sys_segment = (_32reg)(byte_v[5] >> 4) & 0b1;
+    data_segment_descriptor_st_ptr->executable = (_32reg)(byte_v[5] >> 3) & 0b1;
+    data_segment_descriptor_st_ptr->expand_down = (_32reg)(byte_v[5] >> 2) & 0b1;
+    data_segment_descriptor_st_ptr->writable = (_32reg)(byte_v[5] >> 1) & 0b1;
+    data_segment_descriptor_st_ptr->accessed = (_32reg)(byte_v[5]) & 0b1;
+    data_segment_descriptor_st_ptr->granularity = (_32reg)(byte_v[6] >> 7) & 0b1;
+    data_segment_descriptor_st_ptr->big = (_32reg)(byte_v[6] >> 6) & 0b1;
+    data_segment_descriptor_st_ptr->available_for_programmer_user = (_32reg)(byte_v[6] >> 4) & 0b1;
 }
 
 void init_code_segment_descriptor(_code_segment_descriptor_st *code_segment_descriptor_st_ptr)
@@ -250,7 +253,7 @@ _code_segment_descriptor_st *get_code_seg_desc(_selector_st selector_st)
     _byte byte_v[8] = {0U};
     _32_linear_addr liear_addr = 0U;
 
-    for (int b_index = 0; b_index < 8; b_index++)
+    for (_8bit_index b_index = 0; b_index < 8; b_index++)
     {
         liear_addr = calc_linear_addr_of_byte_in_seg_desc(selector_st, b_index);
         byte_v[b_index] = get_byte_from_linear_addr(liear_addr);
@@ -284,7 +287,7 @@ _data_segment_descriptor_st *get_data_seg_desc(_selector_st selector_st)
     _byte byte_v[8] = {0U};
     _32_linear_addr liear_addr = 0U;
 
-    for (int b_index = 0; b_index < 8; b_index++)
+    for (_8bit_index b_index = 0; b_index < 8; b_index++)
     {
         liear_addr = calc_linear_addr_of_byte_in_seg_desc(selector_st, b_index);
         byte_v[b_index] = get_byte_from_linear_addr(liear_addr);
@@ -339,6 +342,9 @@ void load_selector_into_seg_reg(_selector_st selector_st, int segment_reg)
     if ((selector_st.table_indicator == _GDT) && (selector_st.index == 0U)) // Can not index[0] of a GDT
     {
         // TODO: Implement exception. choose return value
+#ifdef DBG
+        printf("Exception: Can not index[0] of a GDT\n");
+#endif
         return;
     }
 
