@@ -5,13 +5,6 @@
 
 _byte physical_memory_read(_physical_memory_ptr physical_memory_ptr, _32_physical_addr addr)
 {
-    // check if addr < _PHYSICAL_MEMORY_ADDRESS_SPACE
-    if (addr >= _PHYSICAL_MEMORY_ADDRESS_SPACE)
-    {
-        status = _ERR_PYSICAL_MEMORY_ADDR_OUTRANGE;
-        err_handler("");
-        return 0;
-    }
     // check if  physical_memory_ptr != NULL
     if (physical_memory_ptr == NULL)
     {
@@ -26,13 +19,6 @@ _byte physical_memory_read(_physical_memory_ptr physical_memory_ptr, _32_physica
 
 void physical_memory_write(_byte byte, _physical_memory_ptr physical_memory_ptr, _32_physical_addr addr)
 {
-    // check if addr < _PHYSICAL_MEMORY_ADDRESS_SPACE
-    if (addr >= _PHYSICAL_MEMORY_ADDRESS_SPACE)
-    {
-        status = _ERR_PYSICAL_MEMORY_ADDR_OUTRANGE;
-        err_handler("");
-        return;
-    }
     // check if  physical_memory_ptr != NULL
     if (physical_memory_ptr == NULL)
     {

@@ -144,7 +144,7 @@ typedef struct segment_regs_st
     _16reg GS;
     // Hidden part (seen only by the processor)
     _code_segment_descriptor_st *CS_hidden_code_segment_descriptor;
-    _data_segment_descriptor_st *SS_hidden_stack_segment_descriptor; // TODO: TBC the the type of the descriptor
+    _data_segment_descriptor_st *SS_hidden_stack_segment_descriptor;
     _data_segment_descriptor_st *DS_hidden_data_segment_descriptor;
     _data_segment_descriptor_st *ES_hidden_data_segment_descriptor;
     _data_segment_descriptor_st *FS_hidden_data_segment_descriptor;
@@ -196,7 +196,7 @@ typedef struct eip_st
 } _eip_st;
 
 // Memory management registers
-typedef struct dtr_reg_st // Descriptor Table Register. TODO : should store base + limit addresses. size TBC
+typedef struct dtr_reg_st // Descriptor Table Register.
 {
     _32_linear_addr DTR; //
     int type;            // _GDT or _LDT

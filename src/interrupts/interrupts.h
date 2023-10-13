@@ -5,8 +5,6 @@
 #include "../memory/registers.h"
 #include "../pins/pins.h"
 
-#include <stdio.h> // TODO: to remove if not neccessary
-
 extern _eflag_reg_st eflag_reg_st;               // Global main.c
 extern _pins pins;                               // Global main.c
 extern _interrupts_flags_st interrupts_flags_st; // Global main.c

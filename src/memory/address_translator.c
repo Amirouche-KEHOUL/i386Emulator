@@ -22,18 +22,9 @@ _32_linear_addr translate_segment(_32_logical_addr offset, void *segment_decript
     return ret;
 }
 
-/*
-TODO: Implement Type checking function
-When a selector of a descriptor is loaded into a segment register.
-Certain segment registers can contain only certain descriptor types. For example:
- - CS reg eccept only code segments
- - Selectors of executable segments that are not readable cannot be loaded into data-segment registers.
- - Only selectors of writable data segments can be loaded into SS.
-*/
-
 _32_physical_addr linear_to_physical_addr(_32_linear_addr linear_addr)
 {
-    return linear_addr; // TODO: this is a tomporary solution
+    return linear_addr; // TODO: this is a tomporary solution. Need to confirm paging first
 }
 
 // Returns (1) if read value is (1), (0) if read value is (0), (2) if error
@@ -41,7 +32,8 @@ int is_bit_set(_byte byte, _8bit_index index)
 {
     if (index > (_8bit_index)7)
     {
-        // TODO : add error handling ?e specified relation is true and 0 if it is false. The result has type int
+        status = _ERR_ADDR_STRANS_ARG;
+        err_handler("");
         return -1;
     }
     _byte SET = 1;
@@ -92,15 +84,17 @@ int check_segment_type(_selector_st selector_st)
     _32_linear_addr byteN5_linear_addr = calc_linear_addr_of_byte_in_seg_desc(selector_st, 5U); // Byte field holding the type bits
     _byte byte = get_byte_from_linear_addr(byteN5_linear_addr);
 
-    if ((is_bit_set(byte, _CODE_DATA_OR_SYSTEM_SEG__BIT_LOCATION) == 1) && !(is_bit_set(byte, _EXECUTABLE__BIT_LOCATION) == 0))
+    int code_data_bit = is_bit_set(byte, _CODE_DATA_OR_SYSTEM_SEG__BIT_LOCATION);
+    int executable_bit = is_bit_set(byte, _EXECUTABLE__BIT_LOCATION);
+    if ((code_data_bit == 1) && (executable_bit == 0))
     {
         return _DATA_SEGMENT_DESCRIPTOR;
     }
-    if ((is_bit_set(byte, _CODE_DATA_OR_SYSTEM_SEG__BIT_LOCATION) == 1) && (is_bit_set(byte, _EXECUTABLE__BIT_LOCATION) == 1))
+    if ((code_data_bit == 1) && (executable_bit == 1))
     {
         return _CODE_SEGMENT_DESCRIPTOR;
     }
-    if (!(is_bit_set(byte, _CODE_DATA_OR_SYSTEM_SEG__BIT_LOCATION) == 0))
+    if (code_data_bit == 0)
     {
         return _SYS_SEGMENT_DESCRIPTOR;
     }
@@ -122,9 +116,8 @@ _16reg concat_selector(_selector_st selector_st)
     return ret;
 }
 
-_32reg return_base(_byte byte_v[8])
+_32reg return_base(_byte byte_v[])
 {
-    // TODO: confirm the shift values below
     _32reg base = 0;
 
     _32reg byte0 = byte_v[2];
@@ -141,9 +134,8 @@ _32reg return_base(_byte byte_v[8])
     return base;
 }
 
-_32reg return_limit(_byte byte_v[8])
+_32reg return_limit(_byte byte_v[])
 {
-    // TODO: confirm the shift values below
     _32reg limit = 0; // 20 bits
 
     _32reg byte0 = byte_v[0];
@@ -151,23 +143,16 @@ _32reg return_limit(_byte byte_v[8])
     _32reg byte2 = byte_v[6];
 
     byte1 = byte1 << 8;
-    byte2 = byte2 << 16; // TODO: Confirm if uper bits (> 19) must be truncated
+    byte2 = byte2 << 16;
 
-    limit = byte0 | byte1 | byte2;
-
-    if (limit > 1048575U) // check if "limit" does not exceed 20bit Max range value
-    {
-        // TODO handle error
-        printf("Error: Exceed Max 20 bit field value\n");
-    }
+    limit = (byte0 | byte1 | byte2) & 0xFFFFF;
 
     return limit;
 }
 
-void flat_bin_to_code_seg_descriptor_st(_byte byte_v[8], _code_segment_descriptor_st *code_segment_descriptor_st_ptr)
+void flat_bin_to_code_seg_descriptor_st(_byte byte_v[], _code_segment_descriptor_st *code_segment_descriptor_st_ptr)
 {
-    // TODO: secure the possible conversion Warninig below
-    // Used & to spress -Wconversion warning
+    // Used & to surpress -Wconversion warning (Need to secure the possible conversion Warninig)
     code_segment_descriptor_st_ptr->base = (_32reg)return_base(byte_v);
     code_segment_descriptor_st_ptr->limit = (_32reg)return_limit(byte_v) & 0xFFFFF;
     code_segment_descriptor_st_ptr->descriptor_privilege_level = (_32reg)(byte_v[5] >> 5) & 0b11;
@@ -182,8 +167,9 @@ void flat_bin_to_code_seg_descriptor_st(_byte byte_v[8], _code_segment_descripto
     code_segment_descriptor_st_ptr->available_for_programmer_user = (_32reg)(byte_v[6] >> 4) & 0b1;
 }
 
-void flat_bin_to_data_seg_descriptor_st(_byte byte_v[8], _data_segment_descriptor_st *data_segment_descriptor_st_ptr)
+void flat_bin_to_data_seg_descriptor_st(_byte byte_v[], _data_segment_descriptor_st *data_segment_descriptor_st_ptr)
 {
+
     data_segment_descriptor_st_ptr->base = (_32reg)return_base(byte_v);
     data_segment_descriptor_st_ptr->limit = (_32reg)return_limit(byte_v) & 0xFFFFF;
     data_segment_descriptor_st_ptr->descriptor_privilege_level = (_32reg)(byte_v[5] >> 5) & 0b11;
@@ -200,6 +186,11 @@ void flat_bin_to_data_seg_descriptor_st(_byte byte_v[8], _data_segment_descripto
 
 void init_code_segment_descriptor(_code_segment_descriptor_st *code_segment_descriptor_st_ptr)
 {
+    if (code_segment_descriptor_st_ptr == NULL)
+    {
+        // TODO: manage error
+        return;
+    }
     code_segment_descriptor_st_ptr->accessed = 0U;
     code_segment_descriptor_st_ptr->available_for_programmer_user = 0U;
     code_segment_descriptor_st_ptr->base = 0U;
@@ -216,6 +207,11 @@ void init_code_segment_descriptor(_code_segment_descriptor_st *code_segment_desc
 
 void init_data_segment_descriptor(_data_segment_descriptor_st *data_segment_descriptor_st_ptr)
 {
+    if (data_segment_descriptor_st_ptr == NULL)
+    {
+        // TODO: manage error
+        return;
+    }
     data_segment_descriptor_st_ptr->accessed = 0U;
     data_segment_descriptor_st_ptr->available_for_programmer_user = 0U;
     data_segment_descriptor_st_ptr->base = 0U;
@@ -270,13 +266,20 @@ _data_segment_descriptor_st *get_data_seg_desc(_selector_st selector_st)
     if ((selector_st.table_indicator == _GDT) && (selector_st.index == 0U)) // Can not index[0] of a GDT
     {
         // TODO: Implement exception. choose return value
+#ifdef DBG
+        printf("Exception: Can not index[0] of a GDT\n");
+#endif
         return NULL;
     }
+
+    /*
+    // TODO: confirm utility of this section
     if (selector_st.table_indicator != _CODE_DATA_OR_SYSTEM_SEG__BIT_LOCATION)
     {
         // TODO return error ?
-        return 0;
+        return NULL;
     }
+    */
     _data_segment_descriptor_st *data_segment_descriptor_st_ptr = (_data_segment_descriptor_st *)malloc(sizeof(_data_segment_descriptor_st));
     if (data_segment_descriptor_st_ptr == NULL)
     {
@@ -408,7 +411,3 @@ void load_selector_into_seg_reg(_selector_st selector_st, int segment_reg)
         return;
     }
 }
-
-/*
-TODO: Implement limit checking
-*/

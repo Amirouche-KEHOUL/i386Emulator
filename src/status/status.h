@@ -1,6 +1,10 @@
 #ifndef _STATUS_H
 #define _STATUS_H
 
+#include <stdlib.h>
+#include <stdio.h>
+#include "../utils/utils.h"
+
 /* _STATUS */
 #define _STATUS_SYSTEM_SHUTDOWN 4
 #define _STATUS_DEVICE_BOOT_SIG_NOT_FOUND 3
@@ -16,6 +20,8 @@
 #define _ERR_IO_MEMORY_ADDR_OUTRANGE -5
 #define _ERR_REG_INIT -6
 #define _ERR_BIOS_NULL_POINTER_ARG -7
+#define _ERR_ADDR_STRANS_ARG -8
+#define _ERR_ADDR_TRANS_RETURN_LIMIT -9
 
 void err_print(void);
 void err_handler(char *message);

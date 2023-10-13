@@ -28,7 +28,7 @@ misaligned data transfers reduce performance by requiring extra memory
 cycles
 */
 
-#define _PHYSICAL_MEMORY_ADDRESS_SPACE 4294967296UL // 4G. This Value should not be changed!
+#define _PHYSICAL_MEMORY_ADDRESS_SPACE 4294967295U // 4G. This Value should not be changed!
 
 /*Reads a byte from the physical memory*/
 _byte physical_memory_read(_physical_memory_ptr physical_memory_ptr, _32_physical_addr addr);
