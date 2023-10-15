@@ -57,18 +57,7 @@ int main(int argc, char **argv)
     /* Initialize system */
     sys_init();
 
-    /* Check is device is bootable */
-    bios_is_bootable(device);
-
-    /* Load MBR Master Boot Record */
-    bios_load_MBR_TO_RAM(device);
-
-#ifdef DBG
-    printf("== LOAD MSB (Master Boot Record) to physical memory location 0x%X\n", _MBR_LOAD_RAM_ADDR);
-#endif
-
-    /*
-     */
+    //------------ TEST segment Type protection------------
     gdtr_reg_st.DTR = 20U;
 
     // Test DATA Segment: base = 500, limit = 1024
@@ -95,15 +84,7 @@ int main(int argc, char **argv)
     // Expect Code segments only
     load_selector_into_seg_reg(selector_st, _GS_REG);
 
-    // Processor starts in real mode
-    while (1)
-    {
-        // system
-        check_and_service_interrupts();
-        // instruction execution
-        break;
-    }
-
+    //------------ TEST segment Type protection------------
     print_end();
 
     return 0;

@@ -57,7 +57,7 @@ mkdir:
 	mkdir -p ${BINDIRS}
 
 run: 
-	bin/i386Emulator.out $(word 2, $(MAKECMDGOALS))
+	bin/i386Emulator.out device.bin
 
 clean: 
 	rm -rf build bin

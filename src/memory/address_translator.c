@@ -1,5 +1,7 @@
 #include "address_translator.h"
 
+// ############################## Segmented-memory functions #################################//
+
 _code_segment_descriptor_st temp_code_segment_descriptor_st_ptr = {0}; // temporary structure
 _data_segment_descriptor_st temp_data_segment_descriptor_st_ptr = {0}; // temporary structure
 
@@ -76,11 +78,14 @@ _32_linear_addr calc_linear_addr_of_byte_in_seg_desc(_selector_st selector_st, _
 
 int check_segment_type(_selector_st selector_st)
 {
-    int ret = 0; // TODO: confirm value before return
+    int ret = -1; // TODO: confirm value before return
 
     if ((selector_st.table_indicator == _GDT) && (selector_st.index == 0U)) // Can not index[0] of a GDT
     {
         // TODO: Implement exception. choose return value
+#ifdef DBG
+        printf("Exception: Can not index[0] of a GDT\n");
+#endif
         return ret;
     }
 
@@ -89,21 +94,21 @@ int check_segment_type(_selector_st selector_st)
 
     int code_data_bit = is_bit_set(byte, _CODE_DATA_OR_SYSTEM_SEG__BIT_LOCATION);
     int executable_bit = is_bit_set(byte, _EXECUTABLE__BIT_LOCATION);
+
     if ((code_data_bit == 1) && (executable_bit == 0))
     {
-        return _DATA_SEGMENT_DESCRIPTOR;
+        return (int)_DATA_SEGMENT_DESCRIPTOR;
     }
     if ((code_data_bit == 1) && (executable_bit == 1))
     {
-        return _CODE_SEGMENT_DESCRIPTOR;
+        return (int)_CODE_SEGMENT_DESCRIPTOR;
     }
     if (code_data_bit == 0)
     {
-        return _SYS_SEGMENT_DESCRIPTOR;
+        return (int)_SYS_SEGMENT_DESCRIPTOR;
     }
 
-    // TODO: if no condition entred there is a problem
-    return 4U;
+    return ret;
 }
 
 // "convert" the strcut into 16bit field reg.
@@ -193,6 +198,9 @@ void get_code_seg_desc(_selector_st selector_st, int segment_reg)
     if ((selector_st.table_indicator == _GDT) && (selector_st.index == 0U)) // Can not index[0] of a GDT
     {
         // TODO: Implement exception. choose return value
+#ifdef DBG
+        printf("Exception: Can not index[0] of a GDT\n");
+#endif
         return;
     }
 
@@ -322,10 +330,10 @@ void load_selector_into_seg_reg(_selector_st selector_st, int segment_reg)
     {
         if (check_segment_type(selector_st) != _CODE_SEGMENT_DESCRIPTOR)
         {
+            // TODO: rise exception? => TBC
 #ifdef DBG
             printf("Exception: CS reg eccept only code segments\n");
 #endif
-            // TODO: rise exception?
             return;
         }
         load_seg_regs(selector_st, segment_reg);
@@ -339,10 +347,10 @@ void load_selector_into_seg_reg(_selector_st selector_st, int segment_reg)
             get_code_seg_desc(selector_st, _TEMP_CODE_SEG);
             if ((temp_code_segment_descriptor_st_ptr.readable) == _NOT_READABLE_CODE_SEGMENT)
             {
+                // TODO: rise exception? => TBC
 #ifdef DBG
                 printf("Exception: Selectors of executable segments that are not readable cannot be loaded into data-segment registers\n");
 #endif
-                // TODO: rise exception?
                 return;
             }
             // Code segment is readable
@@ -362,10 +370,10 @@ void load_selector_into_seg_reg(_selector_st selector_st, int segment_reg)
     {
         if (check_segment_type(selector_st) != _DATA_SEGMENT_DESCRIPTOR)
         {
+            // TODO: rise exception ? => TBC
 #ifdef DBG
             printf("Exception: Only selectors of writable data segments can be loaded into SS.\n");
 #endif
-            // TODO: rise exception ?
             return;
         }
         get_data_seg_desc(selector_st, _TEMP_DATA_SEG);
