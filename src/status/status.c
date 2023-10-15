@@ -80,6 +80,7 @@ void err_handler(char *message)
         exit(status);
         break;
     case _ERR_ADDR_STRANS_ARG:
+        printf("%s\n", message);
         print_end();
         exit(status);
         break;

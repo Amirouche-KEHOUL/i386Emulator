@@ -15,6 +15,8 @@
 #define _ES_REG 3
 #define _FS_REG 4
 #define _GS_REG 5
+#define _TEMP_CODE_SEG 6
+#define _TEMP_DATA_SEG 7
 
 #define _NOT_READABLE_CODE_SEGMENT 0U
 #define _NOT_WRITABLE_CODE_SEGMENT 0U

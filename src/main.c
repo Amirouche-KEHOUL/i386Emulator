@@ -68,19 +68,19 @@ int main(int argc, char **argv)
 #endif
 
     /*
-    gdtr_reg_st.DTR = 20U;
      */
+    gdtr_reg_st.DTR = 20U;
 
-    // Test DATA Segment
+    // Test DATA Segment: base = 500, limit = 1024
     _byte byte_v[8] = {0};
-    byte_v[0] = (_byte)0xFF;
-    byte_v[1] = (_byte)0xCD;
-    byte_v[2] = (_byte)0xEE;
-    byte_v[3] = (_byte)0xDD;
-    byte_v[4] = (_byte)0xBB;
-    byte_v[5] = (_byte)0b10010010;
-    byte_v[6] = (_byte)0x34;
-    byte_v[7] = (_byte)0xCC;
+    byte_v[0] = (_byte)0x00;
+    byte_v[1] = (_byte)0x04;
+    byte_v[2] = (_byte)0xF4;
+    byte_v[3] = (_byte)0x01;
+    byte_v[4] = (_byte)0x00;
+    byte_v[5] = (_byte)0b10011010;
+    byte_v[6] = (_byte)0x00;
+    byte_v[7] = (_byte)0x00;
 
     for (unsigned int i = 0; i < 8; i++)
     {
@@ -93,7 +93,7 @@ int main(int argc, char **argv)
     selector_st.table_indicator = _GDT;
 
     // Expect Code segments only
-    load_selector_into_seg_reg(selector_st, _SS_REG);
+    load_selector_into_seg_reg(selector_st, _GS_REG);
 
     // Processor starts in real mode
     while (1)

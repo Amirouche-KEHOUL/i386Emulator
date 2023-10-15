@@ -1,5 +1,8 @@
 #include "address_translator.h"
 
+_code_segment_descriptor_st temp_code_segment_descriptor_st_ptr = {0}; // temporary structure
+_data_segment_descriptor_st temp_data_segment_descriptor_st_ptr = {0}; // temporary structure
+
 _32_linear_addr translate_segment(_32_logical_addr offset, void *segment_decriptor, int segment_descriptor_type)
 {
     _32_linear_addr ret = 0UL;
@@ -184,67 +187,14 @@ void flat_bin_to_data_seg_descriptor_st(_byte byte_v[], _data_segment_descriptor
     data_segment_descriptor_st_ptr->available_for_programmer_user = (_32reg)(byte_v[6] >> 4) & 0b1;
 }
 
-void init_code_segment_descriptor(_code_segment_descriptor_st *code_segment_descriptor_st_ptr)
-{
-    if (code_segment_descriptor_st_ptr == NULL)
-    {
-        // TODO: manage error
-        return;
-    }
-    code_segment_descriptor_st_ptr->accessed = 0U;
-    code_segment_descriptor_st_ptr->available_for_programmer_user = 0U;
-    code_segment_descriptor_st_ptr->base = 0U;
-    code_segment_descriptor_st_ptr->Code_data_OR_sys_segment = 0U;
-    code_segment_descriptor_st_ptr->conforming = 0U;
-    code_segment_descriptor_st_ptr->DEFAULT = 0U;
-    code_segment_descriptor_st_ptr->descriptor_privilege_level = 0U;
-    code_segment_descriptor_st_ptr->executable = 0U;
-    code_segment_descriptor_st_ptr->granularity = 0U;
-    code_segment_descriptor_st_ptr->limit = 0U;
-    code_segment_descriptor_st_ptr->readable = 0U;
-    code_segment_descriptor_st_ptr->segment_present = 0U;
-}
-
-void init_data_segment_descriptor(_data_segment_descriptor_st *data_segment_descriptor_st_ptr)
-{
-    if (data_segment_descriptor_st_ptr == NULL)
-    {
-        // TODO: manage error
-        return;
-    }
-    data_segment_descriptor_st_ptr->accessed = 0U;
-    data_segment_descriptor_st_ptr->available_for_programmer_user = 0U;
-    data_segment_descriptor_st_ptr->base = 0U;
-    data_segment_descriptor_st_ptr->Code_data_OR_sys_segment = 0U;
-    data_segment_descriptor_st_ptr->big = 0U;
-    data_segment_descriptor_st_ptr->expand_down = 0U;
-    data_segment_descriptor_st_ptr->descriptor_privilege_level = 0U;
-    data_segment_descriptor_st_ptr->executable = 0U;
-    data_segment_descriptor_st_ptr->granularity = 0U;
-    data_segment_descriptor_st_ptr->limit = 0U;
-    data_segment_descriptor_st_ptr->writable = 0U;
-    data_segment_descriptor_st_ptr->segment_present = 0U;
-}
-
-// Returns a code descriptor structure pointer for a given selector.
-_code_segment_descriptor_st *get_code_seg_desc(_selector_st selector_st)
+// Returns a code descriptor structure pointer for a given selector. Caller function must pass a code segment selector.
+void get_code_seg_desc(_selector_st selector_st, int segment_reg)
 {
     if ((selector_st.table_indicator == _GDT) && (selector_st.index == 0U)) // Can not index[0] of a GDT
     {
         // TODO: Implement exception. choose return value
-        return NULL;
+        return;
     }
-    if (selector_st.table_indicator != _CODE_DATA_OR_SYSTEM_SEG__BIT_LOCATION)
-    {
-        // TODO return error ?
-        return 0;
-    }
-    _code_segment_descriptor_st *code_segment_descriptor_st_ptr = (_code_segment_descriptor_st *)malloc(sizeof(_code_segment_descriptor_st));
-    if (code_segment_descriptor_st_ptr == NULL)
-    {
-        // TODO: handle malloc error
-    }
-    init_code_segment_descriptor(code_segment_descriptor_st_ptr);
 
     _byte byte_v[8] = {0U};
     _32_linear_addr liear_addr = 0U;
@@ -255,13 +205,18 @@ _code_segment_descriptor_st *get_code_seg_desc(_selector_st selector_st)
         byte_v[b_index] = get_byte_from_linear_addr(liear_addr);
     }
 
-    flat_bin_to_code_seg_descriptor_st(byte_v, code_segment_descriptor_st_ptr);
-
-    return code_segment_descriptor_st_ptr;
+    if (segment_reg == _TEMP_DATA_SEG)
+    {
+        flat_bin_to_code_seg_descriptor_st(byte_v, &temp_code_segment_descriptor_st_ptr);
+    }
+    if (segment_reg == _CS_REG)
+    {
+        flat_bin_to_code_seg_descriptor_st(byte_v, segment_regs_st.CS_hidden_code_segment_descriptor);
+    }
 }
 
-// Memory leak risk ! THE CALLER FUNCTION HAVE THE RESPONSIBILITY TO FREE (OR NOT) ALLOCATED MEMORY ! Returns a pointer to a data segment pointed by selector_st.
-_data_segment_descriptor_st *get_data_seg_desc(_selector_st selector_st)
+// Returns a pointer to a data segment pointed by selector_st. Caller function must pass a data segment selector.
+void get_data_seg_desc(_selector_st selector_st, int segment_reg)
 {
     if ((selector_st.table_indicator == _GDT) && (selector_st.index == 0U)) // Can not index[0] of a GDT
     {
@@ -269,23 +224,8 @@ _data_segment_descriptor_st *get_data_seg_desc(_selector_st selector_st)
 #ifdef DBG
         printf("Exception: Can not index[0] of a GDT\n");
 #endif
-        return NULL;
+        return;
     }
-
-    /*
-    // TODO: confirm utility of this section
-    if (selector_st.table_indicator != _CODE_DATA_OR_SYSTEM_SEG__BIT_LOCATION)
-    {
-        // TODO return error ?
-        return NULL;
-    }
-    */
-    _data_segment_descriptor_st *data_segment_descriptor_st_ptr = (_data_segment_descriptor_st *)malloc(sizeof(_data_segment_descriptor_st));
-    if (data_segment_descriptor_st_ptr == NULL)
-    {
-        // TODO: handle malloc error
-    }
-    init_data_segment_descriptor(data_segment_descriptor_st_ptr);
 
     _byte byte_v[8] = {0U};
     _32_linear_addr liear_addr = 0U;
@@ -296,9 +236,31 @@ _data_segment_descriptor_st *get_data_seg_desc(_selector_st selector_st)
         byte_v[b_index] = get_byte_from_linear_addr(liear_addr);
     }
 
-    flat_bin_to_data_seg_descriptor_st(byte_v, data_segment_descriptor_st_ptr);
+    if (segment_reg == _SS_REG)
+    {
+        flat_bin_to_data_seg_descriptor_st(byte_v, segment_regs_st.SS_hidden_stack_segment_descriptor);
+    }
+    if (segment_reg == _DS_REG)
+    {
+        flat_bin_to_data_seg_descriptor_st(byte_v, segment_regs_st.DS_hidden_data_segment_descriptor);
+    }
+    if (segment_reg == _ES_REG)
+    {
+        flat_bin_to_data_seg_descriptor_st(byte_v, segment_regs_st.ES_hidden_data_segment_descriptor);
+    }
+    if (segment_reg == _FS_REG)
+    {
+        flat_bin_to_data_seg_descriptor_st(byte_v, segment_regs_st.FS_hidden_data_segment_descriptor);
+    }
+    if (segment_reg == _GS_REG)
+    {
+        flat_bin_to_data_seg_descriptor_st(byte_v, segment_regs_st.GS_hidden_data_segment_descriptor);
+    }
 
-    return data_segment_descriptor_st_ptr;
+    if (segment_reg == _TEMP_DATA_SEG)
+    {
+        flat_bin_to_data_seg_descriptor_st(byte_v, &temp_data_segment_descriptor_st_ptr);
+    }
 }
 
 void load_seg_regs(_selector_st selector_st, int segment_reg)
@@ -311,37 +273,42 @@ void load_seg_regs(_selector_st selector_st, int segment_reg)
     if (segment_reg == _CS_REG)
     {
         segment_regs_st.CS = concat_selector(selector_st);
-        segment_regs_st.CS_hidden_code_segment_descriptor = get_code_seg_desc(selector_st);
+        get_code_seg_desc(selector_st, _CS_REG);
     }
     if (segment_reg == _SS_REG)
     {
         segment_regs_st.SS = concat_selector(selector_st);
-        segment_regs_st.SS_hidden_stack_segment_descriptor = get_data_seg_desc(selector_st);
+        get_data_seg_desc(selector_st, _SS_REG);
     }
     if (segment_reg == _DS_REG)
     {
         segment_regs_st.DS = concat_selector(selector_st);
-        segment_regs_st.DS_hidden_data_segment_descriptor = get_data_seg_desc(selector_st);
+        get_data_seg_desc(selector_st, _DS_REG);
     }
     if (segment_reg == _ES_REG)
     {
         segment_regs_st.ES = concat_selector(selector_st);
-        segment_regs_st.ES_hidden_data_segment_descriptor = get_data_seg_desc(selector_st);
+        get_data_seg_desc(selector_st, _ES_REG);
     }
     if (segment_reg == _FS_REG)
     {
         segment_regs_st.FS = concat_selector(selector_st);
-        segment_regs_st.FS_hidden_data_segment_descriptor = get_data_seg_desc(selector_st);
+        get_data_seg_desc(selector_st, _FS_REG);
     }
     if (segment_reg == _GS_REG)
     {
         segment_regs_st.GS = concat_selector(selector_st);
-        segment_regs_st.GS_hidden_data_segment_descriptor = get_data_seg_desc(selector_st);
+        get_data_seg_desc(selector_st, _GS_REG);
     }
 }
 
 void load_selector_into_seg_reg(_selector_st selector_st, int segment_reg)
 {
+    if (segment_reg > 5)
+    {
+        status = _ERR_ADDR_STRANS_ARG;
+        err_handler("Segment_reg param should be 0 < param < 6");
+    }
     if ((selector_st.table_indicator == _GDT) && (selector_st.index == 0U)) // Can not index[0] of a GDT
     {
         // TODO: Implement exception. choose return value
@@ -369,23 +336,26 @@ void load_selector_into_seg_reg(_selector_st selector_st, int segment_reg)
     {
         if (check_segment_type(selector_st) == _CODE_SEGMENT_DESCRIPTOR)
         {
-            _code_segment_descriptor_st *code_segment_descriptor_st_ptr = get_code_seg_desc(selector_st);
-            if ((code_segment_descriptor_st_ptr->readable) == _NOT_READABLE_CODE_SEGMENT) // TODO : fix memeory leak
+            get_code_seg_desc(selector_st, _TEMP_CODE_SEG);
+            if ((temp_code_segment_descriptor_st_ptr.readable) == _NOT_READABLE_CODE_SEGMENT)
             {
-                free(code_segment_descriptor_st_ptr);
 #ifdef DBG
                 printf("Exception: Selectors of executable segments that are not readable cannot be loaded into data-segment registers\n");
 #endif
                 // TODO: rise exception?
                 return;
             }
-            // segment is readable
+            // Code segment is readable
             if (segment_reg == _DS_REG)
             {
                 load_seg_regs(selector_st, segment_reg);
                 return;
             }
         }
+
+        // Data segment
+        load_seg_regs(selector_st, segment_reg);
+        return;
     }
 
     if (segment_reg == _SS_REG) // Only selectors of writable data segments can be loaded into SS.
@@ -398,8 +368,8 @@ void load_selector_into_seg_reg(_selector_st selector_st, int segment_reg)
             // TODO: rise exception ?
             return;
         }
-        _data_segment_descriptor_st *data_segment_descriptor_st_ptr = get_data_seg_desc(selector_st);
-        if ((data_segment_descriptor_st_ptr->writable) == _NOT_WRITABLE_CODE_SEGMENT)
+        get_data_seg_desc(selector_st, _TEMP_DATA_SEG);
+        if ((temp_data_segment_descriptor_st_ptr.writable) == _NOT_WRITABLE_CODE_SEGMENT)
         {
 #ifdef DBG
             printf("Exception: Only selectors of writable data segments can be loaded into SS.\n");
