@@ -9,6 +9,20 @@
 #define _DATA_SEGMENT_DESCRIPTOR 2U
 #define _SYS_SEGMENT_DESCRIPTOR 3U
 
+// System and Gate Descriptor Types
+#define _AVAILABLE_286_TSS_SYS_DESCRIPTOR_TYPE 1U
+#define _LDT_SYS_DESCRIPTOR_TYPE 2U
+#define _BUSY_286_TSS_SYS_DESCRIPTOR_TYPE 3U
+#define _CALL_GATE_DESCRIPTOR_TYPE 4U
+#define _TASK_GATE_DESCRIPTOR_TYPE 5U
+#define _286_INTERRUPT_GATE_DESCRIPTOR_TYPE 6U
+#define _286_TRAP_GATE_DESCRIPTOR_TYPE 7U
+#define _AVAILABLE_386_TSS_SYS_DESCRIPTOR_TYPE 9U
+#define _BUSY_386_TSS_SYS_DESCRIPTOR_TYPE 0xB
+#define _386_CALL_GATE_DESCRIPTOR_TYPE 0xA
+#define _386_INTERRUPT_GATE_DESCRIPTOR_TYPE 0xE
+#define _386_TRAP_GATE_DESCRIPTOR_TYPE 0xF
+
 #define _CS_REG 0
 #define _SS_REG 1
 #define _DS_REG 2
@@ -132,7 +146,7 @@ typedef struct system_segment_descriptor_st
     _32reg Code_data_OR_sys_segment : 1;      // CODE/DATA OR system.Must be set to (0) here.
     _32reg granularity : 1;                   // G: If clear (0), the Limit is in 1 Byte blocks (byte granularity). If set (1), the Limit is in 4 KiB blocks (page granularity).
     _32reg available_for_programmer_user : 1; // AVL
-    _32reg type : 4;                          // Type of the system segment.
+    _32reg type : 4;                          // Type of the system segment descriptor.
 } _system_segment_descriptor_st;
 
 // 16-bit segement registers
