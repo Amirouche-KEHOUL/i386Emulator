@@ -5,9 +5,9 @@
 _code_segment_descriptor_st temp_code_segment_descriptor_st_ptr = {0}; // temporary structure
 _data_segment_descriptor_st temp_data_segment_descriptor_st_ptr = {0}; // temporary structure
 
-_32_linear_addr translate_segment(_32_logical_addr offset, void *segment_decriptor, int segment_descriptor_type)
+_32_linear_addr translate_segment(_32_logical_addr offset, const void *segment_decriptor, int segment_descriptor_type)
 {
-    _32_linear_addr ret = 0UL;
+    _32_linear_addr ret = 0U;
 
     if (segment_descriptor_type == _DATA_SEGMENT_DESCRIPTOR)
     {
@@ -16,7 +16,7 @@ _32_linear_addr translate_segment(_32_logical_addr offset, void *segment_decript
     }
     if (segment_descriptor_type == _CODE_SEGMENT_DESCRIPTOR)
     {
-        ret = ((_code_segment_descriptor_st *)segment_decriptor)->base + offset;
+        ret = (((_code_segment_descriptor_st *)segment_decriptor)->base) + offset;
         return ret;
     }
     if (segment_descriptor_type == _SYS_SEGMENT_DESCRIPTOR)
@@ -92,6 +92,14 @@ int check_segment_type(_selector_st selector_st)
     _32_linear_addr byteN5_linear_addr = calc_linear_addr_of_byte_in_seg_desc(selector_st, 5U); // Byte field holding the type bits
     _byte byte = get_byte_from_linear_addr(byteN5_linear_addr);
 
+    int segment_present_bit = is_bit_set(byte, _SEGMENT_PRESENT__BIT_LOCATION);
+    if (segment_present_bit == 0) // If this bit is zero, the descriptor is not valid for use in address transformation; the processor will signal an exception when a selector for the descriptor is loaded into a segment register
+    {
+        // TODO : implement exception
+#ifdef DBG
+        printf("Exception: Not-present descriptor\n");
+#endif
+    }
     int code_data_bit = is_bit_set(byte, _CODE_DATA_OR_SYSTEM_SEG__BIT_LOCATION);
     int executable_bit = is_bit_set(byte, _EXECUTABLE__BIT_LOCATION);
 
@@ -326,9 +334,11 @@ void load_selector_into_seg_reg(_selector_st selector_st, int segment_reg)
         return;
     }
 
+    int segment_type = check_segment_type(selector_st);
+
     if (segment_reg == _CS_REG) // CS reg eccept only code segments
     {
-        if (check_segment_type(selector_st) != _CODE_SEGMENT_DESCRIPTOR)
+        if (segment_type != _CODE_SEGMENT_DESCRIPTOR)
         {
             // TODO: rise exception? => TBC
 #ifdef DBG
@@ -342,7 +352,7 @@ void load_selector_into_seg_reg(_selector_st selector_st, int segment_reg)
 
     if ((segment_reg != _CS_REG) && (segment_reg != _SS_REG)) // Selectors of executable segments that are not readable cannot be loaded into data-segment registers
     {
-        if (check_segment_type(selector_st) == _CODE_SEGMENT_DESCRIPTOR)
+        if (segment_type == _CODE_SEGMENT_DESCRIPTOR)
         {
             get_code_seg_desc(selector_st, _TEMP_CODE_SEG);
             if ((temp_code_segment_descriptor_st_ptr.readable) == _NOT_READABLE_CODE_SEGMENT)
@@ -368,7 +378,7 @@ void load_selector_into_seg_reg(_selector_st selector_st, int segment_reg)
 
     if (segment_reg == _SS_REG) // Only selectors of writable data segments can be loaded into SS.
     {
-        if (check_segment_type(selector_st) != _DATA_SEGMENT_DESCRIPTOR)
+        if (segment_type != _DATA_SEGMENT_DESCRIPTOR)
         {
             // TODO: rise exception ? => TBC
 #ifdef DBG

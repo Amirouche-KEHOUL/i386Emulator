@@ -25,6 +25,7 @@
 
 #define _EXECUTABLE__BIT_LOCATION 3U
 #define _CODE_DATA_OR_SYSTEM_SEG__BIT_LOCATION 4U
+#define _SEGMENT_PRESENT__BIT_LOCATION 7U
 
 typedef unsigned char _8bit_index;
 typedef unsigned int _16bit_index;
@@ -91,7 +92,7 @@ typedef struct general_reg_st
 typedef struct data_segment_descriptor_st
 {
     _32reg base;
-    _32reg limit : 20;
+    _32reg limit : 20;                        // Related to granularity below
     _32reg segment_present : 1;               // P
     _32reg descriptor_privilege_level : 2;    // DPL
     _32reg Code_data_OR_sys_segment : 1;      // CODE/DATA OR system.Must be set to (1) here.
@@ -108,7 +109,7 @@ typedef struct data_segment_descriptor_st
 typedef struct code_segment_descriptor_st
 {
     _32reg base;
-    _32reg limit : 20;
+    _32reg limit : 20;                        // Related to granularity below
     _32reg segment_present : 1;               // P
     _32reg descriptor_privilege_level : 2;    // DPL
     _32reg Code_data_OR_sys_segment : 1;      // CODE/DATA OR system.Must be set to (1) here.
@@ -125,7 +126,7 @@ typedef struct code_segment_descriptor_st
 typedef struct system_segment_descriptor_st
 {
     _32reg base;
-    _32reg limit : 20;
+    _32reg limit : 20;                        // Related to granularity below
     _32reg segment_present : 1;               // P
     _32reg descriptor_privilege_level : 1;    // DPL
     _32reg Code_data_OR_sys_segment : 1;      // CODE/DATA OR system.Must be set to (0) here.

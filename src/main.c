@@ -82,9 +82,17 @@ int main(int argc, char **argv)
     selector_st.table_indicator = _GDT;
 
     // Expect Code segments only
-    load_selector_into_seg_reg(selector_st, _GS_REG);
+    load_selector_into_seg_reg(selector_st, _CS_REG);
 
     //------------ TEST segment Type protection------------
+
+    // Test translate_segment function
+    physical_memory_write(119u, physical_memory_ptr, linear_to_physical_addr(500u + 123u));
+
+    _32_linear_addr liear_addr = translate_segment(123U, segment_regs_st.CS_hidden_code_segment_descriptor, _CODE_SEGMENT_DESCRIPTOR);
+
+    _byte byte = physical_memory_read(physical_memory_ptr, linear_to_physical_addr(liear_addr));
+
     print_end();
 
     return 0;
