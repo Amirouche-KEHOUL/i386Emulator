@@ -5,8 +5,44 @@
 _code_segment_descriptor_st temp_code_segment_descriptor_st_ptr = {0}; // temporary structure
 _data_segment_descriptor_st temp_data_segment_descriptor_st_ptr = {0}; // temporary structure
 
+_32_linear_addr interpret_limit(const void *segment_decriptor, int segment_descriptor_type)
+{
+    if (segment_descriptor_type > _SYS_SEGMENT_DESCRIPTOR)
+    {
+        status = _ERR_ADDR_STRANS_ARG;
+        err_handler("");
+    }
+    _32_linear_addr ret = 0U;
+
+    if (segment_descriptor_type == _DATA_SEGMENT_DESCRIPTOR)
+    {
+        _data_segment_descriptor_st *data_segment_descriptor_st = (_data_segment_descriptor_st *)segment_decriptor;
+        ret = (_32_linear_addr)(data_segment_descriptor_st->limit);
+        if (data_segment_descriptor_st->granularity == 1U) // 4K pages
+        {
+            ret = (ret << 12U) | 0xFFF;
+            return ret;
+        }
+        return ret;
+    }
+    if (segment_descriptor_type == _CODE_SEGMENT_DESCRIPTOR)
+    {
+        _code_segment_descriptor_st *code_segment_descriptor_st = (_code_segment_descriptor_st *)segment_decriptor;
+    }
+    if (segment_descriptor_type == _SYS_SEGMENT_DESCRIPTOR)
+    {
+        _system_segment_descriptor_st *system_segment_descriptor_st = (_system_segment_descriptor_st *)segment_decriptor;
+    }
+    return ret;
+}
+
 _32_linear_addr translate_segment(_32_logical_addr offset, const void *segment_decriptor, int segment_descriptor_type)
 {
+    if (segment_descriptor_type > _SYS_SEGMENT_DESCRIPTOR)
+    {
+        status = _ERR_ADDR_STRANS_ARG;
+        err_handler("");
+    }
     _32_linear_addr ret = 0U;
 
     if (segment_descriptor_type == _DATA_SEGMENT_DESCRIPTOR)
@@ -320,11 +356,12 @@ void load_seg_regs(_selector_st selector_st, int segment_reg)
 
 void load_selector_into_seg_reg(_selector_st selector_st, int segment_reg)
 {
-    if (segment_reg > 5)
+    if (segment_reg > _GS_REG)
     {
         status = _ERR_ADDR_STRANS_ARG;
         err_handler("Segment_reg param should be 0 < param < 6");
     }
+
     if ((selector_st.table_indicator == _GDT) && (selector_st.index == 0U)) // Can not index[0] of a GDT
     {
         // TODO: Implement exception. choose return value
