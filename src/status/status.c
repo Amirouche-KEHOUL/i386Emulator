@@ -41,6 +41,9 @@ void err_print(void)
     case _ERR_REG_INIT:
         printf("_ERR_REG_INIT (code %d)\n", status);
         break;
+    case _ERR_REG_ARG:
+        printf("_ERR_REG_INIT (code %d)\n", status);
+        break;
     case _ERR_OPEN_DEVICE_NOK:
         printf("_ERR_OPEN_DEVICE_NOK (code %d)\n", status);
         break;
@@ -85,6 +88,10 @@ void err_handler(char *message)
         exit(status);
         break;
     case _ERR_REG_INIT:
+        print_end();
+        exit(status);
+        break;
+    case _ERR_REG_ARG:
         print_end();
         exit(status);
         break;

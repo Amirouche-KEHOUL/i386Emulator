@@ -10,16 +10,16 @@
 #define _SYS_SEGMENT_DESCRIPTOR 3U
 
 // System and Gate Descriptor Types
-#define _AVAILABLE_286_TSS_SYS_DESCRIPTOR_TYPE 1U
-#define _LDT_SYS_DESCRIPTOR_TYPE 2U
-#define _BUSY_286_TSS_SYS_DESCRIPTOR_TYPE 3U
-#define _CALL_GATE_DESCRIPTOR_TYPE 4U
-#define _TASK_GATE_DESCRIPTOR_TYPE 5U
-#define _286_INTERRUPT_GATE_DESCRIPTOR_TYPE 6U
-#define _286_TRAP_GATE_DESCRIPTOR_TYPE 7U
-#define _AVAILABLE_386_TSS_SYS_DESCRIPTOR_TYPE 9U
+#define _AVAILABLE_286_TSS_SYS_DESCRIPTOR_TYPE 0x1
+#define _LDT_SYS_DESCRIPTOR_TYPE 0x2
+#define _BUSY_286_TSS_SYS_DESCRIPTOR_TYPE 0x3
+#define _CALL_GATE_DESCRIPTOR_TYPE 0x4
+#define _TASK_GATE_DESCRIPTOR_TYPE 0x5
+#define _286_INTERRUPT_GATE_DESCRIPTOR_TYPE 0x6
+#define _286_TRAP_GATE_DESCRIPTOR_TYPE 0x7
+#define _AVAILABLE_386_TSS_SYS_DESCRIPTOR_TYPE 0x9
 #define _BUSY_386_TSS_SYS_DESCRIPTOR_TYPE 0xB
-#define _386_CALL_GATE_DESCRIPTOR_TYPE 0xA
+#define _386_CALL_GATE_DESCRIPTOR_TYPE 0xC
 #define _386_INTERRUPT_GATE_DESCRIPTOR_TYPE 0xE
 #define _386_TRAP_GATE_DESCRIPTOR_TYPE 0xF
 
@@ -102,6 +102,14 @@ typedef struct general_reg_st
     } ESP;
 } _general_regs_st;
 
+typedef struct selector_st
+{
+    _16reg index : 13;                    // Selects one of 8192 descriptors in a descriptor table. The processor multiplies this index value by 8(the length of a descriptor)
+    _16reg table_indicator : 1;           //  If 0 -> _GDT. If 1 -> _LDT
+    _16reg requestor_privilege_level : 2; // 0->3 : 0 == highest privilege
+
+} _selector_st;
+
 // Data segment descriptor
 typedef struct data_segment_descriptor_st
 {
@@ -146,26 +154,41 @@ typedef struct system_segment_descriptor_st
     _32reg Code_data_OR_sys_segment : 1;      // CODE/DATA OR system.Must be set to (0) here.
     _32reg granularity : 1;                   // G: If clear (0), the Limit is in 1 Byte blocks (byte granularity). If set (1), the Limit is in 4 KiB blocks (page granularity).
     _32reg available_for_programmer_user : 1; // AVL
-    _32reg type : 4;                          // Type of the system segment descriptor.
+    _32reg type : 4;                          // Value must be
 } _system_segment_descriptor_st;
+
+// Call gate descriptor
+typedef struct call_gate_descriptor_st
+{
+    _selector_st selector;                 // Selects a code segments
+    _32reg offset;                         // Points to an entry point of a procedure in the selected code segment (a code segment may contain serveral procedures pointed by call gates)
+    _32reg segment_present : 1;            // P
+    _32reg descriptor_privilege_level : 1; // DPL
+    _32reg Code_data_OR_sys_segment : 1;   // CODE/DATA OR system.Must be set to (0) here.
+    _32reg type : 4;                       // Must be equal to _386_CALL_GATE_DESCRIPTOR_TYPE
+    _32reg count : 5;                      // TODO : confirm role
+} _call_gate_descriptor_st;
 
 // 16-bit segement registers
 typedef struct segment_regs_st
 {
-    _16reg CS; // Code segmment : The segment containing the currently executing sequence of instructions.
-    _16reg SS; // Stack segment
+    _selector_st CS; // Code segmment : The segment containing the currently executing sequence of instructions.
+    _selector_st SS; // Stack segment
     /* data segments */
-    _16reg DS;
-    _16reg ES;
-    _16reg FS;
-    _16reg GS;
-    // Hidden part (seen only by the processor)
+    _selector_st DS;
+    _selector_st ES;
+    _selector_st FS;
+    _selector_st GS;
+    /* Hidden part (seen only by the processor) */
     _code_segment_descriptor_st *CS_hidden_code_segment_descriptor;
     _data_segment_descriptor_st *SS_hidden_stack_segment_descriptor;
     _data_segment_descriptor_st *DS_hidden_data_segment_descriptor;
     _data_segment_descriptor_st *ES_hidden_data_segment_descriptor;
     _data_segment_descriptor_st *FS_hidden_data_segment_descriptor;
     _data_segment_descriptor_st *GS_hidden_data_segment_descriptor;
+
+    /**/
+    _16reg current_privilege_level : 3; // CPL. Normally Equals to Target DPL ()
 
 } _segment_regs_st;
 
@@ -699,14 +722,6 @@ typedef enum pin_state_enum
 /* memory */
 typedef _byte *_physical_memory_ptr;
 typedef _byte *_IO_ptr;
-
-typedef struct selector_st
-{
-    _16reg index : 13;                    // Selects one of 8192 descriptors in a descriptor table. The processor multiplies this index value by 8(the length of a descriptor)
-    _16reg table_indicator : 1;           //  If 0 -> _GDT. If 1 -> _LDT
-    _16reg requestor_privilege_level : 2; // 0->3 : 0 == highest privilege
-
-} _selector_st;
 
 /* INterrupts */
 typedef struct interrupts_flags_st

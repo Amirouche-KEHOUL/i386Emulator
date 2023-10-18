@@ -3,13 +3,6 @@
 
 /* predefined values for registers at reset and power-up */
 
-#define _CONF_RESET_DEFAULT_CS 0xF000
-#define _CONF_RESET_DEFAULT_DS 0x0000
-#define _CONF_RESET_DEFAULT_ES 0x0000
-#define _CONF_RESET_DEFAULT_SS 0x0000
-#define _CONF_RESET_DEFAULT_FS 0x0000
-#define _CONF_RESET_DEFAULT_GS 0x0000
-
 #define _CONF_RESET_DEFAULT_EAX_AL 0x00
 #define _CONF_RESET_DEFAULT_EAX_AH 0x00
 #define _CONF_RESET_DEFAULT_EAX_MSB 0x0000

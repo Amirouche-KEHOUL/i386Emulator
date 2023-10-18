@@ -2,15 +2,38 @@
 
 #include "registers.h"
 
+// Clear all fields of selectors
+void init_selector(_selector_st *selector_st)
+{
+    if (selector_st == NULL)
+    {
+        status = _ERR_REG_ARG;
+        err_handler("");
+    }
+    selector_st->index = (_16reg)0x0;
+    selector_st->table_indicator = (_16reg)0x0;
+    selector_st->requestor_privilege_level = (_16reg)0x0;
+}
+
+void init_code_segment_selector(_selector_st *selector_st)
+{
+    if (selector_st == NULL)
+    {
+        status = _ERR_REG_ARG;
+        err_handler("");
+    }
+    // / TODO: TBC doc typo ? 0xF000 intead of 0x000 ?
+}
+
 void init_seg_reg(void)
 {
 
-    segment_regs_st.CS = (segment_regs_st.CS) | _CONF_RESET_DEFAULT_CS; // TODO: TBC doc typo ? 0xF000 intead of 0x000 ?
-    segment_regs_st.DS = _CONF_RESET_DEFAULT_DS;
-    segment_regs_st.ES = _CONF_RESET_DEFAULT_ES;
-    segment_regs_st.SS = _CONF_RESET_DEFAULT_SS;
-    segment_regs_st.FS = _CONF_RESET_DEFAULT_FS;
-    segment_regs_st.GS = _CONF_RESET_DEFAULT_GS;
+    init_code_segment_selector(&segment_regs_st.CS);
+    init_selector(&segment_regs_st.SS);
+    init_selector(&segment_regs_st.DS);
+    init_selector(&segment_regs_st.ES);
+    init_selector(&segment_regs_st.FS);
+    init_selector(&segment_regs_st.GS);
 
     segment_regs_st.CS_hidden_code_segment_descriptor = &CS_hidden_code_segment_descriptor;
     segment_regs_st.DS_hidden_data_segment_descriptor = &DS_hidden_data_segment_descriptor;

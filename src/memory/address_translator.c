@@ -5,6 +5,7 @@
 _code_segment_descriptor_st temp_code_segment_descriptor_st_ptr = {0}; // temporary structure
 _data_segment_descriptor_st temp_data_segment_descriptor_st_ptr = {0}; // temporary structure
 
+// Interpret limit based on the granularity bit
 _32_linear_addr interpret_limit(const void *segment_decriptor, int segment_descriptor_type)
 {
     if (segment_descriptor_type > _SYS_SEGMENT_DESCRIPTOR)
@@ -155,7 +156,7 @@ int check_segment_type(_selector_st selector_st)
     return ret;
 }
 
-// "convert" the strcut into 16bit field reg.
+// "convert" the strcut into 16bit field reg. TODO:Confirm if still needed
 _16reg concat_selector(_selector_st selector_st)
 {
     _16reg ret = 0U;
@@ -324,32 +325,32 @@ void load_seg_regs(_selector_st selector_st, int segment_reg)
     }
     if (segment_reg == _CS_REG)
     {
-        segment_regs_st.CS = concat_selector(selector_st);
+        segment_regs_st.CS = selector_st;
         get_code_seg_desc(selector_st, _CS_REG);
     }
     if (segment_reg == _SS_REG)
     {
-        segment_regs_st.SS = concat_selector(selector_st);
+        segment_regs_st.SS = selector_st;
         get_data_seg_desc(selector_st, _SS_REG);
     }
     if (segment_reg == _DS_REG)
     {
-        segment_regs_st.DS = concat_selector(selector_st);
+        segment_regs_st.DS = selector_st;
         get_data_seg_desc(selector_st, _DS_REG);
     }
     if (segment_reg == _ES_REG)
     {
-        segment_regs_st.ES = concat_selector(selector_st);
+        segment_regs_st.ES = selector_st;
         get_data_seg_desc(selector_st, _ES_REG);
     }
     if (segment_reg == _FS_REG)
     {
-        segment_regs_st.FS = concat_selector(selector_st);
+        segment_regs_st.FS = selector_st;
         get_data_seg_desc(selector_st, _FS_REG);
     }
     if (segment_reg == _GS_REG)
     {
-        segment_regs_st.GS = concat_selector(selector_st);
+        segment_regs_st.GS = selector_st;
         get_data_seg_desc(selector_st, _GS_REG);
     }
 }

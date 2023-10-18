@@ -65,7 +65,6 @@ unsigned int bios_load_MBR_TO_RAM(FILE *device)
         physical_memory_write(byte_stream, physical_memory_ptr, (_32_physical_addr)(_MBR_LOAD_RAM_ADDR + i));
     }
     // Force CS:IP to 0x 0000:_MBR_LOAD_RAM_ADDR
-    segment_regs_st.CS = 0x0000;
     eip_st.IP = _MBR_LOAD_RAM_ADDR;
     return 1;
 }
