@@ -355,7 +355,7 @@ void load_seg_regs(_selector_st selector_st, int segment_reg)
     }
 }
 
-void load_selector_into_seg_reg(_selector_st selector_st, int segment_reg)
+void check_then_load_selector_into_seg_reg(_selector_st selector_st, int segment_reg)
 {
     if (segment_reg > _GS_REG)
     {

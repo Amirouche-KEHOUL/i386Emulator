@@ -82,7 +82,7 @@ int main(int argc, char **argv)
     selector_st.table_indicator = _GDT;
 
     // Expect Code segments only
-    load_selector_into_seg_reg(selector_st, _CS_REG);
+    check_then_load_selector_into_seg_reg(selector_st, _CS_REG);
 
     //------------ TEST segment Type protection------------
 

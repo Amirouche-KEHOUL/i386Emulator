@@ -41,14 +41,14 @@
 #define _CODE_DATA_OR_SYSTEM_SEG__BIT_LOCATION 4U
 #define _SEGMENT_PRESENT__BIT_LOCATION 7U
 
-typedef unsigned char _8bit_index;
-typedef unsigned int _16bit_index;
-typedef unsigned char _8reg;
-typedef unsigned int _16reg;
-typedef unsigned int _32reg;
-typedef unsigned int _16bus;
 typedef unsigned char _byte;
-typedef unsigned char _16addr;
+typedef unsigned char _8bit_index;
+typedef unsigned char _8reg;
+typedef unsigned short _16bit_index;
+typedef unsigned short _16reg;
+typedef unsigned short _16bus;
+typedef unsigned short _16addr;
+typedef unsigned int _32reg;
 typedef unsigned int _32_linear_addr;
 typedef unsigned int _32_logical_addr;
 typedef unsigned int _32_physical_addr;
@@ -104,9 +104,9 @@ typedef struct general_reg_st
 
 typedef struct selector_st
 {
-    _16reg index : 13;                    // Selects one of 8192 descriptors in a descriptor table. The processor multiplies this index value by 8(the length of a descriptor)
-    _16reg table_indicator : 1;           //  If 0 -> _GDT. If 1 -> _LDT
     _16reg requestor_privilege_level : 2; // 0->3 : 0 == highest privilege
+    _16reg table_indicator : 1;           //  If 0 -> _GDT. If 1 -> _LDT
+    _16reg index : 13;                    // Selects one of 8192 descriptors in a descriptor table. The processor multiplies this index value by 8(the length of a descriptor)
 
 } _selector_st;
 
