@@ -42,13 +42,15 @@
 #define _SEGMENT_PRESENT__BIT_LOCATION 7U
 
 typedef unsigned char _byte;
-typedef unsigned char _8bit_index;
+typedef unsigned short _word;
+typedef unsigned int _double_word;
 typedef unsigned char _8reg;
-typedef unsigned short _16bit_index;
+typedef unsigned char _8bit_index;
 typedef unsigned short _16reg;
+typedef unsigned short _16bit_index;
 typedef unsigned short _16bus;
-typedef unsigned short _16addr;
 typedef unsigned int _32reg;
+typedef unsigned int _32bit_index;
 typedef unsigned int _32_linear_addr;
 typedef unsigned int _32_logical_addr;
 typedef unsigned int _32_physical_addr;
@@ -269,7 +271,7 @@ typedef struct cr0_reg_st
 } _cr0_reg_st;
 
 typedef _32reg _cr2_reg;      // Page fault linear address
-typedef _32reg _cr3_reg_pdbr; // Page directory base register. Stores the physical address of the current page directory
+typedef _32reg _cr3_reg_pdbr; // 20 MSB bits (12 LSB bit always 0 - 4K pages) Page directory base register. Stores the physical address of the current page directory
 
 // TLB Translation lookaside Buffer
 typedef struct tlb_reg_st

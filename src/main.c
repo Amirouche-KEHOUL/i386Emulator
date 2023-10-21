@@ -91,7 +91,7 @@ int main(int argc, char **argv)
 
     _32_linear_addr liear_addr = translate_segment(123U, segment_regs_st.CS_hidden_code_segment_descriptor, _CODE_SEGMENT_DESCRIPTOR);
 
-    _byte byte = physical_memory_read(physical_memory_ptr, linear_to_physical_addr(liear_addr));
+    _byte byte = physical_memory_read_byte(physical_memory_ptr, linear_to_physical_addr(liear_addr));
 
     print_end();
 

@@ -1,6 +1,6 @@
 #include "address_translator.h"
 
-// ############################## Segmented-memory functions #################################//
+// ############################## Segment Translation #################################//
 
 _code_segment_descriptor_st temp_code_segment_descriptor_st_ptr = {0}; // temporary structure
 _data_segment_descriptor_st temp_data_segment_descriptor_st_ptr = {0}; // temporary structure
@@ -64,11 +64,6 @@ _32_linear_addr translate_segment(_32_logical_addr offset, const void *segment_d
     return ret;
 }
 
-_32_physical_addr linear_to_physical_addr(_32_linear_addr linear_addr)
-{
-    return linear_addr; // TODO: this is a tomporary solution. Need to confirm paging first
-}
-
 // Returns (1) if read value is (1), (0) if read value is (0), (2) if error
 int is_bit_set(_byte byte, _8bit_index index)
 {
@@ -92,7 +87,7 @@ int is_bit_set(_byte byte, _8bit_index index)
 _byte get_byte_from_linear_addr(_32_linear_addr linear_addr)
 {
     _32_physical_addr physical_addr = linear_to_physical_addr(linear_addr);
-    _byte byte = physical_memory_read(physical_memory_ptr, physical_addr);
+    _byte byte = physical_memory_read_byte(physical_memory_ptr, physical_addr);
     return byte;
 }
 
@@ -436,4 +431,62 @@ void check_then_load_selector_into_seg_reg(_selector_st selector_st, int segment
         load_seg_regs(selector_st, segment_reg);
         return;
     }
+}
+
+// ############################## Page Translation #################################//
+
+_32_physical_addr get_page_tabe_base_addr(_16bit_index DIR_entry_index)
+{
+    _double_word dir_entry = 0x0;
+    _32_physical_addr page_table_base_addr = 0x0;
+
+    dir_entry = physical_memory_read_double_word(physical_memory_ptr, (cr3_reg_pdbr + (_32reg)DIR_entry_index));
+
+    page_table_base_addr = (dir_entry) & (0xFFFFF000);
+
+    return page_table_base_addr;
+}
+
+_32_physical_addr get_page_frame_base_addr(_16bit_index Page_entry_index, _32_physical_addr page_tabe_base_addr)
+{
+    _double_word page_entry = 0x0;
+    _32_physical_addr page_frame_base_addr = 0x0;
+
+    page_entry = physical_memory_read_double_word(physical_memory_ptr, (page_tabe_base_addr + (_32reg)Page_entry_index));
+
+    page_frame_base_addr = (page_entry) & (0xFFFFF000);
+
+    return page_frame_base_addr;
+}
+
+_32_physical_addr translate_page(_16bit_index DIR_entry_index, _16bit_index Page_entry_index, _16bit_index offset)
+{
+    _32_physical_addr physical_addr = 0x0;
+    _32_physical_addr page_tabe_base_addr = 0x0;
+    _32_physical_addr page_frame_base_addr = 0x0;
+
+    page_tabe_base_addr = get_page_tabe_base_addr(DIR_entry_index);
+    page_frame_base_addr = get_page_frame_base_addr(Page_entry_index, page_tabe_base_addr);
+
+    physical_addr = page_frame_base_addr + offset;
+
+    return physical_addr;
+}
+
+_32_physical_addr linear_to_physical_addr(_32_linear_addr linear_addr)
+{
+    if (cr0_reg_st.PG == 0x0) // Paging is off
+    {
+        return linear_addr;
+    }
+
+    _16bit_index DIR_entry_index = (_16bit_index)(linear_addr >> 22);              // 10 bit MSB field
+    _16bit_index Page_entry_index = (_16bit_index)((linear_addr >> 12) & (0x3FF)); // 10 bit field
+    _16bit_index offset = (_16bit_index)((linear_addr) & (0xFFF));                 // 12 bit LSB field
+
+    _32_physical_addr physical_memory_addr = 0x0;
+
+    physical_memory_addr = translate_page(DIR_entry_index, Page_entry_index, offset);
+
+    return physical_memory_addr;
 }
