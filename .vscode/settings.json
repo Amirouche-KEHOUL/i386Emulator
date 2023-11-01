@@ -27,7 +27,8 @@
         "config.h": "c",
         "cstdlib": "c",
         "typedefs.h": "c",
-        "address_translator.h": "c"
+        "address_translator.h": "c",
+        "decoder.h": "c"
     },
     "editor.tokenColorCustomizations": {}
 }

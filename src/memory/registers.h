@@ -82,4 +82,5 @@ void init_cr0_reg(void);
  */
 void init_dtr_regs(void);
 
+_16_reg get_BX(_general_regs_st *general_regs_st);
 #endif //_REGISTERS_H_

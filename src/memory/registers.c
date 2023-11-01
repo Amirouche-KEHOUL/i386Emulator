@@ -10,9 +10,9 @@ void init_selector(_selector_st *selector_st)
         status = _ERR_REG_ARG;
         err_handler("");
     }
-    selector_st->index = (_16reg)0x0;
-    selector_st->table_indicator = (_16reg)0x0;
-    selector_st->requestor_privilege_level = (_16reg)0x0;
+    selector_st->index = (_16_reg)0x0;
+    selector_st->table_indicator = (_16_reg)0x0;
+    selector_st->requestor_privilege_level = (_16_reg)0x0;
 }
 
 void init_code_segment_selector(_selector_st *selector_st)
@@ -122,4 +122,16 @@ void init_dtr_regs(void)
 {
     gdtr_reg_st.type = _GDT;
     ldtr_reg_st.type = _LDT;
+}
+
+_16_reg get_BX(_general_regs_st *general_regs_st)
+{
+    _16_reg ret = 0U;
+    _16_reg BL = 0U;
+    BL = general_regs_st->EBX.BL;
+    ret = general_regs_st->EBX.BH;
+    ret = ret << 8;
+
+    ret = ret | BL;
+    return ret;
 }

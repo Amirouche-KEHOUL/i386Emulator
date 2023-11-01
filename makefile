@@ -1,11 +1,11 @@
 
 SRC = src/main.c src/memory/physical_memory.c src/memory/IO.c src/memory/address_translator.c src/bios/bios.c src/sys/sys.c \
-		src/pins/pins.c src/memory/registers.c src/status/status.c src/utils/utils.c src/interrupts/interrupts.c 
+		src/pins/pins.c src/memory/registers.c src/status/status.c src/utils/utils.c src/interrupts/interrupts.c src/decoder/decoder.c
 
 OBJ = build/main.o build/bios/bios.o build/sys/sys.o build/status/status.o build/memory/physical_memory.o build/memory/IO.o build/memory/registers.o \
-		build/memory/address_translator.o build/pins/pins.o  build/utils/utils.o build/interrupts/interrupts.o 
+		build/memory/address_translator.o build/pins/pins.o  build/utils/utils.o build/interrupts/interrupts.o build/decoder/decoder.o
 
-BINDIRS = bin/ build/memory build/pins build/status build/sys build/bios build/utils build/interrupts
+BINDIRS = bin/ build/memory build/pins build/status build/sys build/bios build/utils build/interrupts build/decoder
 
 OP = -std=c99 -Wall -Wvla -g -Wno-unused-variable -Wno-unused-but-set-variable -Wconversion -D DBG -D TEST
 
@@ -49,6 +49,9 @@ build/memory/IO.o : src/memory/IO.c src/memory/IO.h
 
 build/memory/address_translator.o : src/memory/address_translator.c src/memory/address_translator.h
 	$(GCC) $(OP) -c src/memory/address_translator.c -o $@	
+
+build/decoder/decoder.o : src/decoder/decoder.c src/decoder/decoder.h
+	$(GCC) $(OP) -c src/decoder/decoder.c -o $@	
 
 remake: 
 	make clean && make

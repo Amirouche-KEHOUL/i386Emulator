@@ -37,7 +37,7 @@ _32_linear_addr interpret_limit(const void *segment_decriptor, int segment_descr
     return ret;
 }
 
-_32_linear_addr translate_segment(_32_logical_addr offset, const void *segment_decriptor, int segment_descriptor_type)
+_32_linear_addr translate_segment(_32_offset offset, const void *segment_decriptor, int segment_descriptor_type)
 {
     if (segment_descriptor_type > _SYS_SEGMENT_DESCRIPTOR)
     {
@@ -65,9 +65,9 @@ _32_linear_addr translate_segment(_32_logical_addr offset, const void *segment_d
 }
 
 // Returns (1) if read value is (1), (0) if read value is (0), (2) if error
-int is_bit_set(_byte byte, _8bit_index index)
+int is_bit_set(_byte byte, _8_index index)
 {
-    if (index > (_8bit_index)7)
+    if (index > (_8_index)7)
     {
         status = _ERR_ADDR_STRANS_ARG;
         err_handler("");
@@ -92,7 +92,7 @@ _byte get_byte_from_linear_addr(_32_linear_addr linear_addr)
 }
 
 // calculate the liear address of byte number "byte_index" of the segment descriptor
-_32_linear_addr calc_linear_addr_of_byte_in_seg_desc(_selector_st selector_st, _8bit_index byte_index)
+_32_linear_addr calc_linear_addr_of_byte_in_seg_desc(_selector_st selector_st, _8_index byte_index)
 {
     _32_linear_addr dtr = 0;
     if (selector_st.table_indicator == _GDT)
@@ -152,26 +152,26 @@ int check_segment_type(_selector_st selector_st)
 }
 
 // "convert" the strcut into 16bit field reg. TODO:Confirm if still needed
-_16reg concat_selector(_selector_st selector_st)
+_16_reg concat_selector(_selector_st selector_st)
 {
-    _16reg ret = 0U;
-    _16bit_index index = selector_st.index;
-    _16reg table_indicator = selector_st.table_indicator;
-    _16reg requestor_privilege_level = selector_st.requestor_privilege_level;
+    _16_reg ret = 0U;
+    _16_index index = selector_st.index;
+    _16_reg table_indicator = selector_st.table_indicator;
+    _16_reg requestor_privilege_level = selector_st.requestor_privilege_level;
 
     ret = requestor_privilege_level | (table_indicator << 2) | (index << 3);
 
     return ret;
 }
 
-_32reg return_base(_byte byte_v[])
+_32_reg return_base(_byte byte_v[])
 {
-    _32reg base = 0;
+    _32_reg base = 0;
 
-    _32reg byte0 = byte_v[2];
-    _32reg byte1 = byte_v[3];
-    _32reg byte2 = byte_v[4];
-    _32reg byte3 = byte_v[7];
+    _32_reg byte0 = byte_v[2];
+    _32_reg byte1 = byte_v[3];
+    _32_reg byte2 = byte_v[4];
+    _32_reg byte3 = byte_v[7];
 
     byte3 = byte3 << 24;
     byte2 = byte2 << 16;
@@ -182,13 +182,13 @@ _32reg return_base(_byte byte_v[])
     return base;
 }
 
-_32reg return_limit(_byte byte_v[])
+_32_reg return_limit(_byte byte_v[])
 {
-    _32reg limit = 0; // 20 bits
+    _32_reg limit = 0; // 20 bits
 
-    _32reg byte0 = byte_v[0];
-    _32reg byte1 = byte_v[1];
-    _32reg byte2 = byte_v[6];
+    _32_reg byte0 = byte_v[0];
+    _32_reg byte1 = byte_v[1];
+    _32_reg byte2 = byte_v[6];
 
     byte1 = byte1 << 8;
     byte2 = byte2 << 16;
@@ -201,35 +201,35 @@ _32reg return_limit(_byte byte_v[])
 void flat_bin_to_code_seg_descriptor_st(_byte byte_v[], _code_segment_descriptor_st *code_segment_descriptor_st_ptr)
 {
     // Used & to surpress -Wconversion warning (Need to secure the possible conversion Warninig)
-    code_segment_descriptor_st_ptr->base = (_32reg)return_base(byte_v);
-    code_segment_descriptor_st_ptr->limit = (_32reg)return_limit(byte_v) & 0xFFFFF;
-    code_segment_descriptor_st_ptr->descriptor_privilege_level = (_32reg)(byte_v[5] >> 5) & 0b11;
-    code_segment_descriptor_st_ptr->segment_present = (_32reg)(byte_v[5] >> 7) & 0b1;
-    code_segment_descriptor_st_ptr->Code_data_OR_sys_segment = (_32reg)(byte_v[5] >> 4) & 0b1;
-    code_segment_descriptor_st_ptr->executable = (_32reg)(byte_v[5] >> 3) & 0b1;
-    code_segment_descriptor_st_ptr->conforming = (_32reg)(byte_v[5] >> 2) & 0b1;
-    code_segment_descriptor_st_ptr->readable = (_32reg)(byte_v[5] >> 1) & 0b1;
-    code_segment_descriptor_st_ptr->accessed = (_32reg)(byte_v[5]) & 0b1;
-    code_segment_descriptor_st_ptr->granularity = (_32reg)(byte_v[6] >> 7) & 0b1;
-    code_segment_descriptor_st_ptr->DEFAULT = (_32reg)(byte_v[6] >> 6) & 0b1;
-    code_segment_descriptor_st_ptr->available_for_programmer_user = (_32reg)(byte_v[6] >> 4) & 0b1;
+    code_segment_descriptor_st_ptr->base = (_32_reg)return_base(byte_v);
+    code_segment_descriptor_st_ptr->limit = (_32_reg)return_limit(byte_v) & 0xFFFFF;
+    code_segment_descriptor_st_ptr->descriptor_privilege_level = (_32_reg)(byte_v[5] >> 5) & 0b11;
+    code_segment_descriptor_st_ptr->segment_present = (_32_reg)(byte_v[5] >> 7) & 0b1;
+    code_segment_descriptor_st_ptr->Code_data_OR_sys_segment = (_32_reg)(byte_v[5] >> 4) & 0b1;
+    code_segment_descriptor_st_ptr->executable = (_32_reg)(byte_v[5] >> 3) & 0b1;
+    code_segment_descriptor_st_ptr->conforming = (_32_reg)(byte_v[5] >> 2) & 0b1;
+    code_segment_descriptor_st_ptr->readable = (_32_reg)(byte_v[5] >> 1) & 0b1;
+    code_segment_descriptor_st_ptr->accessed = (_32_reg)(byte_v[5]) & 0b1;
+    code_segment_descriptor_st_ptr->granularity = (_32_reg)(byte_v[6] >> 7) & 0b1;
+    code_segment_descriptor_st_ptr->DEFAULT = (_32_reg)(byte_v[6] >> 6) & 0b1;
+    code_segment_descriptor_st_ptr->available_for_programmer_user = (_32_reg)(byte_v[6] >> 4) & 0b1;
 }
 
 void flat_bin_to_data_seg_descriptor_st(_byte byte_v[], _data_segment_descriptor_st *data_segment_descriptor_st_ptr)
 {
 
-    data_segment_descriptor_st_ptr->base = (_32reg)return_base(byte_v);
-    data_segment_descriptor_st_ptr->limit = (_32reg)return_limit(byte_v) & 0xFFFFF;
-    data_segment_descriptor_st_ptr->descriptor_privilege_level = (_32reg)(byte_v[5] >> 5) & 0b11;
-    data_segment_descriptor_st_ptr->segment_present = (_32reg)(byte_v[5] >> 7) & 0b1;
-    data_segment_descriptor_st_ptr->Code_data_OR_sys_segment = (_32reg)(byte_v[5] >> 4) & 0b1;
-    data_segment_descriptor_st_ptr->executable = (_32reg)(byte_v[5] >> 3) & 0b1;
-    data_segment_descriptor_st_ptr->expand_down = (_32reg)(byte_v[5] >> 2) & 0b1;
-    data_segment_descriptor_st_ptr->writable = (_32reg)(byte_v[5] >> 1) & 0b1;
-    data_segment_descriptor_st_ptr->accessed = (_32reg)(byte_v[5]) & 0b1;
-    data_segment_descriptor_st_ptr->granularity = (_32reg)(byte_v[6] >> 7) & 0b1;
-    data_segment_descriptor_st_ptr->big = (_32reg)(byte_v[6] >> 6) & 0b1;
-    data_segment_descriptor_st_ptr->available_for_programmer_user = (_32reg)(byte_v[6] >> 4) & 0b1;
+    data_segment_descriptor_st_ptr->base = (_32_reg)return_base(byte_v);
+    data_segment_descriptor_st_ptr->limit = (_32_reg)return_limit(byte_v) & 0xFFFFF;
+    data_segment_descriptor_st_ptr->descriptor_privilege_level = (_32_reg)(byte_v[5] >> 5) & 0b11;
+    data_segment_descriptor_st_ptr->segment_present = (_32_reg)(byte_v[5] >> 7) & 0b1;
+    data_segment_descriptor_st_ptr->Code_data_OR_sys_segment = (_32_reg)(byte_v[5] >> 4) & 0b1;
+    data_segment_descriptor_st_ptr->executable = (_32_reg)(byte_v[5] >> 3) & 0b1;
+    data_segment_descriptor_st_ptr->expand_down = (_32_reg)(byte_v[5] >> 2) & 0b1;
+    data_segment_descriptor_st_ptr->writable = (_32_reg)(byte_v[5] >> 1) & 0b1;
+    data_segment_descriptor_st_ptr->accessed = (_32_reg)(byte_v[5]) & 0b1;
+    data_segment_descriptor_st_ptr->granularity = (_32_reg)(byte_v[6] >> 7) & 0b1;
+    data_segment_descriptor_st_ptr->big = (_32_reg)(byte_v[6] >> 6) & 0b1;
+    data_segment_descriptor_st_ptr->available_for_programmer_user = (_32_reg)(byte_v[6] >> 4) & 0b1;
 }
 
 // Returns a code descriptor structure pointer for a given selector. Caller function must pass a code segment selector.
@@ -247,7 +247,7 @@ void get_code_seg_desc(_selector_st selector_st, int segment_reg)
     _byte byte_v[8] = {0U};
     _32_linear_addr liear_addr = 0U;
 
-    for (_8bit_index b_index = 0; b_index < 8; b_index++)
+    for (_8_index b_index = 0; b_index < 8; b_index++)
     {
         liear_addr = calc_linear_addr_of_byte_in_seg_desc(selector_st, b_index);
         byte_v[b_index] = get_byte_from_linear_addr(liear_addr);
@@ -278,7 +278,7 @@ void get_data_seg_desc(_selector_st selector_st, int segment_reg)
     _byte byte_v[8] = {0U};
     _32_linear_addr liear_addr = 0U;
 
-    for (_8bit_index b_index = 0; b_index < 8; b_index++)
+    for (_8_index b_index = 0; b_index < 8; b_index++)
     {
         liear_addr = calc_linear_addr_of_byte_in_seg_desc(selector_st, b_index);
         byte_v[b_index] = get_byte_from_linear_addr(liear_addr);
@@ -435,31 +435,31 @@ void check_then_load_selector_into_seg_reg(_selector_st selector_st, int segment
 
 // ############################## Page Translation #################################//
 
-_32_physical_addr get_page_tabe_base_addr(_16bit_index DIR_entry_index)
+_32_physical_addr get_page_tabe_base_addr(_16_index DIR_entry_index)
 {
     _double_word dir_entry = 0x0;
     _32_physical_addr page_table_base_addr = 0x0;
 
-    dir_entry = physical_memory_read_double_word(physical_memory_ptr, (cr3_reg_pdbr + (_32reg)DIR_entry_index));
+    dir_entry = physical_memory_read_double_word(physical_memory_ptr, (cr3_reg_pdbr + (_32_reg)DIR_entry_index));
 
     page_table_base_addr = (dir_entry) & (0xFFFFF000);
 
     return page_table_base_addr;
 }
 
-_32_physical_addr get_page_frame_base_addr(_16bit_index Page_entry_index, _32_physical_addr page_tabe_base_addr)
+_32_physical_addr get_page_frame_base_addr(_16_index Page_entry_index, _32_physical_addr page_tabe_base_addr)
 {
     _double_word page_entry = 0x0;
     _32_physical_addr page_frame_base_addr = 0x0;
 
-    page_entry = physical_memory_read_double_word(physical_memory_ptr, (page_tabe_base_addr + (_32reg)Page_entry_index));
+    page_entry = physical_memory_read_double_word(physical_memory_ptr, (page_tabe_base_addr + (_32_reg)Page_entry_index));
 
     page_frame_base_addr = (page_entry) & (0xFFFFF000);
 
     return page_frame_base_addr;
 }
 
-_32_physical_addr translate_page(_16bit_index DIR_entry_index, _16bit_index Page_entry_index, _16bit_index offset)
+_32_physical_addr translate_page(_16_index DIR_entry_index, _16_index Page_entry_index, _16_index offset)
 {
     _32_physical_addr physical_addr = 0x0;
     _32_physical_addr page_tabe_base_addr = 0x0;
@@ -480,9 +480,9 @@ _32_physical_addr linear_to_physical_addr(_32_linear_addr linear_addr)
         return linear_addr;
     }
 
-    _16bit_index DIR_entry_index = (_16bit_index)(linear_addr >> 22);              // 10 bit MSB field
-    _16bit_index Page_entry_index = (_16bit_index)((linear_addr >> 12) & (0x3FF)); // 10 bit field
-    _16bit_index offset = (_16bit_index)((linear_addr) & (0xFFF));                 // 12 bit LSB field
+    _16_index DIR_entry_index = (_16_index)(linear_addr >> 22);              // 10 bit MSB field
+    _16_index Page_entry_index = (_16_index)((linear_addr >> 12) & (0x3FF)); // 10 bit field
+    _16_index offset = (_16_index)((linear_addr) & (0xFFF));                 // 12 bit LSB field
 
     _32_physical_addr physical_memory_addr = 0x0;
 
