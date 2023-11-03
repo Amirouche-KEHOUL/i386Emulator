@@ -490,3 +490,14 @@ _32_physical_addr linear_to_physical_addr(_32_linear_addr linear_addr)
 
     return physical_memory_addr;
 }
+
+// ############################## Logical to physical address #################################//
+
+_32_physical_addr logical_to_physical_addr(_32_offset offset, const void *segment_decriptor, int segment_descriptor_type)
+{
+    _32_physical_addr physical_addr = 0U;
+    _32_linear_addr linear_addr = 0U;
+    linear_addr = translate_segment(offset, segment_decriptor, segment_descriptor_type);
+    physical_addr = linear_to_physical_addr(linear_addr);
+    return physical_addr;
+}

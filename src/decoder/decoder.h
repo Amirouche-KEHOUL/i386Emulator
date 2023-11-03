@@ -99,6 +99,7 @@
 #define OPERAND_SIZE_PREFIX_NOT_PRESENT 0U
 #define OPERAND_SIZE_PREFIX_PRESENT 1U
 
+/* SIB byte */
 #define _EAX_SIB_ 1
 #define _ECX_SIB_ 2
 #define _EDX_SIB_ 3

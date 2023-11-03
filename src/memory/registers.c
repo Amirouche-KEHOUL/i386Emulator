@@ -124,14 +124,84 @@ void init_dtr_regs(void)
     ldtr_reg_st.type = _LDT;
 }
 
-_16_reg get_BX(_general_regs_st *general_regs_st)
+_16_reg get_BX(void)
 {
     _16_reg ret = 0U;
     _16_reg BL = 0U;
-    BL = general_regs_st->EBX.BL;
-    ret = general_regs_st->EBX.BH;
+    BL = general_regs_st.EBX.BL;
+    ret = general_regs_st.EBX.BH;
     ret = ret << 8;
-
     ret = ret | BL;
+    return ret;
+}
+
+_32_reg get_EAX(void)
+{
+    _32_reg ret = 0U;
+    _32_reg AH = 0U;
+    ret = general_regs_st.EAX.msb;
+    ret = ret << 16;
+    AH = general_regs_st.EAX.AH;
+    ret = ret | (AH << 8) | (general_regs_st.EAX.AL);
+    return ret;
+}
+
+_32_reg get_ECX(void)
+{
+    _32_reg ret = 0U;
+    _32_reg CH = 0U;
+    ret = general_regs_st.ECX.msb;
+    ret = ret << 16;
+    CH = general_regs_st.ECX.CH;
+    ret = ret | (CH << 8) | (general_regs_st.ECX.CL);
+    return ret;
+}
+
+_32_reg get_EDX(void)
+{
+    _32_reg ret = 0U;
+    _32_reg DH = 0U;
+    ret = general_regs_st.EDX.msb;
+    ret = ret << 16;
+    DH = general_regs_st.EDX.DH;
+    ret = ret | (DH << 8) | (general_regs_st.EDX.DL);
+    return ret;
+}
+
+_32_reg get_EBX(void)
+{
+    _32_reg ret = 0U;
+    _32_reg BH = 0U;
+    ret = general_regs_st.EBX.msb;
+    ret = ret << 16;
+    BH = general_regs_st.EBX.BH;
+    ret = ret | (BH << 8) | (general_regs_st.EBX.BL);
+    return ret;
+}
+
+_32_reg get_ESI(void)
+{
+    _32_reg ret = 0U;
+    ret = general_regs_st.ESI.msb;
+    ret = ret << 16;
+    ret = ret | (general_regs_st.ESI.SI);
+    return ret;
+}
+
+_32_reg get_EDI(void)
+{
+    _32_reg ret = 0U;
+    ret = general_regs_st.EDI.msb;
+    ret = ret << 16;
+    ret = ret | (general_regs_st.EDI.DI);
+    return ret;
+}
+
+_32_reg get_EBP(void)
+{
+    _32_reg ret = 0U;
+    ret = general_regs_st.EBP.msb;
+    ret = ret << 16;
+    ret = ret | (general_regs_st.EBP.BP);
     return ret;
 }

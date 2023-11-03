@@ -51,15 +51,15 @@ int get_16bit_addressing_form(_ModRM_st ModRM_st)
     {
         if (ModRM_st.RM == (_byte)0x000)
         {
-            return _BX_PLUS_SI__PLUS_DISP8;
+            return _BX_PLUS_SI__PLUS_DISP16;
         }
         if (ModRM_st.RM == (_byte)0x001)
         {
-            return _BX_PLUS_DI__PLUS_DISP8;
+            return _BX_PLUS_DI__PLUS_DISP16;
         }
         if (ModRM_st.RM == (_byte)0x010)
         {
-            return _BP_PLUS_SI__PLUS_DISP8;
+            return _BP_PLUS_SI__PLUS_DISP16;
         }
         if (ModRM_st.RM == (_byte)0x011)
         {
@@ -302,15 +302,15 @@ int get_32bit_addressing_form(_ModRM_st ModRM_st)
     return -1;
 }
 
-int get_addressing_form_from_ModRM(_ModRM_st ModRM_st, int addressing_form)
+int get_addressing_form_from_ModRM(_ModRM_st ModRM_st, int size_of_addressing_form)
 {
     int ret = -1;
 
-    if (addressing_form == _16BIT_ADDRESSING_FORM)
+    if (size_of_addressing_form == _16BIT_ADDRESSING_FORM)
     {
         ret = get_16bit_addressing_form(ModRM_st);
     }
-    if (addressing_form == _32BIT_ADDRESSING_FORM)
+    if (size_of_addressing_form == _32BIT_ADDRESSING_FORM)
     {
         ret = get_32bit_addressing_form(ModRM_st);
     }
@@ -464,43 +464,385 @@ int get_scaled_index_form(_SIB_st SIB_st)
     return ret;
 }
 
+_32_offset calculate_SIB_value(_SIB_st SIB_st)
+{
+    _32_offset ret = 0U;
+    int indexing_form = 0U;
+    indexing_form = get_scaled_index_form(SIB_st);
+
+    if (indexing_form == _EAX_SIB_)
+    {
+        ret = get_EAX();
+        goto RETURN;
+    }
+
+RETURN:
+    return ret;
+}
+
+_8_displacement get_disp8_value()
+{
+    // todo : Get the disp value from the prefesh value
+    return 0;
+}
+
+_16_displacement get_disp16_value()
+{
+    // todo : Get the disp value from the prefesh value
+    return 0;
+}
+
+_32_displacement get_disp32_value()
+{
+    // todo : Get the disp value from the prefesh value
+    return 0;
+}
+
 _16_offset calculate_16bit_effective_addr(unsigned int _16b_addressing_form)
 {
     _16_offset ret = 0U;
 
+    /* Mod 00 */
     if (_16b_addressing_form == _BX_PLUS_SI_)
     {
-        ret = get_BX(&general_regs_st) + (_16_offset)general_regs_st.ESI.SI;
+        ret = (_16_offset)(get_BX() + general_regs_st.ESI.SI);
         goto RETURN;
     }
     if (_16b_addressing_form == _BX_PLUS_DI_)
     {
-        ret = get_BX(&general_regs_st) + (_16_offset)general_regs_st.EDI.DI;
+        ret = (_16_offset)(get_BX() + general_regs_st.EDI.DI);
         goto RETURN;
     }
     if (_16b_addressing_form == _BP_PLUS_SI_)
     {
-        ret = (_16_offset)general_regs_st.EBP.BP + (_16_offset)general_regs_st.ESI.SI;
+        ret = (_16_offset)(general_regs_st.EBP.BP + general_regs_st.ESI.SI);
         goto RETURN;
     }
     if (_16b_addressing_form == _BP_PLUS_DI_)
     {
-        ret = (_16_offset)general_regs_st.EBP.BP + (_16_offset)general_regs_st.EDI.DI;
+        ret = (_16_offset)(general_regs_st.EBP.BP + general_regs_st.EDI.DI);
         goto RETURN;
     }
     if (_16b_addressing_form == _SI_)
     {
-        ret = (_16_offset)general_regs_st.ESI.SI;
+        ret = (_16_offset)(general_regs_st.ESI.SI);
         goto RETURN;
     }
     if (_16b_addressing_form == _DI_)
     {
-        ret = (_16_offset)general_regs_st.EDI.DI;
+        ret = (_16_offset)(general_regs_st.EDI.DI);
         goto RETURN;
     }
-    if (_16b_addressing_form == _DI_)
+    if (_16b_addressing_form == _DISP16_)
     {
-        ret = (_16_offset)general_regs_st.EDI.DI;
+        ret = (_16_offset)(get_disp16_value());
+        goto RETURN;
+    }
+    if (_16b_addressing_form == _BX_)
+    {
+        ret = (_16_offset)(get_BX());
+        goto RETURN;
+    }
+
+    /* Mod 01 */
+    if (_16b_addressing_form == _BX_PLUS_SI__PLUS_DISP8)
+    {
+        ret = (_16_offset)((get_BX() + general_regs_st.ESI.SI + get_disp8_value()));
+        goto RETURN;
+    }
+    if (_16b_addressing_form == _BX_PLUS_DI__PLUS_DISP8)
+    {
+        ret = (_16_offset)(get_BX() + general_regs_st.EDI.DI + get_disp8_value());
+        goto RETURN;
+    }
+    if (_16b_addressing_form == _BP_PLUS_SI__PLUS_DISP8)
+    {
+        ret = (_16_offset)(general_regs_st.EBP.BP + general_regs_st.ESI.SI + get_disp8_value());
+        goto RETURN;
+    }
+    if (_16b_addressing_form == _BP_PLUS_DI__PLUS_DISP8)
+    {
+        ret = (_16_offset)(general_regs_st.EBP.BP + general_regs_st.EDI.DI + get_disp8_value());
+        goto RETURN;
+    }
+    if (_16b_addressing_form == _SI__PLUS_DISP8)
+    {
+        ret = (_16_offset)(general_regs_st.ESI.SI + get_disp8_value());
+        goto RETURN;
+    }
+    if (_16b_addressing_form == _DI__PLUS_DISP8)
+    {
+        ret = (_16_offset)(general_regs_st.EDI.DI + get_disp8_value());
+        goto RETURN;
+    }
+    if (_16b_addressing_form == _BP__PLUS_DISP8)
+    {
+        ret = (_16_offset)(get_disp16_value() + get_disp8_value());
+        goto RETURN;
+    }
+    if (_16b_addressing_form == _BX__PLUS_DISP8)
+    {
+        ret = (_16_offset)(get_BX() + get_disp8_value());
+        goto RETURN;
+    }
+
+    /* Mod 10 */
+    if (_16b_addressing_form == _BX_PLUS_SI__PLUS_DISP16)
+    {
+        ret = (_16_offset)(get_BX() + general_regs_st.ESI.SI + get_disp16_value());
+        goto RETURN;
+    }
+    if (_16b_addressing_form == _BX_PLUS_DI__PLUS_DISP16)
+    {
+        ret = (_16_offset)(get_BX() + general_regs_st.EDI.DI + get_disp16_value());
+        goto RETURN;
+    }
+    if (_16b_addressing_form == _BP_PLUS_SI__PLUS_DISP16)
+    {
+        ret = (_16_offset)(general_regs_st.EBP.BP + general_regs_st.ESI.SI + get_disp16_value());
+        goto RETURN;
+    }
+    if (_16b_addressing_form == _BP_PLUS_DI__PLUS_DISP16)
+    {
+        ret = (_16_offset)(general_regs_st.EBP.BP + general_regs_st.EDI.DI + get_disp16_value());
+        goto RETURN;
+    }
+    if (_16b_addressing_form == _SI__PLUS_DISP16)
+    {
+        ret = (_16_offset)(general_regs_st.ESI.SI + get_disp16_value());
+        goto RETURN;
+    }
+    if (_16b_addressing_form == _DI__PLUS_DISP16)
+    {
+        ret = (_16_offset)(general_regs_st.EDI.DI + get_disp16_value());
+        goto RETURN;
+    }
+    if (_16b_addressing_form == _BP__PLUS_DISP16)
+    {
+        ret = (_16_offset)(get_disp16_value() + get_disp16_value());
+        goto RETURN;
+    }
+    if (_16b_addressing_form == _BX__PLUS_DISP16)
+    {
+        ret = (_16_offset)(get_BX() + get_disp16_value());
+        goto RETURN;
+    }
+
+    // Mod 11
+    if (_16b_addressing_form == _EAX_AX_AL)
+    {
+        // todo : choose which portion to return
+        goto RETURN;
+    }
+    if (_16b_addressing_form == _ECX_CX_CL)
+    {
+        // todo : choose which portion to return
+        goto RETURN;
+    }
+    if (_16b_addressing_form == _EDX_DX_DL)
+    {
+        // todo : choose which portion to return
+        goto RETURN;
+    }
+    if (_16b_addressing_form == _EBX_BX_BL)
+    {
+        // todo : choose which portion to return
+        goto RETURN;
+    }
+    if (_16b_addressing_form == _ESP_SP_AH)
+    {
+        // todo : choose which portion to return
+        goto RETURN;
+    }
+    if (_16b_addressing_form == _EBP_BP_CH)
+    {
+        // todo : choose which portion to return
+        goto RETURN;
+    }
+    if (_16b_addressing_form == _ESI_SI_DH)
+    {
+        // todo : choose which portion to return
+        goto RETURN;
+    }
+    if (_16b_addressing_form == _EDI_DI_BH)
+    {
+        // todo : choose which portion to return
+        goto RETURN;
+    }
+
+RETURN:
+    return ret;
+}
+
+_32_offset calculate_32bit_effective_addr(unsigned int _32b_addressing_form)
+{
+    _32_offset ret = 0U;
+
+    /* Mod 00 */
+    if (_32b_addressing_form == _EAX_)
+    {
+        ret = (_32_offset)get_EAX();
+        goto RETURN;
+    }
+    if (_32b_addressing_form == _ECX_)
+    {
+        ret = (_32_offset)get_ECX();
+        goto RETURN;
+    }
+    if (_32b_addressing_form == _EDX_)
+    {
+        ret = (_32_offset)get_EDX();
+        goto RETURN;
+    }
+    if (_32b_addressing_form == _EBX_)
+    {
+        ret = (_32_offset)get_EBX();
+        goto RETURN;
+    }
+    if (_32b_addressing_form == _SIB_FOLLOWS_)
+    {
+        // TODO : implement SIB function
+        goto RETURN;
+    }
+    if (_32b_addressing_form == _DISP32_)
+    {
+        ret = (_32_offset)get_disp32_value();
+        goto RETURN;
+    }
+    if (_32b_addressing_form == _ESI_)
+    {
+        ret = (_32_offset)get_ESI();
+        goto RETURN;
+    }
+    if (_32b_addressing_form == _EDI_)
+    {
+        ret = (_32_offset)get_EDI();
+        goto RETURN;
+    }
+
+    /* Mod 01 */
+    if (_32b_addressing_form == _DISP8_EAX_)
+    {
+        ret = (_32_offset)(get_disp32_value() + get_EAX());
+        goto RETURN;
+    }
+    if (_32b_addressing_form == _DISP8_ECX_)
+    {
+        ret = (_32_offset)(get_disp8_value() + get_ECX());
+        goto RETURN;
+    }
+    if (_32b_addressing_form == _DISP8_EDX_)
+    {
+        ret = (_32_offset)(get_disp8_value() + get_EDX());
+        goto RETURN;
+    }
+    if (_32b_addressing_form == _DISP8_EBX_)
+    {
+        ret = (_32_offset)(get_disp8_value() + get_EBX());
+        goto RETURN;
+    }
+    if (_32b_addressing_form == _DISP8_SIB_FOLLOWS_)
+    {
+        // Implement SIB function
+        goto RETURN;
+    }
+    if (_32b_addressing_form == _DISP8_EBP_)
+    {
+        ret = (_32_offset)(get_disp8_value() + get_EBP());
+        goto RETURN;
+    }
+    if (_32b_addressing_form == _DISP8_ESI_)
+    {
+        ret = (_32_offset)(get_disp8_value() + get_ESI());
+        goto RETURN;
+    }
+    if (_32b_addressing_form == _DISP8_EDI_)
+    {
+        ret = (_32_offset)(get_disp8_value() + get_EDI());
+        goto RETURN;
+    }
+
+    /* Mod 10 */
+    if (_32b_addressing_form == _DISP32_EAX_)
+    {
+        ret = (_32_offset)(get_disp32_value() + get_EAX());
+        goto RETURN;
+    }
+    if (_32b_addressing_form == _DISP32_ECX_)
+    {
+        ret = (_32_offset)(get_disp32_value() + get_ECX());
+        goto RETURN;
+    }
+    if (_32b_addressing_form == _DISP32_EDX_)
+    {
+        ret = (_32_offset)(get_disp32_value() + get_EDX());
+        goto RETURN;
+    }
+    if (_32b_addressing_form == _DISP32_EBX_)
+    {
+        ret = (_32_offset)(get_disp32_value() + get_EBX());
+        goto RETURN;
+    }
+    if (_32b_addressing_form == _DISP32_SIB_FOLLOWS_)
+    {
+        // TODO: Implement SIB function
+        goto RETURN;
+    }
+    if (_32b_addressing_form == _DISP32_EBP_)
+    {
+        ret = (_32_offset)(get_disp32_value() + get_EBP());
+        goto RETURN;
+    }
+    if (_32b_addressing_form == _DISP32_ESI_)
+    {
+        ret = (_32_offset)(get_disp32_value() + get_ESI());
+        goto RETURN;
+    }
+    if (_32b_addressing_form == _DISP32_EDI_)
+    {
+        ret = (_32_offset)(get_disp32_value() + get_EDI());
+        goto RETURN;
+    }
+
+    // Mod 11
+    if (_32b_addressing_form == _EAX_AX_AL)
+    {
+        // todo : choose which portion to return
+        goto RETURN;
+    }
+    if (_32b_addressing_form == _ECX_CX_CL)
+    {
+        // todo : choose which portion to return
+        goto RETURN;
+    }
+    if (_32b_addressing_form == _EDX_DX_DL)
+    {
+        // todo : choose which portion to return
+        goto RETURN;
+    }
+    if (_32b_addressing_form == _EBX_BX_BL)
+    {
+        // todo : choose which portion to return
+        goto RETURN;
+    }
+    if (_32b_addressing_form == _ESP_SP_AH)
+    {
+        // todo : choose which portion to return
+        goto RETURN;
+    }
+    if (_32b_addressing_form == _EBP_BP_CH)
+    {
+        // todo : choose which portion to return
+        goto RETURN;
+    }
+    if (_32b_addressing_form == _ESI_SI_DH)
+    {
+        // todo : choose which portion to return
+        goto RETURN;
+    }
+    if (_32b_addressing_form == _EDI_DI_BH)
+    {
+        // todo : choose which portion to return
         goto RETURN;
     }
 

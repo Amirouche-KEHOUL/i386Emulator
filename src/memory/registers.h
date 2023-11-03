@@ -32,55 +32,21 @@ extern _cr2_reg cr2_reg;
 extern _cr3_reg_pdbr cr3_reg_pdbr;
 extern _tlb_reg_st tlb_reg_st;
 
-/**
- * @brief Initialize Instruction Descriptor Table Register (IDTR)
- * @par Specifications:
- * [SPEC-10.1.4]
- */
 void init_idtr_reg(void);
-
-/**
- * @brief Initialize segment registers
- * @par Specifications:
- * [SPEC-10.1.4]
- */
 void init_seg_reg(void);
-
-/**
- * @brief Inilialize Intruction pointer
- * @par Specifications:
- * [SPEC-10.1.4]
- */
 void init_eip_reg(void);
-
-/**
- * @brief Inilialize the general purpose registers
- * @param sys_cond_st: global variable storing the system condition values.
- * @par Specifications:
- * [SPEC-10.1.1-2]
- */
 void init_gen_reg(void);
-
-/**
- * @brief Initialize EFLAGS
- * @par Specifications:
- * [SPEC-10.1.4]
- */
 void init_eflags_reg(void);
-
-/**
- * @brief Initialize the conrtol register 0
- * @par Specification:
- * [SPEC-10.1.3]
- */
 void init_cr0_reg(void);
-
-/**
- * @brief Initialize the global and local descriptor tables
- * @par Specification:
- * [SPEC-10.1.3]
- */
 void init_dtr_regs(void);
 
-_16_reg get_BX(_general_regs_st *general_regs_st);
+_16_reg get_BX(void);
+_32_reg get_EAX(void);
+_32_reg get_ECX(void);
+_32_reg get_EDX(void);
+_32_reg get_EBX(void);
+_32_reg get_ESI(void);
+_32_reg get_EDI(void);
+_32_reg get_EBP(void);
+
 #endif //_REGISTERS_H_

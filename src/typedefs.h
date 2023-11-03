@@ -44,16 +44,22 @@
 typedef unsigned char _byte;
 typedef unsigned short _word;
 typedef unsigned int _double_word;
+
 typedef unsigned char _8_index;
+typedef char _8_displacement;
+
 typedef unsigned short _16_reg;
 typedef unsigned short _16_index;
 typedef unsigned short _16_offset;
 typedef unsigned short _16_bus;
+typedef short _16_displacement;
+
 typedef unsigned int _32_reg;
 typedef unsigned int _32_index;
 typedef unsigned int _32_offset;
 typedef unsigned int _32_linear_addr;
 typedef unsigned int _32_physical_addr;
+typedef int _32_displacement;
 
 // 32-bit general-perpose register
 typedef struct general_regs_st
