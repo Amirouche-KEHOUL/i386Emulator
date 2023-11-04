@@ -1,5 +1,8 @@
 #include "decoder.h"
 
+_prefetch_queue_st prefetch_queue_st = {0};
+
+/* ------------- FUNCTIONS -------------*/
 unsigned int get_effective_address_size(unsigned int default_seg_size, unsigned int adresse_size_prefix_present)
 {
     return (default_seg_size ^ adresse_size_prefix_present); // XOR
@@ -464,15 +467,177 @@ int get_scaled_index_form(_SIB_st SIB_st)
     return ret;
 }
 
-_32_offset calculate_SIB_value(_SIB_st SIB_st)
+_32_offset get_scaled_index_value(_SIB_st SIB_st)
 {
     _32_offset ret = 0U;
     int indexing_form = 0U;
     indexing_form = get_scaled_index_form(SIB_st);
 
+    // SS 00
     if (indexing_form == _EAX_SIB_)
     {
         ret = get_EAX();
+        goto RETURN;
+    }
+    if (indexing_form == _ECX_SIB_)
+    {
+        ret = get_ECX();
+        goto RETURN;
+    }
+    if (indexing_form == _EDX_SIB_)
+    {
+        ret = get_EDX();
+        goto RETURN;
+    }
+    if (indexing_form == _EBX_SIB_)
+    {
+        ret = get_EBX();
+        goto RETURN;
+    }
+    if (indexing_form == _NONE_SIB)
+    {
+        // TODO : Do somthing in case of none
+        goto RETURN;
+    }
+    if (indexing_form == _EBP_SIB)
+    {
+        ret = get_EBP();
+        goto RETURN;
+    }
+    if (indexing_form == _ESI_SIB)
+    {
+        ret = get_ESI();
+        goto RETURN;
+    }
+    if (indexing_form == _EDI_SIB)
+    {
+        ret = get_EDI();
+        goto RETURN;
+    }
+
+    // SS 01
+    if (indexing_form == _EAX_SIB_)
+    {
+        ret = get_EAX() * 2;
+        goto RETURN;
+    }
+    if (indexing_form == _ECX_SIB_)
+    {
+        ret = get_ECX() * 2;
+        goto RETURN;
+    }
+    if (indexing_form == _EDX_SIB_)
+    {
+        ret = get_EDX() * 2;
+        goto RETURN;
+    }
+    if (indexing_form == _EBX_SIB_)
+    {
+        ret = get_EBX() * 2;
+        goto RETURN;
+    }
+    if (indexing_form == _NONE_SIB)
+    {
+        // TODO : Do somthing in case of none
+        goto RETURN;
+    }
+    if (indexing_form == _EBP_SIB)
+    {
+        ret = get_EBP() * 2;
+        goto RETURN;
+    }
+    if (indexing_form == _ESI_SIB)
+    {
+        ret = get_ESI() * 2;
+        goto RETURN;
+    }
+    if (indexing_form == _EDI_SIB)
+    {
+        ret = get_EDI() * 2;
+        goto RETURN;
+    }
+
+    // SS 10
+    if (indexing_form == _EAX_SIB_)
+    {
+        ret = get_EAX() * 4;
+        goto RETURN;
+    }
+    if (indexing_form == _ECX_SIB_)
+    {
+        ret = get_ECX() * 4;
+        goto RETURN;
+    }
+    if (indexing_form == _EDX_SIB_)
+    {
+        ret = get_EDX() * 4;
+        goto RETURN;
+    }
+    if (indexing_form == _EBX_SIB_)
+    {
+        ret = get_EBX() * 4;
+        goto RETURN;
+    }
+    if (indexing_form == _NONE_SIB)
+    {
+        // TODO : Do somthing in case of none
+        goto RETURN;
+    }
+    if (indexing_form == _EBP_SIB)
+    {
+        ret = get_EBP() * 4;
+        goto RETURN;
+    }
+    if (indexing_form == _ESI_SIB)
+    {
+        ret = get_ESI() * 4;
+        goto RETURN;
+    }
+    if (indexing_form == _EDI_SIB)
+    {
+        ret = get_EDI() * 4;
+        goto RETURN;
+    }
+
+    // SS 11
+    if (indexing_form == _EAX_SIB_)
+    {
+        ret = get_EAX() * 8;
+        goto RETURN;
+    }
+    if (indexing_form == _ECX_SIB_)
+    {
+        ret = get_ECX() * 8;
+        goto RETURN;
+    }
+    if (indexing_form == _EDX_SIB_)
+    {
+        ret = get_EDX() * 8;
+        goto RETURN;
+    }
+    if (indexing_form == _EBX_SIB_)
+    {
+        ret = get_EBX() * 8;
+        goto RETURN;
+    }
+    if (indexing_form == _NONE_SIB)
+    {
+        // TODO : Do somthing in case of none
+        goto RETURN;
+    }
+    if (indexing_form == _EBP_SIB)
+    {
+        ret = get_EBP() * 8;
+        goto RETURN;
+    }
+    if (indexing_form == _ESI_SIB)
+    {
+        ret = get_ESI() * 8;
+        goto RETURN;
+    }
+    if (indexing_form == _EDI_SIB)
+    {
+        ret = get_EDI() * 8;
         goto RETURN;
     }
 
@@ -723,22 +888,22 @@ _32_offset calculate_32bit_effective_addr(unsigned int _32b_addressing_form)
     /* Mod 01 */
     if (_32b_addressing_form == _DISP8_EAX_)
     {
-        ret = (_32_offset)(get_disp32_value() + get_EAX());
+        ret = (_32_offset)get_disp32_value() + get_EAX();
         goto RETURN;
     }
     if (_32b_addressing_form == _DISP8_ECX_)
     {
-        ret = (_32_offset)(get_disp8_value() + get_ECX());
+        ret = (_32_offset)get_disp8_value() + get_ECX();
         goto RETURN;
     }
     if (_32b_addressing_form == _DISP8_EDX_)
     {
-        ret = (_32_offset)(get_disp8_value() + get_EDX());
+        ret = (_32_offset)get_disp8_value() + get_EDX();
         goto RETURN;
     }
     if (_32b_addressing_form == _DISP8_EBX_)
     {
-        ret = (_32_offset)(get_disp8_value() + get_EBX());
+        ret = (_32_offset)get_disp8_value() + get_EBX();
         goto RETURN;
     }
     if (_32b_addressing_form == _DISP8_SIB_FOLLOWS_)
@@ -748,39 +913,39 @@ _32_offset calculate_32bit_effective_addr(unsigned int _32b_addressing_form)
     }
     if (_32b_addressing_form == _DISP8_EBP_)
     {
-        ret = (_32_offset)(get_disp8_value() + get_EBP());
+        ret = (_32_offset)get_disp8_value() + get_EBP();
         goto RETURN;
     }
     if (_32b_addressing_form == _DISP8_ESI_)
     {
-        ret = (_32_offset)(get_disp8_value() + get_ESI());
+        ret = (_32_offset)get_disp8_value() + get_ESI();
         goto RETURN;
     }
     if (_32b_addressing_form == _DISP8_EDI_)
     {
-        ret = (_32_offset)(get_disp8_value() + get_EDI());
+        ret = (_32_offset)get_disp8_value() + get_EDI();
         goto RETURN;
     }
 
     /* Mod 10 */
     if (_32b_addressing_form == _DISP32_EAX_)
     {
-        ret = (_32_offset)(get_disp32_value() + get_EAX());
+        ret = (_32_offset)get_disp32_value() + get_EAX();
         goto RETURN;
     }
     if (_32b_addressing_form == _DISP32_ECX_)
     {
-        ret = (_32_offset)(get_disp32_value() + get_ECX());
+        ret = (_32_offset)get_disp32_value() + get_ECX();
         goto RETURN;
     }
     if (_32b_addressing_form == _DISP32_EDX_)
     {
-        ret = (_32_offset)(get_disp32_value() + get_EDX());
+        ret = (_32_offset)get_disp32_value() + get_EDX();
         goto RETURN;
     }
     if (_32b_addressing_form == _DISP32_EBX_)
     {
-        ret = (_32_offset)(get_disp32_value() + get_EBX());
+        ret = (_32_offset)get_disp32_value() + get_EBX();
         goto RETURN;
     }
     if (_32b_addressing_form == _DISP32_SIB_FOLLOWS_)
@@ -790,17 +955,17 @@ _32_offset calculate_32bit_effective_addr(unsigned int _32b_addressing_form)
     }
     if (_32b_addressing_form == _DISP32_EBP_)
     {
-        ret = (_32_offset)(get_disp32_value() + get_EBP());
+        ret = (_32_offset)get_disp32_value() + get_EBP();
         goto RETURN;
     }
     if (_32b_addressing_form == _DISP32_ESI_)
     {
-        ret = (_32_offset)(get_disp32_value() + get_ESI());
+        ret = (_32_offset)get_disp32_value() + get_ESI();
         goto RETURN;
     }
     if (_32b_addressing_form == _DISP32_EDI_)
     {
-        ret = (_32_offset)(get_disp32_value() + get_EDI());
+        ret = (_32_offset)get_disp32_value() + get_EDI();
         goto RETURN;
     }
 
@@ -849,3 +1014,43 @@ _32_offset calculate_32bit_effective_addr(unsigned int _32b_addressing_form)
 RETURN:
     return ret;
 }
+
+void fetch_prefetch_queue(void)
+{
+    unsigned char i = 0;
+    _32_physical_addr physical_addr = 0;
+
+    for (i = 0; i < 16; i++)
+    {
+        physical_addr = logical_to_physical_addr((get_EIP() + i), segment_regs_st.CS_hidden_code_segment_descriptor, _CODE_SEGMENT_DESCRIPTOR);
+        prefetch_queue_st.queue[i] = physical_memory_read_byte(physical_memory_ptr, physical_addr);
+    }
+    prefetch_queue_st.index = 0;
+}
+
+_byte read_byte_prefetch_queue()
+{
+    _byte ret = prefetch_queue_st.queue[prefetch_queue_st.index];
+    if (prefetch_queue_st.index == 15U)
+    {
+        fetch_prefetch_queue();
+        return ret;
+    }
+    prefetch_queue_st.index++;
+    return ret;
+}
+
+/*
+Decode instruction Pseudo code
+
+byte = readbyte_from_queue()
+
+STEP0: manage prefixes if any
+-> Select address and operand size
+-> override segments if any.
+
+STEP1:
+- read next byte (expects opcode)
+- for each operati
+
+*/

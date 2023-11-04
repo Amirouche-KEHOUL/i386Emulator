@@ -790,4 +790,10 @@ typedef struct SIB_st
     _byte SS : 2;    // Sotores the Sacle factor for the index
 } _SIB_st;
 
+typedef struct prefetch_queue_st
+{
+    _byte queue[16];
+    _8_index index; // managed by queue read and write functions
+} _prefetch_queue_st;
+
 #endif // _TYPEDEFS_H_

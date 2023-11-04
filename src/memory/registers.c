@@ -205,3 +205,13 @@ _32_reg get_EBP(void)
     ret = ret | (general_regs_st.EBP.BP);
     return ret;
 }
+
+_32_reg get_EIP(void)
+{
+    _32_reg ret = 0U;
+    ret = eip_st.msb;
+    ret = ret << 16;
+    ret = ret | (_32_reg)eip_st.IP;
+
+    return ret;
+}

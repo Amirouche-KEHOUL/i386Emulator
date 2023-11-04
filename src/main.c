@@ -99,7 +99,6 @@ _32_linear_addr liear_addr = translate_segment(123U, segment_regs_st.CS_hidden_c
 
 _byte byte = physical_memory_read_byte(physical_memory_ptr, linear_to_physical_addr(liear_addr));
 */
-
     print_end();
 
     return 0;

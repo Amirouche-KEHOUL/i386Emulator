@@ -21,6 +21,8 @@ _32_linear_addr translate_segment(_32_offset offset, const void *segment_decript
 // Performs type checking and loads segment registers given a selector and a segment register destination.
 void check_then_load_selector_into_seg_reg(_selector_st selector_st, int segment_reg);
 
+_32_physical_addr logical_to_physical_addr(_32_offset offset, const void *segment_decriptor, int segment_descriptor_type);
+
 // ----- TEST INCLUDES ---------//
 _32_physical_addr linear_to_physical_addr(_32_linear_addr linear_addr);
 // ----- TEST INCLUDES ---------//

@@ -48,5 +48,6 @@ _32_reg get_EBX(void);
 _32_reg get_ESI(void);
 _32_reg get_EDI(void);
 _32_reg get_EBP(void);
+_32_reg get_EIP(void);
 
 #endif //_REGISTERS_H_
