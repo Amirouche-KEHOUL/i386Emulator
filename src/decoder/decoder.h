@@ -3,8 +3,7 @@
 
 #include "../typedefs.h"
 #include "../memory/registers.h"
-#include "../memory/address_translator.h"
-#include "../memory/physical_memory.h"
+#include "./prefetch_queue.h"
 
 #define _16BIT_ADDRESSING_FORM 1
 #define _32BIT_ADDRESSING_FORM 2

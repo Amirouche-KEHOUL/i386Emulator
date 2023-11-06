@@ -1,8 +1,9 @@
 #include "decoder.h"
 
-_prefetch_queue_st prefetch_queue_st = {0};
+/* ------------- data structures -------------*/
 
 _ModRM_st ModRM_st = {0};
+_prefetch_queue_st prefetch_queue_st = {0};
 void (*one_byte_opcode_map[16][16])(void); // Page 414
 void (*two_byte_opcode_map[16][16])(void); // Page 415
 void (*ModRM_opcode_map[8][8])(void);      // Page 416
@@ -1021,217 +1022,13 @@ RETURN:
     return ret;
 }
 
-void fetch_prefetch_queue(void)
-{
-    unsigned char i = 0;
-    _32_physical_addr physical_addr = 0;
-
-    for (i = 0; i < 16; i++)
-    {
-        physical_addr = logical_to_physical_addr((get_EIP() + i), segment_regs_st.CS_hidden_code_segment_descriptor, _CODE_SEGMENT_DESCRIPTOR);
-        prefetch_queue_st.queue[i] = physical_memory_read_byte(physical_memory_ptr, physical_addr);
-    }
-    prefetch_queue_st.index = 0;
-}
-
-// Reads byte from prefetch queue and increments the read index
-_byte stream_byte_prefetch_queue(void)
-{
-    _byte ret = prefetch_queue_st.queue[prefetch_queue_st.index];
-    if (prefetch_queue_st.index == 15U) // If end of the queue prefetch the next 16 bytes
-    {
-        fetch_prefetch_queue();
-        return ret;
-    }
-    prefetch_queue_st.index++;
-    return ret;
-}
-
-void ADD(void)
-{
-    printf("ADD Operation called correctly\n");
-}
-
-void SUB(void)
-{
-    printf("SUB Operation called correctly\n");
-}
-
-// Used tu fill empty cells in opcode maps at program init
-void no_operation_opcode(void)
-{
-    // TODO: confirm what to do in case of opcode hits an empty cell
-    printf("No operation for this opcode\n");
-}
-
-void read_ModRM_byte_to_st()
-{
-    _byte byte = stream_byte_prefetch_queue();
-    ModRM_st.RM = (_byte)(byte & 0x07);
-    ModRM_st.REG_OPCODE = (_byte)((byte & 0x38) >> 3);
-    // TODO: confirm the conversion warning (should be ok )
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wconversion"
-    ModRM_st.MOD = (_byte)((byte & 0xC0) >> 6);
-#pragma GCC diagnostic pop
-}
-
-void _2byte_escape(void)
-{
-    _byte byte = stream_byte_prefetch_queue();
-    // _byte byte = 0x55;
-    _byte lsb = byte & 0x0F;        // least 4 significant bits
-    _byte msb = (byte & 0xF0) >> 4; // most 4 significant bits
-
-    two_byte_opcode_map[msb][lsb]();
-}
-
-void grp1_EbIb_escape(void)
-{
-    read_ModRM_byte_to_st();
-    ModRM_opcode_map[0x0][ModRM_st.REG_OPCODE]();
-}
-
-void grp1_EvIv_escape(void)
-{
-    read_ModRM_byte_to_st();
-    ModRM_opcode_map[0x0][ModRM_st.REG_OPCODE]();
-}
-
-void grp2_EbIb_escape(void)
-{
-    read_ModRM_byte_to_st();
-    ModRM_opcode_map[0x1][ModRM_st.REG_OPCODE]();
-}
-
-void grp2_EvIv_escape(void)
-{
-    read_ModRM_byte_to_st();
-    ModRM_opcode_map[0x1][ModRM_st.REG_OPCODE]();
-}
-
-void grp2_Eb1_escape(void)
-{
-    read_ModRM_byte_to_st();
-    ModRM_opcode_map[0x1][ModRM_st.REG_OPCODE]();
-}
-
-void grp2_Ev1_escape(void)
-{
-    read_ModRM_byte_to_st();
-    ModRM_opcode_map[0x1][ModRM_st.REG_OPCODE]();
-}
-
-void grp2_EbCl_escape(void)
-{
-    read_ModRM_byte_to_st();
-    ModRM_opcode_map[0x1][ModRM_st.REG_OPCODE]();
-}
-
-void grp2_EvCl_escape(void)
-{
-    read_ModRM_byte_to_st();
-    ModRM_opcode_map[0x1][ModRM_st.REG_OPCODE]();
-}
-
-void grp3_Eb_escape(void)
-{
-    read_ModRM_byte_to_st();
-    ModRM_opcode_map[0x2][ModRM_st.REG_OPCODE]();
-}
-
-void grp3_Ev_escape(void)
-{
-    read_ModRM_byte_to_st();
-    ModRM_opcode_map[0x2][ModRM_st.REG_OPCODE]();
-}
-
-void grp4_escape(void)
-{
-    read_ModRM_byte_to_st();
-    ModRM_opcode_map[0x3][ModRM_st.REG_OPCODE]();
-}
-
-void grp5_escape(void)
-{
-    read_ModRM_byte_to_st();
-    ModRM_opcode_map[0x4][ModRM_st.REG_OPCODE]();
-}
-
-void grp6_escape(void)
-{
-    read_ModRM_byte_to_st();
-    ModRM_opcode_map[0x5][ModRM_st.REG_OPCODE]();
-}
-
-void grp7_escape(void)
-{
-    read_ModRM_byte_to_st();
-    ModRM_opcode_map[0x6][ModRM_st.REG_OPCODE]();
-}
-
-void grp8_EvIb_escape(void)
-{
-    read_ModRM_byte_to_st();
-    ModRM_opcode_map[0x7][ModRM_st.REG_OPCODE]();
-}
-
-void map_escape_function(void)
-{
-    one_byte_opcode_map[0x0][0xF] = &_2byte_escape;
-    one_byte_opcode_map[0x8][0x0] = &grp1_EbIb_escape;
-    one_byte_opcode_map[0x8][0x1] = &grp1_EvIv_escape;
-    one_byte_opcode_map[0x8][0x3] = &grp1_EvIv_escape; // TODO: TBC if not typo in opcode map
-    one_byte_opcode_map[0xC][0x0] = &grp2_EbIb_escape;
-    one_byte_opcode_map[0xC][0x1] = &grp2_EvIv_escape;
-    one_byte_opcode_map[0xD][0x0] = &grp2_Eb1_escape;
-    one_byte_opcode_map[0xD][0x1] = &grp2_Ev1_escape;
-    one_byte_opcode_map[0xD][0x2] = &grp2_EbCl_escape;
-    one_byte_opcode_map[0xD][0x3] = &grp2_EvCl_escape;
-    one_byte_opcode_map[0xF][0x6] = &grp3_Eb_escape;
-    one_byte_opcode_map[0xF][0x7] = &grp3_Ev_escape;
-    one_byte_opcode_map[0xF][0xE] = &grp4_escape;
-    one_byte_opcode_map[0xF][0xF] = &grp5_escape;
-
-    two_byte_opcode_map[0x0][0x0] = &grp6_escape;
-    two_byte_opcode_map[0x0][0x1] = &grp7_escape;
-    two_byte_opcode_map[0xB][0xA] = &grp8_EvIb_escape;
-}
-
-// Init opcode maps: set all cells to no operation opcode (empty cells in opcode map)
-void init_opcode_maps(void)
-{
-    for (int i = 0; i < 16; i++)
-    {
-        for (int j = 0; j < 16; j++)
-        {
-            one_byte_opcode_map[i][j] = &no_operation_opcode;
-            two_byte_opcode_map[i][j] = &no_operation_opcode;
-            if ((i < 8) && (j < 8))
-            {
-                ModRM_opcode_map[i][j] = &no_operation_opcode;
-            }
-        }
-    }
-}
-
-// Inits opcode maps and maps operations to their corresponding cells.
-void map_operations_to_opcode_maps(void)
-{
-    init_opcode_maps();
-    map_escape_function();
-
-    ModRM_opcode_map[0x0][0x7] = &ADD;
-    ModRM_opcode_map[0x7][0x0] = &SUB;
-}
-
 void decode(void)
 {
-    prefetch_queue_st.queue[0] = 0x80;
-    prefetch_queue_st.queue[1] = 0x38;
+    // prefetch_queue_st.queue[0] = 0x80;
+    // prefetch_queue_st.queue[1] = 0x28;
 
     _byte byte = stream_byte_prefetch_queue();
-    // _byte byte = 0x80;
+
     _byte lsb = byte & 0x0F;        // least 4 significant bits
     _byte msb = (byte & 0xF0) >> 4; // most 4 significant bits
 

@@ -28,7 +28,14 @@
         "cstdlib": "c",
         "typedefs.h": "c",
         "address_translator.h": "c",
-        "decoder.h": "c"
+        "decoder.h": "c",
+        "dec.h": "c",
+        "xor.h": "c",
+        "prefetch_queue.h": "c",
+        "map.h": "c",
+        "sbb.h": "c",
+        "and.h": "c",
+        "or.h": "c"
     },
     "editor.tokenColorCustomizations": {}
 }

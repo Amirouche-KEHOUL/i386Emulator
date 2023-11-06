@@ -1,13 +1,65 @@
 
-SRC = src/main.c src/memory/physical_memory.c src/memory/IO.c src/memory/address_translator.c src/bios/bios.c src/sys/sys.c \
-		src/pins/pins.c src/memory/registers.c src/status/status.c src/utils/utils.c src/interrupts/interrupts.c src/decoder/decoder.c
+SRC = src/main.c \
+	src/memory/physical_memory.c \
+	src/memory/IO.c \
+	src/memory/address_translator.c \
+	src/bios/bios.c src/sys/sys.c \
+	src/pins/pins.c \
+	src/memory/registers.c \
+	src/status/status.c \
+	src/utils/utils.c \
+	src/interrupts/interrupts.c \
+	src/decoder/decoder.c  \
+	src/decoder/map.c \
+	src/decoder/prefetch_queue.c \
+	src/decoder/operations/ADD.c \
+	src/decoder/operations/OR.c \
+	src/decoder/operations/ADC.c \
+	src/decoder/operations/SBB.c \
+	src/decoder/operations/AND.c \
+	src/decoder/operations/SUB.c \
+	src/decoder/operations/XOR.c \
+	src/decoder/operations/CMP.c \
+	src/decoder/operations/INC.c \
+	src/decoder/operations/DEC.c \
 
-OBJ = build/main.o build/bios/bios.o build/sys/sys.o build/status/status.o build/memory/physical_memory.o build/memory/IO.o build/memory/registers.o \
-		build/memory/address_translator.o build/pins/pins.o  build/utils/utils.o build/interrupts/interrupts.o build/decoder/decoder.o
+OBJ = build/main.o \
+	build/bios/bios.o \
+	build/sys/sys.o \
+	build/status/status.o \
+	build/memory/physical_memory.o \
+	build/memory/IO.o \
+	build/memory/registers.o  \
+	build/memory/address_translator.o \
+	build/pins/pins.o  \
+	build/utils/utils.o \
+	build/interrupts/interrupts.o \
+	build/decoder/decoder.o  \
+	build/decoder/map.o  \
+	build/decoder/prefetch_queue.o  \
+	build/decoder/operations/ADD.o \
+	build/decoder/operations/OR.o \
+	build/decoder/operations/ADC.o \
+	build/decoder/operations/SBB.o  \
+	build/decoder/operations/AND.o \
+	build/decoder/operations/SUB.o \
+	build/decoder/operations/XOR.o \
+	build/decoder/operations/CMP.o  \
+	build/decoder/operations/INC.o \
+	build/decoder/operations/DEC.o \
 
-BINDIRS = bin/ build/memory build/pins build/status build/sys build/bios build/utils build/interrupts build/decoder
+BINDIRS = bin/ \
+	build/memory \
+	build/pins \
+	build/status \
+	build/sys \
+	build/bios \
+	build/utils \
+	build/interrupts \
+	build/decoder \
+	build/decoder/operations\
 
-OP = -std=c99 -Wall -Wvla -g -Wno-unused-variable -Wno-unused-but-set-variable -Wconversion -D DBG -D TEST
+OP = -std=c99 -Wall -Wvla -g -Wno-unused-variable -Wno-unused-but-set-variable -Wconversion -D DBG
 
 GCC=gcc
 
@@ -53,6 +105,42 @@ build/memory/address_translator.o : src/memory/address_translator.c src/memory/a
 build/decoder/decoder.o : src/decoder/decoder.c src/decoder/decoder.h
 	$(GCC) $(OP) -c src/decoder/decoder.c -o $@	
 
+build/decoder/map.o : src/decoder/map.c src/decoder/map.h
+	$(GCC) $(OP) -c src/decoder/map.c -o $@	
+
+build/decoder/prefetch_queue.o : src/decoder/prefetch_queue.c src/decoder/prefetch_queue.h
+	$(GCC) $(OP) -c src/decoder/prefetch_queue.c -o $@	
+
+build/decoder/operations/ADD.o : src/decoder/operations/ADD.c src/decoder/operations/ADD.h
+	$(GCC) $(OP) -c src/decoder/operations/ADD.c -o $@	
+
+build/decoder/operations/OR.o : src/decoder/operations/OR.c src/decoder/operations/OR.h
+	$(GCC) $(OP) -c src/decoder/operations/OR.c -o $@	
+
+build/decoder/operations/ADC.o : src/decoder/operations/ADC.c src/decoder/operations/ADC.h
+	$(GCC) $(OP) -c src/decoder/operations/ADC.c -o $@	
+
+build/decoder/operations/SBB.o : src/decoder/operations/SBB.c src/decoder/operations/SBB.h
+	$(GCC) $(OP) -c src/decoder/operations/SBB.c -o $@	
+
+build/decoder/operations/AND.o : src/decoder/operations/AND.c src/decoder/operations/AND.h
+	$(GCC) $(OP) -c src/decoder/operations/AND.c -o $@	
+
+build/decoder/operations/SUB.o : src/decoder/operations/SUB.c src/decoder/operations/SUB.h
+	$(GCC) $(OP) -c src/decoder/operations/SUB.c -o $@	
+
+build/decoder/operations/XOR.o : src/decoder/operations/XOR.c src/decoder/operations/XOR.h
+	$(GCC) $(OP) -c src/decoder/operations/XOR.c -o $@	
+
+build/decoder/operations/CMP.o : src/decoder/operations/CMP.c src/decoder/operations/CMP.h
+	$(GCC) $(OP) -c src/decoder/operations/CMP.c -o $@	
+
+build/decoder/operations/INC.o : src/decoder/operations/INC.c src/decoder/operations/INC.h
+	$(GCC) $(OP) -c src/decoder/operations/INC.c -o $@	
+
+build/decoder/operations/DEC.o : src/decoder/operations/DEC.c src/decoder/operations/DEC.h
+	$(GCC) $(OP) -c src/decoder/operations/DEC.c -o $@	
+	
 remake: 
 	make clean && make
 
@@ -70,3 +158,4 @@ doc:
 	doxygen 
 rmdoc:
 	rm -rf documentation
+
