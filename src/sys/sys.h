@@ -9,6 +9,7 @@
 #include "../memory/physical_memory.h"
 #include "../memory/registers.h"
 #include "../memory/IO.h"
+#include "../decoder/decoder.h"
 
 extern _sys_cond_st sys_cond_st;
 extern int status;

@@ -139,4 +139,7 @@ unsigned int get_effective_address_size(unsigned int default_seg_size, unsigned 
 
 unsigned int get_effective_operand_size(unsigned int default_seg_size, unsigned int operand_size_prefix_present);
 
+void map_operations_to_opcode_maps(void);
+
+void decode(void);
 #endif // _DECODER_H_
