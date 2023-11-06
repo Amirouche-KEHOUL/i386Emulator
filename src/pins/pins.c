@@ -3,6 +3,7 @@
 #include "pins.h"
 
 extern int status;
+extern _pins pins;
 
 _pin_state_enum pin_read(_pin_name_enum pin_name_enum)
 {

@@ -4,8 +4,6 @@
 #include "../typedefs.h"
 #include "../status/status.h"
 
-extern int status;
-
 /*
 The physical memory of an 80386 system is organized as a sequence of 8-bit bytes.
 Each byte is assigned a unique address that ranges from zero to a maximum of 232-1 (4 gigabytes).

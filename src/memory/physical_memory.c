@@ -1,7 +1,8 @@
+#include "physical_memory.h"
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "physical_memory.h"
+extern int status;
 
 _byte physical_memory_read_byte(_physical_memory_ptr physical_memory_ptr, _32_physical_addr addr)
 {

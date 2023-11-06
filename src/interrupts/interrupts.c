@@ -1,5 +1,11 @@
 #include "interrupts.h"
 
+extern _eflag_reg_st eflag_reg_st;               // Global main.c
+extern _pins pins;                               // Global main.c
+extern _interrupts_flags_st interrupts_flags_st; // Global main.c
+extern _cr0_reg_st cr0_reg_st;
+extern _idtr_st idtr_st;
+
 void check_and_service_interrupts(void)
 {
 

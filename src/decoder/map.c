@@ -261,6 +261,92 @@ void map_DEC_operations(void)
     ModRM_opcode_map[0x3][0x1] = &DEC_Eb;
 }
 
+void map_PUSH_operations(void)
+{
+
+    one_byte_opcode_map[0x0][0x6] = &PUSH_ES;
+    one_byte_opcode_map[0x0][0xE] = &PUSH_CS;
+    one_byte_opcode_map[0x1][0x6] = &PUSH_SS;
+    one_byte_opcode_map[0x1][0xE] = &PUSH_DS;
+    one_byte_opcode_map[0x6][0x8] = &PUSH_Ib;
+    one_byte_opcode_map[0x6][0xA] = &PUSH_Ib; // Mapped 2 times
+
+    one_byte_opcode_map[0x5][0x0] = &PUSH_eAX;
+    one_byte_opcode_map[0x5][0x1] = &PUSH_eCX;
+    one_byte_opcode_map[0x5][0x2] = &PUSH_eDX;
+    one_byte_opcode_map[0x5][0x3] = &PUSH_eBX;
+    one_byte_opcode_map[0x5][0x4] = &PUSH_eSP;
+    one_byte_opcode_map[0x5][0x5] = &PUSH_eBP;
+    one_byte_opcode_map[0x5][0x6] = &PUSH_eSI;
+    one_byte_opcode_map[0x5][0x7] = &PUSH_eDI;
+
+    two_byte_opcode_map[0xA][0x0] = &PUSH_FS;
+    two_byte_opcode_map[0xA][0x8] = &PUSH_GS;
+
+    ModRM_opcode_map[0x4][0x6] = &PUSH_Ev;
+}
+
+void map_POP_operations(void)
+{
+
+    one_byte_opcode_map[0x0][0x7] = &POP_ES;
+    one_byte_opcode_map[0x1][0x7] = &POP_SS;
+    one_byte_opcode_map[0x1][0xF] = &POP_DS;
+    one_byte_opcode_map[0x8][0xF] = &POP_Ev;
+
+    one_byte_opcode_map[0x5][0x8] = &POP_eAX;
+    one_byte_opcode_map[0x5][0x9] = &POP_eCX;
+    one_byte_opcode_map[0x5][0xA] = &POP_eDX;
+    one_byte_opcode_map[0x5][0xB] = &POP_eBX;
+    one_byte_opcode_map[0x5][0xC] = &POP_eSP;
+    one_byte_opcode_map[0x5][0xD] = &POP_eBP;
+    one_byte_opcode_map[0x5][0xE] = &POP_eSI;
+    one_byte_opcode_map[0x5][0xF] = &POP_eDI;
+
+    two_byte_opcode_map[0xA][0x1] = &POP_FS;
+    two_byte_opcode_map[0xA][0x9] = &POP_GS;
+}
+
+void map_DAA_operations(void)
+{
+    one_byte_opcode_map[0x2][0x7] = &DAA;
+}
+
+void map_DAS_operations(void)
+{
+    one_byte_opcode_map[0x2][0xF] = &DAS;
+}
+
+void map_AAA_operations(void)
+{
+    one_byte_opcode_map[0x3][0x7] = &AAA;
+}
+
+void map_AAS_operations(void)
+{
+    one_byte_opcode_map[0x3][0xF] = &AAS;
+}
+
+void map_PUSHA_operations(void)
+{
+    one_byte_opcode_map[0x6][0x0] = &PUSHA;
+}
+
+void map_POPA_operations(void)
+{
+    one_byte_opcode_map[0x6][0x1] = &POPA;
+}
+
+void map_BOUND_operations(void)
+{
+    one_byte_opcode_map[0x6][0x2] = &BOUND_GvMa;
+}
+
+void map_ARPL_operations(void)
+{
+    one_byte_opcode_map[0x6][0x3] = &ARPL_EwRw;
+}
+
 // Init opcode maps: set all cells to no operation opcode (empty cells in opcode map)
 void init_opcode_maps(void)
 {
@@ -282,6 +368,7 @@ void init_opcode_maps(void)
 void map_operations_to_opcode_maps(void)
 {
     init_opcode_maps();
+
     map_escape_function();
     map_ADD_operations();
     map_OR_operations();
@@ -292,4 +379,15 @@ void map_operations_to_opcode_maps(void)
     map_XOR_operations();
     map_CMP_operations();
     map_INC_operations();
+    map_DEC_operations();
+    map_PUSH_operations();
+    map_POP_operations();
+    map_DAA_operations();
+    map_DAS_operations();
+    map_AAA_operations();
+    map_AAS_operations();
+    map_PUSHA_operations();
+    map_POPA_operations();
+    map_BOUND_operations();
+    map_ARPL_operations();
 }

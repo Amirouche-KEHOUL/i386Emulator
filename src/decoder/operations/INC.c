@@ -1,48 +1,48 @@
-#include "DEC.h"
+#include "INC.h"
 
-// Mapped to one-byte opcode map (DEC general register)
-void DEC_eAX(void)
+// Mapped to one-byte opcode map (INC general register)
+void INC_eAX(void)
 {
-    printf("DEC operation called correclty \n");
+    printf("INC operation called correclty \n");
 }
 
-void DEC_eCX(void)
+void INC_eCX(void)
 {
-    printf("DEC operation called correclty \n");
+    printf("INC operation called correclty \n");
 }
 
-void DEC_eDX(void)
+void INC_eDX(void)
 {
-    printf("DEC operation called correclty \n");
+    printf("INC operation called correclty \n");
 }
 
-void DEC_eBX(void)
+void INC_eBX(void)
 {
-    printf("DEC operation called correclty \n");
+    printf("INC operation called correclty \n");
 }
 
-void DEC_eSP(void)
+void INC_eSP(void)
 {
-    printf("DEC operation called correclty \n");
+    printf("INC operation called correclty \n");
 }
 
-void DEC_eBP(void)
+void INC_eBP(void)
 {
-    printf("DEC operation called correclty \n");
+    printf("INC operation called correclty \n");
 }
 
-void DEC_eSI(void)
+void INC_eSI(void)
 {
-    printf("DEC operation called correclty \n");
+    printf("INC operation called correclty \n");
 }
 
-void DEC_eDI(void)
+void INC_eDI(void)
 {
-    printf("DEC operation called correclty \n");
+    printf("INC operation called correclty \n");
 }
 
 // Mapped to ModRM opcode  map
-void DEC_Eb(void)
+void INC_Eb(void)
 {
-    printf("DEC operation called correclty \n");
+    printf("INC operation called correclty \n");
 }

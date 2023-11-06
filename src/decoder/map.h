@@ -14,6 +14,16 @@
 #include "./operations/CMP.h"
 #include "./operations/INC.h"
 #include "./operations/DEC.h"
+#include "./operations/PUSH.h"
+#include "./operations/POP.h"
+#include "./operations/DAA.h"
+#include "./operations/DAS.h"
+#include "./operations/AAA.h"
+#include "./operations/AAS.h"
+#include "./operations/PUSHA.h"
+#include "./operations/POPA.h"
+#include "./operations/BOUND.h"
+#include "./operations/ARPL.h"
 
 void map_operations_to_opcode_maps(void);
 

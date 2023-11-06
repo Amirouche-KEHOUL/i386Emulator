@@ -18,15 +18,6 @@
 #define _DEVICE_IS_BOOTABLE 1
 #define _MBR_LOAD_RAM_ADDR 0x7c00
 
-extern _segment_regs_st segment_regs_st;
-extern _eip_st eip_st;
-
-/**
- * @brief Checks if device is bootable MSB (Master Block Record).
- *
- * @param device_name
- * @return _DEVICE_IS_BOOTABLE if MSB found. _STATUS_DEVICE_BOOT_SIG_NOT_FOUND else.
- */
 unsigned int bios_is_bootable(FILE *device_name);
 
 /*

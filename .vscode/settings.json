@@ -35,7 +35,10 @@
         "map.h": "c",
         "sbb.h": "c",
         "and.h": "c",
-        "or.h": "c"
+        "or.h": "c",
+        "push.h": "c",
+        "inc.h": "c",
+        "daa.h": "c"
     },
     "editor.tokenColorCustomizations": {}
 }

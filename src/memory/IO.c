@@ -3,6 +3,8 @@
 
 #include "IO.h"
 
+extern int status;
+
 _byte IO_read(_IO_ptr IO_ptr, _32_physical_addr addr)
 {
     // check if addr < _IO_ADDRESS_SPACE

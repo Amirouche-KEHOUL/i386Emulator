@@ -1,5 +1,7 @@
 #include "utils.h"
 
+extern int status;
+
 int str_length(char str[])
 {
     int count;

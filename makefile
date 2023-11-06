@@ -22,6 +22,16 @@ SRC = src/main.c \
 	src/decoder/operations/CMP.c \
 	src/decoder/operations/INC.c \
 	src/decoder/operations/DEC.c \
+	src/decoder/operations/PUSH.c \
+	src/decoder/operations/POP.c \
+	src/decoder/operations/DAA.c \
+	src/decoder/operations/DAS.c \
+	src/decoder/operations/AAA.c \
+	src/decoder/operations/AAS.c \
+	src/decoder/operations/PUSHA.c \
+	src/decoder/operations/POPA.c \
+	src/decoder/operations/BOUND.c \
+	src/decoder/operations/ARPL.c \
 
 OBJ = build/main.o \
 	build/bios/bios.o \
@@ -47,6 +57,16 @@ OBJ = build/main.o \
 	build/decoder/operations/CMP.o  \
 	build/decoder/operations/INC.o \
 	build/decoder/operations/DEC.o \
+	build/decoder/operations/PUSH.o \
+	build/decoder/operations/POP.o \
+	build/decoder/operations/DAA.o \
+	build/decoder/operations/DAS.o \
+	build/decoder/operations/AAA.o \
+	build/decoder/operations/AAS.o \
+	build/decoder/operations/PUSHA.o \
+	build/decoder/operations/POPA.o \
+	build/decoder/operations/BOUND.o \
+	build/decoder/operations/ARPL.o \
 
 BINDIRS = bin/ \
 	build/memory \
@@ -64,12 +84,19 @@ OP = -std=c99 -Wall -Wvla -g -Wno-unused-variable -Wno-unused-but-set-variable -
 GCC=gcc
 
 bin/i386Emulator.out : mkdir  $(OBJ) 
+	@echo
+	@echo "-----LINK-----"
 	$(GCC) $(OP) $(OBJ) -o $@
 	@cp device.bin bin/
 	@echo
 	@echo "|-----------SUCCESSFUL-----------|"
+	@echo
 
+build: build/main.o
+	
 build/main.o : $(SRC) 
+	@echo
+	@echo "-----BUILD-----"
 	$(GCC) $(OP) -c src/main.c -o $@
 
 build/memory/physical_memory.o : src/memory/physical_memory.c src/memory/physical_memory.h
@@ -140,7 +167,37 @@ build/decoder/operations/INC.o : src/decoder/operations/INC.c src/decoder/operat
 
 build/decoder/operations/DEC.o : src/decoder/operations/DEC.c src/decoder/operations/DEC.h
 	$(GCC) $(OP) -c src/decoder/operations/DEC.c -o $@	
+
+build/decoder/operations/PUSH.o : src/decoder/operations/PUSH.c src/decoder/operations/PUSH.h
+	$(GCC) $(OP) -c src/decoder/operations/PUSH.c -o $@	
+
+build/decoder/operations/POP.o : src/decoder/operations/POP.c src/decoder/operations/POP.h
+	$(GCC) $(OP) -c src/decoder/operations/POP.c -o $@	
+
+build/decoder/operations/DAA.o : src/decoder/operations/DAA.c src/decoder/operations/DAA.h
+	$(GCC) $(OP) -c src/decoder/operations/DAA.c -o $@	
+
+build/decoder/operations/DAS.o : src/decoder/operations/DAS.c src/decoder/operations/DAS.h
+	$(GCC) $(OP) -c src/decoder/operations/DAS.c -o $@	
+
+build/decoder/operations/AAA.o : src/decoder/operations/AAA.c src/decoder/operations/AAA.h
+	$(GCC) $(OP) -c src/decoder/operations/AAA.c -o $@	
+
+build/decoder/operations/AAS.o : src/decoder/operations/AAS.c src/decoder/operations/AAS.h
+	$(GCC) $(OP) -c src/decoder/operations/AAS.c -o $@	
+
+build/decoder/operations/PUSHA.o : src/decoder/operations/PUSHA.c src/decoder/operations/PUSHA.h
+	$(GCC) $(OP) -c src/decoder/operations/PUSHA.c -o $@	
+
+build/decoder/operations/POPA.o : src/decoder/operations/POPA.c src/decoder/operations/POPA.h
+	$(GCC) $(OP) -c src/decoder/operations/POPA.c -o $@	
 	
+build/decoder/operations/BOUND.o : src/decoder/operations/BOUND.c src/decoder/operations/BOUND.h
+	$(GCC) $(OP) -c src/decoder/operations/BOUND.c -o $@	
+
+build/decoder/operations/ARPL.o : src/decoder/operations/ARPL.c src/decoder/operations/ARPL.h
+	$(GCC) $(OP) -c src/decoder/operations/ARPL.c -o $@	
+
 remake: 
 	make clean && make
 

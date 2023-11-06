@@ -9,8 +9,6 @@ I/O Addressing:
     - Memory-mapped I/O (using general-purpose operand manipulationinstructions).
 */
 
-extern int status;
-
 #define _IO_ADDRESS_SPACE 65536UL // 64K. This Value should not be changed!
 
 /*Reads a byte from the IO space */

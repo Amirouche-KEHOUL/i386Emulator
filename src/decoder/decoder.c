@@ -2,6 +2,8 @@
 
 /* ------------- data structures -------------*/
 
+extern _general_regs_st general_regs_st;
+
 _ModRM_st ModRM_st = {0};
 _prefetch_queue_st prefetch_queue_st = {0};
 void (*one_byte_opcode_map[16][16])(void); // Page 414
@@ -1024,8 +1026,8 @@ RETURN:
 
 void decode(void)
 {
-    // prefetch_queue_st.queue[0] = 0x80;
-    // prefetch_queue_st.queue[1] = 0x28;
+    prefetch_queue_st.queue[0] = 0x4A;
+    prefetch_queue_st.queue[1] = 0xA9;
 
     _byte byte = stream_byte_prefetch_queue();
 

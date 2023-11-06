@@ -8,13 +8,6 @@
 #include "../typedefs.h"
 #include "physical_memory.h"
 
-extern _segment_regs_st segment_regs_st;
-extern _physical_memory_ptr physical_memory_ptr;
-extern _dtr_reg_st gdtr_reg_st;
-extern _dtr_reg_st ldtr_reg_st;
-extern _cr0_reg_st cr0_reg_st;
-extern _cr3_reg_pdbr cr3_reg_pdbr;
-
 // Converts a logical address into liear given an offset and a segment descriptor. This function assumes that entries does not generate errors or exceptions (check done by the caller)
 _32_linear_addr translate_segment(_32_offset offset, const void *segment_decriptor, int segment_descriptor_type);
 

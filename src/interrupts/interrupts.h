@@ -5,10 +5,6 @@
 #include "../memory/registers.h"
 #include "../pins/pins.h"
 
-extern _eflag_reg_st eflag_reg_st;               // Global main.c
-extern _pins pins;                               // Global main.c
-extern _interrupts_flags_st interrupts_flags_st; // Global main.c
-
 /**Interrupt and Exception ID Assignments
 9,15,17-31  are reserved IDs
 32-255      Available for external trap trap exception interrupts via INTR pin (soft interrupts: two-byte )*/

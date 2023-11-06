@@ -1,5 +1,13 @@
 #include "address_translator.h"
 
+extern _segment_regs_st segment_regs_st;
+extern _physical_memory_ptr physical_memory_ptr;
+extern _dtr_reg_st gdtr_reg_st;
+extern _dtr_reg_st ldtr_reg_st;
+extern _cr0_reg_st cr0_reg_st;
+extern _cr3_reg_pdbr cr3_reg_pdbr;
+extern int status;
+
 // ############################## Segment Translation #################################//
 
 _code_segment_descriptor_st temp_code_segment_descriptor_st_ptr = {0}; // temporary structure

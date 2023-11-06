@@ -1,5 +1,18 @@
 #include "sys.h"
 
+extern _sys_cond_st sys_cond_st;
+extern int status;
+extern _16_bus A3120;
+extern _pins pins;
+extern _physical_memory_ptr physical_memory_ptr;
+extern _IO_ptr IO_ptr;
+extern _general_regs_st general_regs_st;
+extern _segment_regs_st segment_regs_st;
+extern _eflag_reg_st eflag_reg_st;
+extern _eip_st eip_st;
+extern _idtr_st idtr_st;
+extern _cr0_reg_st cr0_reg_st;
+
 int sys_is_selftest_req(void)
 {
     // if selftest requested

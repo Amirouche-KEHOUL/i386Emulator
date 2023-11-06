@@ -4,6 +4,9 @@
 #include "bios.h"
 
 extern int status;
+extern _segment_regs_st segment_regs_st;
+extern _eip_st eip_st;
+extern _physical_memory_ptr physical_memory_ptr;
 
 unsigned int bios_is_bootable(FILE *device_name)
 {
