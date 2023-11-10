@@ -13,5 +13,5 @@ void INC_eBP(void);
 void INC_eSI(void);
 void INC_eDI(void);
 // Mapped to ModRM opcode  map
-void INC_Eb(void);
+void ModRM_INC_Eb(void);
 #endif // _INC_H_

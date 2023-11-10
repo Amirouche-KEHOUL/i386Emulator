@@ -42,7 +42,7 @@ void DEC_eDI(void)
 }
 
 // Mapped to ModRM opcode  map
-void DEC_Eb(void)
+void ModRM_DEC_Eb(void)
 {
     printf("DEC operation called correclty \n");
 }

@@ -38,7 +38,8 @@
         "or.h": "c",
         "push.h": "c",
         "inc.h": "c",
-        "daa.h": "c"
+        "daa.h": "c",
+        "outsw_d.h": "c"
     },
     "editor.tokenColorCustomizations": {}
 }

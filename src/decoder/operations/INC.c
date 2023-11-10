@@ -42,7 +42,7 @@ void INC_eDI(void)
 }
 
 // Mapped to ModRM opcode  map
-void INC_Eb(void)
+void ModRM_INC_Eb(void)
 {
     printf("INC operation called correclty \n");
 }

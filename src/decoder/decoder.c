@@ -1026,7 +1026,7 @@ RETURN:
 
 void decode(void)
 {
-    prefetch_queue_st.queue[0] = 0x4A;
+    prefetch_queue_st.queue[0] = 0x7F;
     prefetch_queue_st.queue[1] = 0xA9;
 
     _byte byte = stream_byte_prefetch_queue();

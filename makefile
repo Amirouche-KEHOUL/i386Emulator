@@ -32,6 +32,27 @@ SRC = src/main.c \
 	src/decoder/operations/POPA.c \
 	src/decoder/operations/BOUND.c \
 	src/decoder/operations/ARPL.c \
+	src/decoder/operations/IMUL.c \
+	src/decoder/operations/INSB.c \
+	src/decoder/operations/INSW_D.c \
+	src/decoder/operations/OUTSB.c \
+	src/decoder/operations/OUTSW_D.c \
+	src/decoder/operations/JO_SHORT.c \
+	src/decoder/operations/JNO_SHORT.c \
+	src/decoder/operations/JB_SHORT.c \
+	src/decoder/operations/JNB_SHORT.c \
+	src/decoder/operations/JZ_SHORT.c \
+	src/decoder/operations/JNZ_SHORT.c \
+	src/decoder/operations/JBE_SHORT.c \
+	src/decoder/operations/JNBE_SHORT.c \
+	src/decoder/operations/JS_SHORT.c \
+	src/decoder/operations/JNS_SHORT.c \
+	src/decoder/operations/JP_SHORT.c \
+	src/decoder/operations/JNP_SHORT.c \
+	src/decoder/operations/JL_SHORT.c \
+	src/decoder/operations/JNL_SHORT.c \
+	src/decoder/operations/JLE_SHORT.c \
+	src/decoder/operations/JNLE_SHORT.c \
 
 OBJ = build/main.o \
 	build/bios/bios.o \
@@ -67,6 +88,27 @@ OBJ = build/main.o \
 	build/decoder/operations/POPA.o \
 	build/decoder/operations/BOUND.o \
 	build/decoder/operations/ARPL.o \
+	build/decoder/operations/IMUL.o \
+	build/decoder/operations/INSB.o \
+	build/decoder/operations/INSW_D.o \
+	build/decoder/operations/OUTSB.o \
+	build/decoder/operations/OUTSW_D.o \
+	build/decoder/operations/JO_SHORT.o \
+	build/decoder/operations/JNO_SHORT.o \
+	build/decoder/operations/JB_SHORT.o \
+	build/decoder/operations/JNB_SHORT.o \
+	build/decoder/operations/JZ_SHORT.o \
+	build/decoder/operations/JNZ_SHORT.o \
+	build/decoder/operations/JBE_SHORT.o \
+	build/decoder/operations/JNBE_SHORT.o \
+	build/decoder/operations/JS_SHORT.o \
+	build/decoder/operations/JNS_SHORT.o \
+	build/decoder/operations/JP_SHORT.o \
+	build/decoder/operations/JNP_SHORT.o \
+	build/decoder/operations/JL_SHORT.o \
+	build/decoder/operations/JNL_SHORT.o \
+	build/decoder/operations/JLE_SHORT.o \
+	build/decoder/operations/JNLE_SHORT.o \
 
 BINDIRS = bin/ \
 	build/memory \
@@ -197,6 +239,70 @@ build/decoder/operations/BOUND.o : src/decoder/operations/BOUND.c src/decoder/op
 
 build/decoder/operations/ARPL.o : src/decoder/operations/ARPL.c src/decoder/operations/ARPL.h
 	$(GCC) $(OP) -c src/decoder/operations/ARPL.c -o $@	
+
+build/decoder/operations/IMUL.o : src/decoder/operations/IMUL.c src/decoder/operations/IMUL.h
+	$(GCC) $(OP) -c src/decoder/operations/IMUL.c -o $@
+
+build/decoder/operations/INSB.o : src/decoder/operations/INSB.c src/decoder/operations/INSB.h
+	$(GCC) $(OP) -c src/decoder/operations/INSB.c -o $@
+
+build/decoder/operations/INSW_D.o : src/decoder/operations/INSW_D.c src/decoder/operations/INSW_D.h
+	$(GCC) $(OP) -c src/decoder/operations/INSW_D.c -o $@
+
+build/decoder/operations/OUTSB.o : src/decoder/operations/OUTSB.c src/decoder/operations/OUTSB.h
+	$(GCC) $(OP) -c src/decoder/operations/OUTSB.c -o $@
+
+build/decoder/operations/OUTSW_D.o : src/decoder/operations/OUTSW_D.c src/decoder/operations/OUTSW_D.h
+	$(GCC) $(OP) -c src/decoder/operations/OUTSW_D.c -o $@
+
+build/decoder/operations/JO_SHORT.o : src/decoder/operations/JO_SHORT.c src/decoder/operations/JO_SHORT.h
+	$(GCC) $(OP) -c src/decoder/operations/JO_SHORT.c -o $@
+
+build/decoder/operations/JNO_SHORT.o : src/decoder/operations/JNO_SHORT.c src/decoder/operations/JNO_SHORT.h
+	$(GCC) $(OP) -c src/decoder/operations/JNO_SHORT.c -o $@
+
+build/decoder/operations/JB_SHORT.o : src/decoder/operations/JB_SHORT.c src/decoder/operations/JB_SHORT.h
+	$(GCC) $(OP) -c src/decoder/operations/JB_SHORT.c -o $@
+
+build/decoder/operations/JNB_SHORT.o : src/decoder/operations/JNB_SHORT.c src/decoder/operations/JNB_SHORT.h
+	$(GCC) $(OP) -c src/decoder/operations/JNB_SHORT.c -o $@
+
+build/decoder/operations/JZ_SHORT.o : src/decoder/operations/JZ_SHORT.c src/decoder/operations/JZ_SHORT.h
+	$(GCC) $(OP) -c src/decoder/operations/JZ_SHORT.c -o $@
+
+build/decoder/operations/JNZ_SHORT.o : src/decoder/operations/JNZ_SHORT.c src/decoder/operations/JNZ_SHORT.h
+	$(GCC) $(OP) -c src/decoder/operations/JNZ_SHORT.c -o $@
+
+build/decoder/operations/JBE_SHORT.o : src/decoder/operations/JBE_SHORT.c src/decoder/operations/JBE_SHORT.h
+	$(GCC) $(OP) -c src/decoder/operations/JBE_SHORT.c -o $@
+
+build/decoder/operations/JNBE_SHORT.o : src/decoder/operations/JNBE_SHORT.c src/decoder/operations/JNBE_SHORT.h
+	$(GCC) $(OP) -c src/decoder/operations/JNBE_SHORT.c -o $@
+
+build/decoder/operations/JS_SHORT.o : src/decoder/operations/JS_SHORT.c src/decoder/operations/JS_SHORT.h
+	$(GCC) $(OP) -c src/decoder/operations/JS_SHORT.c -o $@
+
+build/decoder/operations/JNS_SHORT.o : src/decoder/operations/JNS_SHORT.c src/decoder/operations/JNS_SHORT.h
+	$(GCC) $(OP) -c src/decoder/operations/JNS_SHORT.c -o $@
+
+build/decoder/operations/JP_SHORT.o : src/decoder/operations/JP_SHORT.c src/decoder/operations/JP_SHORT.h
+	$(GCC) $(OP) -c src/decoder/operations/JP_SHORT.c -o $@
+
+build/decoder/operations/JNP_SHORT.o : src/decoder/operations/JNP_SHORT.c src/decoder/operations/JNP_SHORT.h
+	$(GCC) $(OP) -c src/decoder/operations/JNP_SHORT.c -o $@
+
+build/decoder/operations/JL_SHORT.o : src/decoder/operations/JL_SHORT.c src/decoder/operations/JL_SHORT.h
+	$(GCC) $(OP) -c src/decoder/operations/JL_SHORT.c -o $@
+
+build/decoder/operations/JNL_SHORT.o : src/decoder/operations/JNL_SHORT.c src/decoder/operations/JNL_SHORT.h
+	$(GCC) $(OP) -c src/decoder/operations/JNL_SHORT.c -o $@
+
+build/decoder/operations/JLE_SHORT.o : src/decoder/operations/JLE_SHORT.c src/decoder/operations/JLE_SHORT.h
+	$(GCC) $(OP) -c src/decoder/operations/JLE_SHORT.c -o $@
+
+build/decoder/operations/JNLE_SHORT.o : src/decoder/operations/JNLE_SHORT.c src/decoder/operations/JNLE_SHORT.h
+	$(GCC) $(OP) -c src/decoder/operations/JNLE_SHORT.c -o $@
+
 
 remake: 
 	make clean && make
