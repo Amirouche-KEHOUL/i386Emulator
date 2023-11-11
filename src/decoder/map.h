@@ -45,6 +45,11 @@
 #include "./operations/JNL_SHORT.h"
 #include "./operations/JLE_SHORT.h"
 #include "./operations/JNLE_SHORT.h"
+#include "./operations/TEST.h"
+#include "./operations/XCNG.h"
+#include "./operations/MOV.h"
+#include "./operations/LEA.h"
+#include "./operations/NOP.h"
 
 void map_operations_to_opcode_maps(void);
 

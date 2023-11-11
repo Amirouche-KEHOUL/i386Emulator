@@ -656,19 +656,19 @@ RETURN:
 
 _8_displacement get_disp8_value()
 {
-    // todo : Get the disp value from the prefesh value
+    // TODO : Get the disp value from the prefesh value
     return 0;
 }
 
 _16_displacement get_disp16_value()
 {
-    // todo : Get the disp value from the prefesh value
+    // TODO : Get the disp value from the prefesh value
     return 0;
 }
 
 _32_displacement get_disp32_value()
 {
-    // todo : Get the disp value from the prefesh value
+    // TODO : Get the disp value from the prefesh value
     return 0;
 }
 
@@ -805,42 +805,42 @@ _16_offset calculate_16bit_effective_addr(unsigned int _16b_addressing_form)
     // Mod 11
     if (_16b_addressing_form == _EAX_AX_AL)
     {
-        // todo : choose which portion to return
+        // TODO : choose which portion to return
         goto RETURN;
     }
     if (_16b_addressing_form == _ECX_CX_CL)
     {
-        // todo : choose which portion to return
+        // TODO : choose which portion to return
         goto RETURN;
     }
     if (_16b_addressing_form == _EDX_DX_DL)
     {
-        // todo : choose which portion to return
+        // TODO : choose which portion to return
         goto RETURN;
     }
     if (_16b_addressing_form == _EBX_BX_BL)
     {
-        // todo : choose which portion to return
+        // TODO : choose which portion to return
         goto RETURN;
     }
     if (_16b_addressing_form == _ESP_SP_AH)
     {
-        // todo : choose which portion to return
+        // TODO : choose which portion to return
         goto RETURN;
     }
     if (_16b_addressing_form == _EBP_BP_CH)
     {
-        // todo : choose which portion to return
+        // TODO : choose which portion to return
         goto RETURN;
     }
     if (_16b_addressing_form == _ESI_SI_DH)
     {
-        // todo : choose which portion to return
+        // TODO : choose which portion to return
         goto RETURN;
     }
     if (_16b_addressing_form == _EDI_DI_BH)
     {
-        // todo : choose which portion to return
+        // TODO : choose which portion to return
         goto RETURN;
     }
 
@@ -981,42 +981,42 @@ _32_offset calculate_32bit_effective_addr(unsigned int _32b_addressing_form)
     // Mod 11
     if (_32b_addressing_form == _EAX_AX_AL)
     {
-        // todo : choose which portion to return
+        // TODO : choose which portion to return
         goto RETURN;
     }
     if (_32b_addressing_form == _ECX_CX_CL)
     {
-        // todo : choose which portion to return
+        // TODO : choose which portion to return
         goto RETURN;
     }
     if (_32b_addressing_form == _EDX_DX_DL)
     {
-        // todo : choose which portion to return
+        // TODO : choose which portion to return
         goto RETURN;
     }
     if (_32b_addressing_form == _EBX_BX_BL)
     {
-        // todo : choose which portion to return
+        // TODO : choose which portion to return
         goto RETURN;
     }
     if (_32b_addressing_form == _ESP_SP_AH)
     {
-        // todo : choose which portion to return
+        // TODO : choose which portion to return
         goto RETURN;
     }
     if (_32b_addressing_form == _EBP_BP_CH)
     {
-        // todo : choose which portion to return
+        // TODO : choose which portion to return
         goto RETURN;
     }
     if (_32b_addressing_form == _ESI_SI_DH)
     {
-        // todo : choose which portion to return
+        // TODO : choose which portion to return
         goto RETURN;
     }
     if (_32b_addressing_form == _EDI_DI_BH)
     {
-        // todo : choose which portion to return
+        // TODO : choose which portion to return
         goto RETURN;
     }
 

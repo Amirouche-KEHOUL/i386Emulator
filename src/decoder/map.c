@@ -457,6 +457,72 @@ void map_JNLE_SHORT_operations(void)
     one_byte_opcode_map[0x7][0xF] = &JNLE_SHORT;
 }
 
+void map_TEST_operations(void)
+{
+    one_byte_opcode_map[0x8][0x4] = &TEST_EbGb;
+    one_byte_opcode_map[0x8][0x5] = &TEST_EvGv;
+    one_byte_opcode_map[0xA][0x8] = &TEST_ALIb;
+    one_byte_opcode_map[0xA][0x9] = &TEST_eAXIv;
+
+    ModRM_opcode_map[0x2][0x0] = &TEST_eAXIv;
+}
+
+void map_XCNG_operations(void)
+{
+    one_byte_opcode_map[0x8][0x6] = &XCNG_EbGb;
+    one_byte_opcode_map[0x8][0x7] = &XCNG_EvGv;
+}
+
+void map_MOV_operations(void)
+{
+
+    one_byte_opcode_map[0x8][0x8] = &MOV_EbGb;
+    one_byte_opcode_map[0x8][0x9] = &MOV_EvGv;
+    one_byte_opcode_map[0x8][0xA] = &MOV_GbEb;
+    one_byte_opcode_map[0x8][0xB] = &MOV_GvEv;
+    one_byte_opcode_map[0x8][0xC] = &MOV_EwSw;
+    one_byte_opcode_map[0x8][0xE] = &MOV_SwEw;
+    one_byte_opcode_map[0xA][0x0] = &MOV_ALOb;
+    one_byte_opcode_map[0xA][0x1] = &MOV_eAXOv;
+    one_byte_opcode_map[0xA][0x2] = &MOV_ObAL;
+    one_byte_opcode_map[0xA][0x3] = &MOV_OveAX;
+    one_byte_opcode_map[0xB][0x0] = &MOV_AL;
+    one_byte_opcode_map[0xB][0x1] = &MOV_CL;
+    one_byte_opcode_map[0xB][0x2] = &MOV_DL;
+    one_byte_opcode_map[0xB][0x3] = &MOV_BL;
+    one_byte_opcode_map[0xB][0x4] = &MOV_AH;
+    one_byte_opcode_map[0xB][0x5] = &MOV_CH;
+    one_byte_opcode_map[0xB][0x6] = &MOV_DH;
+    one_byte_opcode_map[0xB][0x7] = &MOV_BH;
+    one_byte_opcode_map[0xB][0x8] = &MOV_eAX;
+    one_byte_opcode_map[0xB][0x9] = &MOV_eCX;
+    one_byte_opcode_map[0xB][0xA] = &MOV_eDX;
+    one_byte_opcode_map[0xB][0xB] = &MOV_eBX;
+    one_byte_opcode_map[0xB][0xC] = &MOV_eSP;
+    one_byte_opcode_map[0xB][0xD] = &MOV_eBP;
+    one_byte_opcode_map[0xB][0xE] = &MOV_eSI;
+    one_byte_opcode_map[0xB][0xF] = &MOV_eDI;
+    one_byte_opcode_map[0xC][0x6] = &MOV_EbIb;
+    one_byte_opcode_map[0xC][0x7] = &MOV_EvIv;
+
+    two_byte_opcode_map[0x2][0x0] = &MOV_CbRb;
+    two_byte_opcode_map[0x2][0x1] = &MOV_DdRd;
+    two_byte_opcode_map[0x2][0x2] = &MOV_RdCd;
+    two_byte_opcode_map[0x2][0x3] = &MOV_RdDd;
+    two_byte_opcode_map[0x2][0x4] = &MOV_TdRd;
+    two_byte_opcode_map[0x2][0x6] = &MOV_RdTd;
+}
+
+void map_LEA_operations(void)
+{
+    one_byte_opcode_map[0x8][0x6] = &LEA_GvM;
+}
+
+void map_NOP_operations(void)
+{
+    one_byte_opcode_map[0x9][0x0] = &NOP;
+}
+
 // Init opcode maps: set all cells to no operation opcode (empty cells in opcode map)
 void init_opcode_maps(void)
 {
@@ -521,4 +587,9 @@ void map_operations_to_opcode_maps(void)
     map_JNL_SHORT_operations();
     map_JLE_SHORT_operations();
     map_JNLE_SHORT_operations();
+    map_TEST_operations();
+    map_XCNG_operations();
+    map_MOV_operations();
+    map_LEA_operations();
+    map_NOP_operations();
 }

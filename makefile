@@ -53,6 +53,11 @@ SRC = src/main.c \
 	src/decoder/operations/JNL_SHORT.c \
 	src/decoder/operations/JLE_SHORT.c \
 	src/decoder/operations/JNLE_SHORT.c \
+	src/decoder/operations/TEST.c \
+	src/decoder/operations/XCNG.c \
+	src/decoder/operations/MOV.c \
+	src/decoder/operations/LEA.c \
+	src/decoder/operations/NOP.c \
 
 OBJ = build/main.o \
 	build/bios/bios.o \
@@ -109,6 +114,11 @@ OBJ = build/main.o \
 	build/decoder/operations/JNL_SHORT.o \
 	build/decoder/operations/JLE_SHORT.o \
 	build/decoder/operations/JNLE_SHORT.o \
+	build/decoder/operations/TEST.o \
+	build/decoder/operations/XCNG.o \
+	build/decoder/operations/MOV.o \
+	build/decoder/operations/LEA.o \
+	build/decoder/operations/NOP.o \
 
 BINDIRS = bin/ \
 	build/memory \
@@ -303,6 +313,20 @@ build/decoder/operations/JLE_SHORT.o : src/decoder/operations/JLE_SHORT.c src/de
 build/decoder/operations/JNLE_SHORT.o : src/decoder/operations/JNLE_SHORT.c src/decoder/operations/JNLE_SHORT.h
 	$(GCC) $(OP) -c src/decoder/operations/JNLE_SHORT.c -o $@
 
+build/decoder/operations/TEST.o : src/decoder/operations/TEST.c src/decoder/operations/TEST.h
+	$(GCC) $(OP) -c src/decoder/operations/TEST.c -o $@
+
+build/decoder/operations/XCNG.o : src/decoder/operations/XCNG.c src/decoder/operations/XCNG.h
+	$(GCC) $(OP) -c src/decoder/operations/XCNG.c -o $@
+
+build/decoder/operations/MOV.o : src/decoder/operations/MOV.c src/decoder/operations/MOV.h
+	$(GCC) $(OP) -c src/decoder/operations/MOV.c -o $@
+
+build/decoder/operations/LEA.o : src/decoder/operations/LEA.c src/decoder/operations/LEA.h
+	$(GCC) $(OP) -c src/decoder/operations/LEA.c -o $@
+
+build/decoder/operations/NOP.o : src/decoder/operations/NOP.c src/decoder/operations/NOP.h
+	$(GCC) $(OP) -c src/decoder/operations/NOP.c -o $@
 
 remake: 
 	make clean && make
