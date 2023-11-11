@@ -523,6 +523,112 @@ void map_NOP_operations(void)
     one_byte_opcode_map[0x9][0x0] = &NOP;
 }
 
+void map_XCHG_operations(void)
+{
+
+    one_byte_opcode_map[0x9][0x1] = &XCHG_eCX;
+    one_byte_opcode_map[0x9][0x2] = &XCHG_eDX;
+    one_byte_opcode_map[0x9][0x3] = &XCHG_eBX;
+    one_byte_opcode_map[0x9][0x4] = &XCHG_eSP;
+    one_byte_opcode_map[0x9][0x5] = &XCHG_eBP;
+    one_byte_opcode_map[0x9][0x6] = &XCHG_eSI;
+    one_byte_opcode_map[0x9][0x7] = &XCHG_eDI;
+}
+
+void map_CBW_operations(void)
+{
+    one_byte_opcode_map[0x9][0x8] = &CBW;
+}
+
+void map_CWD_operations(void)
+{
+    one_byte_opcode_map[0x9][0x9] = &CWD;
+}
+
+void map_CALL_operations(void)
+{
+    one_byte_opcode_map[0x9][0xA] = &CALL_Ap;
+    one_byte_opcode_map[0xE][0x8] = &CALL_Av;
+
+    ModRM_opcode_map[0x4][0x2] = &ModRM_CALL_Ev;
+    ModRM_opcode_map[0x4][0x3] = &ModRM_CALL_Ep;
+}
+
+void map_WAIT_operations(void)
+{
+    one_byte_opcode_map[0x9][0xB] = &WAIT;
+}
+
+void map_PUSHF_operations(void)
+{
+    one_byte_opcode_map[0x9][0xC] = &PUSHF_Fv;
+}
+
+void map_POPF_operations(void)
+{
+    one_byte_opcode_map[0x9][0xD] = &POPF_Fv;
+}
+
+void map_SAHF_operations(void)
+{
+    one_byte_opcode_map[0x9][0xE] = &SAHF;
+}
+
+void map_LAHF_operations(void)
+{
+    one_byte_opcode_map[0x9][0xF] = &LAHF;
+}
+
+void map_MOVSB_operations(void)
+{
+    one_byte_opcode_map[0xA][0x4] = &MOVSB_XbYb;
+}
+
+void map_MOVSW_operations(void)
+{
+    one_byte_opcode_map[0xA][0x5] = &MOVSW_XvYv;
+}
+
+void map_CMPSB_operations(void)
+{
+    one_byte_opcode_map[0xA][0x6] = &CMPSB_XbYb;
+}
+
+void map_CMPSW_operations(void)
+{
+    one_byte_opcode_map[0xA][0x7] = &CMPSW_XvYv;
+}
+
+void map_STOSB_operations(void)
+{
+    one_byte_opcode_map[0xA][0xA] = &STOSB_YbAL;
+}
+
+void map_STOSW_operations(void)
+{
+    one_byte_opcode_map[0xA][0xB] = &STOSW_YveAX;
+}
+
+void map_LODSB_operations(void)
+{
+    one_byte_opcode_map[0xA][0xC] = &LODSB_ALXb;
+}
+
+void map_LODSW_operations(void)
+{
+    one_byte_opcode_map[0xA][0xD] = &LODSW_sAXXv;
+}
+
+void map_SCASB_operations(void)
+{
+    one_byte_opcode_map[0xA][0xE] = &SCASB_ALXb;
+}
+
+void map_SCASW_operations(void)
+{
+    one_byte_opcode_map[0xA][0xE] = &SCASW_eAXXv;
+}
+
 // Init opcode maps: set all cells to no operation opcode (empty cells in opcode map)
 void init_opcode_maps(void)
 {
@@ -592,4 +698,23 @@ void map_operations_to_opcode_maps(void)
     map_MOV_operations();
     map_LEA_operations();
     map_NOP_operations();
+    map_XCHG_operations();
+    map_CBW_operations();
+    map_CWD_operations();
+    map_CALL_operations();
+    map_WAIT_operations();
+    map_PUSHF_operations();
+    map_POPF_operations();
+    map_SAHF_operations();
+    map_LAHF_operations();
+    map_MOVSB_operations();
+    map_MOVSW_operations();
+    map_CMPSB_operations();
+    map_CMPSW_operations();
+    map_STOSB_operations();
+    map_STOSW_operations();
+    map_LODSB_operations();
+    map_LODSW_operations();
+    map_SCASB_operations();
+    map_SCASW_operations();
 }

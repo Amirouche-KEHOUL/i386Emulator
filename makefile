@@ -58,6 +58,24 @@ SRC = src/main.c \
 	src/decoder/operations/MOV.c \
 	src/decoder/operations/LEA.c \
 	src/decoder/operations/NOP.c \
+	src/decoder/operations/XCHG.c \
+	src/decoder/operations/CBW.c \
+	src/decoder/operations/CALL.c \
+	src/decoder/operations/WAIT.c \
+	src/decoder/operations/PUSHF.c \
+	src/decoder/operations/POPF.c \
+	src/decoder/operations/SAHF.c \
+	src/decoder/operations/LAHF.c \
+	src/decoder/operations/MOVSB.c \
+	src/decoder/operations/MOVSW.c \
+	src/decoder/operations/CMPSB.c \
+	src/decoder/operations/CMPSW.c \
+	src/decoder/operations/STOSB.c \
+	src/decoder/operations/STOSW.c \
+	src/decoder/operations/LODSB.c \
+	src/decoder/operations/LODSW.c \
+	src/decoder/operations/SCASB.c \
+	src/decoder/operations/SCASW.c \
 
 OBJ = build/main.o \
 	build/bios/bios.o \
@@ -119,6 +137,25 @@ OBJ = build/main.o \
 	build/decoder/operations/MOV.o \
 	build/decoder/operations/LEA.o \
 	build/decoder/operations/NOP.o \
+	build/decoder/operations/XCHG.o \
+	build/decoder/operations/CBW.o \
+	build/decoder/operations/CWD.o \
+	build/decoder/operations/CALL.o \
+	build/decoder/operations/WAIT.o \
+	build/decoder/operations/PUSHF.o \
+	build/decoder/operations/POPF.o \
+	build/decoder/operations/SAHF.o \
+	build/decoder/operations/LAHF.o \
+	build/decoder/operations/MOVSB.o \
+	build/decoder/operations/MOVSW.o \
+	build/decoder/operations/CMPSB.o \
+	build/decoder/operations/CMPSW.o \
+	build/decoder/operations/STOSB.o \
+	build/decoder/operations/STOSW.o \
+	build/decoder/operations/LODSB.o \
+	build/decoder/operations/LODSW.o \
+	build/decoder/operations/SCASB.o \
+	build/decoder/operations/SCASW.o \
 
 BINDIRS = bin/ \
 	build/memory \
@@ -327,6 +364,63 @@ build/decoder/operations/LEA.o : src/decoder/operations/LEA.c src/decoder/operat
 
 build/decoder/operations/NOP.o : src/decoder/operations/NOP.c src/decoder/operations/NOP.h
 	$(GCC) $(OP) -c src/decoder/operations/NOP.c -o $@
+
+build/decoder/operations/XCHG.o : src/decoder/operations/XCHG.c src/decoder/operations/XCHG.h
+	$(GCC) $(OP) -c src/decoder/operations/XCHG.c -o $@
+
+build/decoder/operations/CBW.o : src/decoder/operations/CBW.c src/decoder/operations/CBW.h
+	$(GCC) $(OP) -c src/decoder/operations/CBW.c -o $@
+
+build/decoder/operations/CWD.o : src/decoder/operations/CWD.c src/decoder/operations/CWD.h
+	$(GCC) $(OP) -c src/decoder/operations/CWD.c -o $@
+
+build/decoder/operations/CALL.o : src/decoder/operations/CALL.c src/decoder/operations/CALL.h
+	$(GCC) $(OP) -c src/decoder/operations/CALL.c -o $@
+
+build/decoder/operations/WAIT.o : src/decoder/operations/WAIT.c src/decoder/operations/WAIT.h
+	$(GCC) $(OP) -c src/decoder/operations/WAIT.c -o $@
+
+build/decoder/operations/PUSHF.o : src/decoder/operations/PUSHF.c src/decoder/operations/PUSHF.h
+	$(GCC) $(OP) -c src/decoder/operations/PUSHF.c -o $@
+
+build/decoder/operations/POPF.o : src/decoder/operations/POPF.c src/decoder/operations/POPF.h
+	$(GCC) $(OP) -c src/decoder/operations/POPF.c -o $@
+
+build/decoder/operations/SAHF.o : src/decoder/operations/SAHF.c src/decoder/operations/SAHF.h
+	$(GCC) $(OP) -c src/decoder/operations/SAHF.c -o $@
+
+build/decoder/operations/LAHF.o : src/decoder/operations/LAHF.c src/decoder/operations/LAHF.h
+	$(GCC) $(OP) -c src/decoder/operations/LAHF.c -o $@
+
+build/decoder/operations/MOVSB.o : src/decoder/operations/MOVSB.c src/decoder/operations/MOVSB.h
+	$(GCC) $(OP) -c src/decoder/operations/MOVSB.c -o $@
+
+build/decoder/operations/MOVSW.o : src/decoder/operations/MOVSW.c src/decoder/operations/MOVSW.h
+	$(GCC) $(OP) -c src/decoder/operations/MOVSW.c -o $@
+
+build/decoder/operations/CMPSB.o : src/decoder/operations/CMPSB.c src/decoder/operations/CMPSB.h
+	$(GCC) $(OP) -c src/decoder/operations/CMPSB.c -o $@
+
+build/decoder/operations/CMPSW.o : src/decoder/operations/CMPSW.c src/decoder/operations/CMPSW.h
+	$(GCC) $(OP) -c src/decoder/operations/CMPSW.c -o $@
+
+build/decoder/operations/STOSB.o : src/decoder/operations/STOSB.c src/decoder/operations/STOSB.h
+	$(GCC) $(OP) -c src/decoder/operations/STOSB.c -o $@
+
+build/decoder/operations/STOSW.o : src/decoder/operations/STOSW.c src/decoder/operations/STOSW.h
+	$(GCC) $(OP) -c src/decoder/operations/STOSW.c -o $@
+
+build/decoder/operations/LODSB.o : src/decoder/operations/LODSB.c src/decoder/operations/LODSB.h
+	$(GCC) $(OP) -c src/decoder/operations/LODSB.c -o $@
+
+build/decoder/operations/LODSW.o : src/decoder/operations/LODSW.c src/decoder/operations/LODSW.h
+	$(GCC) $(OP) -c src/decoder/operations/LODSW.c -o $@
+
+build/decoder/operations/SCASB.o : src/decoder/operations/SCASB.c src/decoder/operations/SCASB.h
+	$(GCC) $(OP) -c src/decoder/operations/SCASB.c -o $@
+
+build/decoder/operations/SCASW.o : src/decoder/operations/SCASW.c src/decoder/operations/SCASW.h
+	$(GCC) $(OP) -c src/decoder/operations/SCASW.c -o $@
 
 remake: 
 	make clean && make
