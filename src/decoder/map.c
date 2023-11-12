@@ -740,6 +740,140 @@ void map_OUT_operations(void)
     one_byte_opcode_map[0xE][0xF] = &OUT_DXeAX;
 }
 
+void map_HLT_operations(void)
+{
+    one_byte_opcode_map[0xF][0x4] = &HLT;
+}
+
+void map_CMC_operations(void)
+{
+    one_byte_opcode_map[0xF][0x5] = &CMC;
+}
+
+void map_CLC_operations(void)
+{
+    one_byte_opcode_map[0xF][0x8] = &CLC;
+}
+
+void map_STC_operations(void)
+{
+    one_byte_opcode_map[0xF][0x9] = &STC;
+}
+
+void map_CLI_operations(void)
+{
+    one_byte_opcode_map[0xF][0xA] = &CLI;
+}
+
+void map_STI_operations(void)
+{
+    one_byte_opcode_map[0xF][0xB] = &STI;
+}
+
+void map_CLD_operations(void)
+{
+    one_byte_opcode_map[0xF][0xC] = &CLD;
+}
+
+void map_STD_operations(void)
+{
+    one_byte_opcode_map[0xF][0xC] = &STD;
+}
+
+void map_LAR_operations(void)
+{
+    two_byte_opcode_map[0x0][0x2] = &LAR_GwEw;
+}
+
+void map_LSL_operations(void)
+{
+    two_byte_opcode_map[0x0][0x3] = &LSL_GwEw;
+}
+
+void map_CLTS_operations(void)
+{
+    two_byte_opcode_map[0x0][0x6] = &CLTS;
+}
+
+void map_JO_LONG_operations(void)
+{
+    two_byte_opcode_map[0x8][0x0] = &JO_LONG;
+}
+
+void map_JNO_LONG_operations(void)
+{
+    two_byte_opcode_map[0x8][0x1] = &JNO_LONG;
+}
+
+void map_JB_LONG_operations(void)
+{
+    two_byte_opcode_map[0x8][0x2] = &JB_LONG;
+}
+
+void map_JNB_LONG_operations(void)
+{
+    two_byte_opcode_map[0x8][0x3] = &JNB_LONG;
+}
+
+void map_JZ_LONG_operations(void)
+{
+    two_byte_opcode_map[0x8][0x4] = &JZ_LONG;
+}
+
+void map_JNZ_LONG_operations(void)
+{
+    two_byte_opcode_map[0x8][0x5] = &JNZ_LONG;
+}
+
+void map_JBE_LONG_operations(void)
+{
+    two_byte_opcode_map[0x8][0x6] = &JBE_LONG;
+}
+
+void map_JNBE_LONG_operations(void)
+{
+    two_byte_opcode_map[0x8][0x7] = &JNBE_LONG;
+}
+
+void map_JS_LONG_operations(void)
+{
+    two_byte_opcode_map[0x8][0x8] = &JS_LONG;
+}
+
+void map_JNS_LONG_operations(void)
+{
+    two_byte_opcode_map[0x8][0x9] = &JNS_LONG;
+}
+
+void map_JP_LONG_operations(void)
+{
+    two_byte_opcode_map[0x8][0xA] = &JP_LONG;
+}
+
+void map_JNP_LONG_operations(void)
+{
+    two_byte_opcode_map[0x8][0xB] = &JNP_LONG;
+}
+
+void map_JL_LONG_operations(void)
+{
+    two_byte_opcode_map[0x8][0xC] = &JL_LONG;
+}
+
+void map_JNL_LONG_operations(void)
+{
+    two_byte_opcode_map[0x8][0xD] = &JNL_LONG;
+}
+
+void map_JLE_LONG_operations(void)
+{
+    two_byte_opcode_map[0x8][0xE] = &JLE_LONG;
+}
+
+void map_JNLE_LONG_operations(void)
+{
+    two_byte_opcode_map[0x8][0xF] = &JNLE_LONG;
+}
 // Init opcode maps: set all cells to no operation opcode (empty cells in opcode map)
 void init_opcode_maps(void)
 {
@@ -847,4 +981,32 @@ void map_operations_to_opcode_maps(void)
     map_JCXZ_operations();
     map_IN_operations();
     map_OUT_operations();
+    map_HLT_operations();
+    map_CMC_operations();
+    map_CLC_operations();
+    map_STC_operations();
+    map_CLI_operations();
+    map_STI_operations();
+    map_CLD_operations();
+    map_STD_operations();
+    map_LAR_operations();
+    map_LSL_operations();
+    map_LSL_operations();
+    map_CLTS_operations();
+    map_JO_LONG_operations();
+    map_JNO_LONG_operations();
+    map_JB_LONG_operations();
+    map_JNB_LONG_operations();
+    map_JZ_LONG_operations();
+    map_JNZ_LONG_operations();
+    map_JBE_LONG_operations();
+    map_JNBE_LONG_operations();
+    map_JS_LONG_operations();
+    map_JNS_LONG_operations();
+    map_JP_LONG_operations();
+    map_JNP_LONG_operations();
+    map_JL_LONG_operations();
+    map_JNL_LONG_operations();
+    map_JLE_LONG_operations();
+    map_JNLE_LONG_operations();
 }

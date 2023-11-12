@@ -48,7 +48,13 @@
         "ret_far.h": "c",
         "ret_near.h": "c",
         "esc_cop.h": "c",
-        "xlat.h": "c"
+        "xlat.h": "c",
+        "cld.h": "c",
+        "jp_short.h": "c",
+        "jl_long.h": "c",
+        "jnb_long.h": "c",
+        "jnz_long.h": "c",
+        "jo_long.h": "c"
     },
     "editor.tokenColorCustomizations": {}
 }

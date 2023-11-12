@@ -95,6 +95,32 @@ SRC = src/main.c \
 	src/decoder/operations/JCXZ.c \
 	src/decoder/operations/IN.c \
 	src/decoder/operations/OUT.c \
+	src/decoder/operations/CMC.c \
+	src/decoder/operations/CLC.c \
+	src/decoder/operations/STC.c \
+	src/decoder/operations/CLI.c \
+	src/decoder/operations/STI.c \
+	src/decoder/operations/CLD.c \
+	src/decoder/operations/STD.c \
+	src/decoder/operations/LAR.c \
+	src/decoder/operations/LSL.c \
+	src/decoder/operations/CLTS.c \
+	src/decoder/operations/JO_LONG.c \
+	src/decoder/operations/JNO_LONG.c \
+	src/decoder/operations/JB_LONG.c \
+	src/decoder/operations/JNB_LONG.c \
+	src/decoder/operations/JZ_LONG.c \
+	src/decoder/operations/JNZ_LONG.c \
+	src/decoder/operations/JBE_LONG.c \
+	src/decoder/operations/JNBE_LONG.c \
+	src/decoder/operations/JS_LONG.c \
+	src/decoder/operations/JNS_LONG.c \
+	src/decoder/operations/JP_LONG.c \
+	src/decoder/operations/JNP_LONG.c \
+	src/decoder/operations/JL_LONG.c \
+	src/decoder/operations/JNL_LONG.c \
+	src/decoder/operations/JLE_LONG.c \
+	src/decoder/operations/JNLE_LONG.c \
 
 OBJ = build/main.o \
 	build/bios/bios.o \
@@ -194,6 +220,33 @@ OBJ = build/main.o \
 	build/decoder/operations/JCXZ.o \
 	build/decoder/operations/IN.o \
 	build/decoder/operations/OUT.o \
+	build/decoder/operations/HLT.o \
+	build/decoder/operations/CMC.o \
+	build/decoder/operations/CLC.o \
+	build/decoder/operations/STC.o \
+	build/decoder/operations/CLI.o \
+	build/decoder/operations/STI.o \
+	build/decoder/operations/CLD.o \
+	build/decoder/operations/STD.o \
+	build/decoder/operations/LAR.o \
+	build/decoder/operations/LSL.o \
+	build/decoder/operations/CLTS.o \
+	build/decoder/operations/JO_LONG.o \
+	build/decoder/operations/JNO_LONG.o \
+	build/decoder/operations/JB_LONG.o \
+	build/decoder/operations/JNB_LONG.o \
+	build/decoder/operations/JZ_LONG.o \
+	build/decoder/operations/JNZ_LONG.o \
+	build/decoder/operations/JBE_LONG.o \
+	build/decoder/operations/JNBE_LONG.o \
+	build/decoder/operations/JS_LONG.o \
+	build/decoder/operations/JNS_LONG.o \
+	build/decoder/operations/JP_LONG.o \
+	build/decoder/operations/JNP_LONG.o \
+	build/decoder/operations/JL_LONG.o \
+	build/decoder/operations/JNL_LONG.o \
+	build/decoder/operations/JLE_LONG.o \
+	build/decoder/operations/JNLE_LONG.o \
 
 BINDIRS = bin/ \
 	build/memory \
@@ -517,6 +570,87 @@ build/decoder/operations/IN.o : src/decoder/operations/IN.c src/decoder/operatio
 
 build/decoder/operations/OUT.o : src/decoder/operations/OUT.c src/decoder/operations/OUT.h
 	$(GCC) $(OP) -c src/decoder/operations/OUT.c -o $@
+
+build/decoder/operations/HLT.o : src/decoder/operations/HLT.c src/decoder/operations/HLT.h
+	$(GCC) $(OP) -c src/decoder/operations/HLT.c -o $@
+
+build/decoder/operations/CMC.o : src/decoder/operations/CMC.c src/decoder/operations/CMC.h
+	$(GCC) $(OP) -c src/decoder/operations/CMC.c -o $@
+
+build/decoder/operations/CLC.o : src/decoder/operations/CLC.c src/decoder/operations/CLC.h
+	$(GCC) $(OP) -c src/decoder/operations/CLC.c -o $@
+
+build/decoder/operations/STC.o : src/decoder/operations/STC.c src/decoder/operations/STC.h
+	$(GCC) $(OP) -c src/decoder/operations/STC.c -o $@
+
+build/decoder/operations/CLI.o : src/decoder/operations/CLI.c src/decoder/operations/CLI.h
+	$(GCC) $(OP) -c src/decoder/operations/CLI.c -o $@
+
+build/decoder/operations/STI.o : src/decoder/operations/STI.c src/decoder/operations/STI.h
+	$(GCC) $(OP) -c src/decoder/operations/STI.c -o $@
+
+build/decoder/operations/CLD.o : src/decoder/operations/CLD.c src/decoder/operations/CLD.h
+	$(GCC) $(OP) -c src/decoder/operations/CLD.c -o $@
+
+build/decoder/operations/STD.o : src/decoder/operations/STD.c src/decoder/operations/STD.h
+	$(GCC) $(OP) -c src/decoder/operations/STD.c -o $@
+
+build/decoder/operations/LAR.o : src/decoder/operations/LAR.c src/decoder/operations/LAR.h
+	$(GCC) $(OP) -c src/decoder/operations/LAR.c -o $@
+
+build/decoder/operations/LSL.o : src/decoder/operations/LSL.c src/decoder/operations/LSL.h
+	$(GCC) $(OP) -c src/decoder/operations/LSL.c -o $@
+
+build/decoder/operations/CLTS.o : src/decoder/operations/CLTS.c src/decoder/operations/CLTS.h
+	$(GCC) $(OP) -c src/decoder/operations/CLTS.c -o $@
+
+build/decoder/operations/JO_LONG.o : src/decoder/operations/JO_LONG.c src/decoder/operations/JO_LONG.h
+	$(GCC) $(OP) -c src/decoder/operations/JO_LONG.c -o $@
+
+build/decoder/operations/JNO_LONG.o : src/decoder/operations/JNO_LONG.c src/decoder/operations/JNO_LONG.h
+	$(GCC) $(OP) -c src/decoder/operations/JNO_LONG.c -o $@
+
+build/decoder/operations/JB_LONG.o : src/decoder/operations/JB_LONG.c src/decoder/operations/JB_LONG.h
+	$(GCC) $(OP) -c src/decoder/operations/JB_LONG.c -o $@
+
+build/decoder/operations/JNB_LONG.o : src/decoder/operations/JNB_LONG.c src/decoder/operations/JNB_LONG.h
+	$(GCC) $(OP) -c src/decoder/operations/JNB_LONG.c -o $@
+
+build/decoder/operations/JZ_LONG.o : src/decoder/operations/JZ_LONG.c src/decoder/operations/JZ_LONG.h
+	$(GCC) $(OP) -c src/decoder/operations/JZ_LONG.c -o $@
+
+build/decoder/operations/JNZ_LONG.o : src/decoder/operations/JNZ_LONG.c src/decoder/operations/JNZ_LONG.h
+	$(GCC) $(OP) -c src/decoder/operations/JNZ_LONG.c -o $@
+
+build/decoder/operations/JBE_LONG.o : src/decoder/operations/JBE_LONG.c src/decoder/operations/JBE_LONG.h
+	$(GCC) $(OP) -c src/decoder/operations/JBE_LONG.c -o $@
+
+build/decoder/operations/JNBE_LONG.o : src/decoder/operations/JNBE_LONG.c src/decoder/operations/JNBE_LONG.h
+	$(GCC) $(OP) -c src/decoder/operations/JNBE_LONG.c -o $@
+
+build/decoder/operations/JS_LONG.o : src/decoder/operations/JS_LONG.c src/decoder/operations/JS_LONG.h
+	$(GCC) $(OP) -c src/decoder/operations/JS_LONG.c -o $@
+
+build/decoder/operations/JNS_LONG.o : src/decoder/operations/JNS_LONG.c src/decoder/operations/JNS_LONG.h
+	$(GCC) $(OP) -c src/decoder/operations/JNS_LONG.c -o $@
+
+build/decoder/operations/JP_LONG.o : src/decoder/operations/JP_LONG.c src/decoder/operations/JP_LONG.h
+	$(GCC) $(OP) -c src/decoder/operations/JP_LONG.c -o $@
+
+build/decoder/operations/JNP_LONG.o : src/decoder/operations/JNP_LONG.c src/decoder/operations/JNP_LONG.h
+	$(GCC) $(OP) -c src/decoder/operations/JNP_LONG.c -o $@
+
+build/decoder/operations/JL_LONG.o : src/decoder/operations/JL_LONG.c src/decoder/operations/JL_LONG.h
+	$(GCC) $(OP) -c src/decoder/operations/JL_LONG.c -o $@
+
+build/decoder/operations/JNL_LONG.o : src/decoder/operations/JNL_LONG.c src/decoder/operations/JNL_LONG.h
+	$(GCC) $(OP) -c src/decoder/operations/JNL_LONG.c -o $@
+
+build/decoder/operations/JLE_LONG.o : src/decoder/operations/JLE_LONG.c src/decoder/operations/JLE_LONG.h
+	$(GCC) $(OP) -c src/decoder/operations/JLE_LONG.c -o $@
+
+build/decoder/operations/JNLE_LONG.o : src/decoder/operations/JNLE_LONG.c src/decoder/operations/JNLE_LONG.h
+	$(GCC) $(OP) -c src/decoder/operations/JNLE_LONG.c -o $@
 
 remake: 
 	make clean && make
