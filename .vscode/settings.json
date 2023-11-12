@@ -40,7 +40,13 @@
         "inc.h": "c",
         "daa.h": "c",
         "outsw_d.h": "c",
-        "test.h": "c"
+        "test.h": "c",
+        "enter.h": "c",
+        "les.h": "c",
+        "into.h": "c",
+        "int.h": "c",
+        "ret_far.h": "c",
+        "ret_near.h": "c"
     },
     "editor.tokenColorCustomizations": {}
 }

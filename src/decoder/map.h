@@ -69,6 +69,19 @@
 #include "./operations/LODSW.h"
 #include "./operations/SCASB.h"
 #include "./operations/SCASW.h"
+#include "./operations/RET_NEAR.h"
+#include "./operations/LES.h"
+#include "./operations/LDS.h"
+#include "./operations/ENTER.h"
+#include "./operations/LEAVE.h"
+#include "./operations/RET_FAR.h"
+#include "./operations/INT.h"
+#include "./operations/INTO.h"
+#include "./operations/IRET.h"
+#include "./operations/AAM.h"
+#include "./operations/AAD.h"
+#include "./operations/XLAT.h"
+#include "./operations/ESC_COP.h"
 
 void map_operations_to_opcode_maps(void);
 

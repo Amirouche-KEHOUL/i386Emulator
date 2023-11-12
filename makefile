@@ -76,6 +76,19 @@ SRC = src/main.c \
 	src/decoder/operations/LODSW.c \
 	src/decoder/operations/SCASB.c \
 	src/decoder/operations/SCASW.c \
+	src/decoder/operations/RET_NEAR.c \
+	src/decoder/operations/LES.c \
+	src/decoder/operations/LDS.c \
+	src/decoder/operations/ENTER.c \
+	src/decoder/operations/LEAVE.c \
+	src/decoder/operations/RET_FAR.c \
+	src/decoder/operations/INT.c \
+	src/decoder/operations/INTO.c \
+	src/decoder/operations/IRET.c \
+	src/decoder/operations/AAM.c \
+	src/decoder/operations/AAD.c \
+	src/decoder/operations/XLAT.c \
+	src/decoder/operations/ESC_COP.c \
 
 OBJ = build/main.o \
 	build/bios/bios.o \
@@ -156,6 +169,19 @@ OBJ = build/main.o \
 	build/decoder/operations/LODSW.o \
 	build/decoder/operations/SCASB.o \
 	build/decoder/operations/SCASW.o \
+	build/decoder/operations/RET_NEAR.o \
+	build/decoder/operations/LES.o \
+	build/decoder/operations/LDS.o \
+	build/decoder/operations/ENTER.o \
+	build/decoder/operations/LEAVE.o \
+	build/decoder/operations/RET_FAR.o \
+	build/decoder/operations/INT.o \
+	build/decoder/operations/INTO.o \
+	build/decoder/operations/IRET.o \
+	build/decoder/operations/AAM.o \
+	build/decoder/operations/AAD.o \
+	build/decoder/operations/XLAT.o \
+	build/decoder/operations/ESC_COP.o \
 
 BINDIRS = bin/ \
 	build/memory \
@@ -421,6 +447,46 @@ build/decoder/operations/SCASB.o : src/decoder/operations/SCASB.c src/decoder/op
 
 build/decoder/operations/SCASW.o : src/decoder/operations/SCASW.c src/decoder/operations/SCASW.h
 	$(GCC) $(OP) -c src/decoder/operations/SCASW.c -o $@
+
+build/decoder/operations/RET_NEAR.o : src/decoder/operations/RET_NEAR.c src/decoder/operations/RET_NEAR.h
+	$(GCC) $(OP) -c src/decoder/operations/RET_NEAR.c -o $@
+
+build/decoder/operations/LES.o : src/decoder/operations/LES.c src/decoder/operations/LES.h
+	$(GCC) $(OP) -c src/decoder/operations/LES.c -o $@
+
+build/decoder/operations/LDS.o : src/decoder/operations/LDS.c src/decoder/operations/LDS.h
+	$(GCC) $(OP) -c src/decoder/operations/LDS.c -o $@
+
+build/decoder/operations/ENTER.o : src/decoder/operations/ENTER.c src/decoder/operations/ENTER.h
+	$(GCC) $(OP) -c src/decoder/operations/ENTER.c -o $@
+
+
+build/decoder/operations/LEAVE.o : src/decoder/operations/LEAVE.c src/decoder/operations/LEAVE.h
+	$(GCC) $(OP) -c src/decoder/operations/LEAVE.c -o $@
+ 
+build/decoder/operations/RET_FAR.o : src/decoder/operations/RET_FAR.c src/decoder/operations/RET_FAR.h
+	$(GCC) $(OP) -c src/decoder/operations/RET_FAR.c -o $@
+
+build/decoder/operations/INT.o : src/decoder/operations/INT.c src/decoder/operations/INT.h
+	$(GCC) $(OP) -c src/decoder/operations/INT.c -o $@
+
+build/decoder/operations/INTO.o : src/decoder/operations/INTO.c src/decoder/operations/INTO.h
+	$(GCC) $(OP) -c src/decoder/operations/INTO.c -o $@
+
+build/decoder/operations/IRET.o : src/decoder/operations/IRET.c src/decoder/operations/IRET.h
+	$(GCC) $(OP) -c src/decoder/operations/IRET.c -o $@
+
+build/decoder/operations/AAM.o : src/decoder/operations/AAM.c src/decoder/operations/AAM.h
+	$(GCC) $(OP) -c src/decoder/operations/AAM.c -o $@
+
+build/decoder/operations/AAD.o : src/decoder/operations/AAD.c src/decoder/operations/AAD.h
+	$(GCC) $(OP) -c src/decoder/operations/AAD.c -o $@
+
+build/decoder/operations/XLAT.o : src/decoder/operations/XLAT.c src/decoder/operations/XLAT.h
+	$(GCC) $(OP) -c src/decoder/operations/XLAT.c -o $@
+
+build/decoder/operations/ESC_COP.o : src/decoder/operations/ESC_COP.c src/decoder/operations/ESC_COP.h
+	$(GCC) $(OP) -c src/decoder/operations/ESC_COP.c -o $@
 
 remake: 
 	make clean && make

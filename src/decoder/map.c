@@ -629,6 +629,81 @@ void map_SCASW_operations(void)
     one_byte_opcode_map[0xA][0xE] = &SCASW_eAXXv;
 }
 
+void map_RET_NEAR_operations(void)
+{
+    one_byte_opcode_map[0xC][0x2] = &RET_NEAR_Iw;
+    one_byte_opcode_map[0xC][0x3] = &RET_NEAR;
+}
+
+void map_LES_operations(void)
+{
+    one_byte_opcode_map[0xC][0x4] = &LES_GvMp;
+}
+
+void map_LDS_operations(void)
+{
+    one_byte_opcode_map[0xC][0x5] = &LDS_GvMp;
+}
+
+void map_ENTER_operations(void)
+{
+    one_byte_opcode_map[0xC][0x8] = &ENTER_IwIb;
+}
+
+void map_LEAVE_operations(void)
+{
+    one_byte_opcode_map[0xC][0x9] = &LEAVE;
+}
+
+void map_RET_FAR_operations(void)
+{
+    one_byte_opcode_map[0xC][0xA] = &RET_FAR_Iw;
+    one_byte_opcode_map[0xC][0xB] = &RET_FAR;
+}
+
+void map_INT_operations(void)
+{
+    one_byte_opcode_map[0xC][0xC] = &INT_3;
+    one_byte_opcode_map[0xC][0xD] = &INT_Ib;
+}
+
+void map_INTO_operations(void)
+{
+    one_byte_opcode_map[0xC][0xE] = &INTO;
+}
+
+void map_IRET_operations(void)
+{
+    one_byte_opcode_map[0xC][0xF] = &IRET;
+}
+
+void map_AAM_operations(void)
+{
+    one_byte_opcode_map[0xD][0x4] = &AAM;
+}
+
+void map_AAD_operations(void)
+{
+    one_byte_opcode_map[0xD][0x5] = &AAD;
+}
+
+void map_XLAT_operations(void)
+{
+    one_byte_opcode_map[0xD][0x7] = &XLAT;
+}
+
+void map_ESC_COP_operations(void)
+{
+    one_byte_opcode_map[0xD][0x8] = &ESC_COP;
+    one_byte_opcode_map[0xD][0x9] = &ESC_COP;
+    one_byte_opcode_map[0xD][0xA] = &ESC_COP;
+    one_byte_opcode_map[0xD][0xB] = &ESC_COP;
+    one_byte_opcode_map[0xD][0xC] = &ESC_COP;
+    one_byte_opcode_map[0xD][0xD] = &ESC_COP;
+    one_byte_opcode_map[0xD][0xE] = &ESC_COP;
+    one_byte_opcode_map[0xD][0xF] = &ESC_COP;
+}
+
 // Init opcode maps: set all cells to no operation opcode (empty cells in opcode map)
 void init_opcode_maps(void)
 {
@@ -717,4 +792,17 @@ void map_operations_to_opcode_maps(void)
     map_LODSW_operations();
     map_SCASB_operations();
     map_SCASW_operations();
+    map_RET_NEAR_operations();
+    map_LES_operations();
+    map_LDS_operations();
+    map_ENTER_operations();
+    map_LEAVE_operations();
+    map_RET_FAR_operations();
+    map_INT_operations();
+    map_INTO_operations();
+    map_IRET_operations();
+    map_AAM_operations();
+    map_AAD_operations();
+    map_XLAT_operations();
+    map_ESC_COP_operations();
 }
