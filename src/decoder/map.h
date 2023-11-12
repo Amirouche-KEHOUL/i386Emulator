@@ -131,6 +131,10 @@
 #include "./operations/SETNL.h"
 #include "./operations/SETLE.h"
 #include "./operations/SETNLE.h"
+#include "./operations/BT.h"
+#include "./operations/SHLD.h"
+#include "./operations/BTS.h"
+#include "./operations/SHRD.h"
 
 void map_operations_to_opcode_maps(void);
 

@@ -60,7 +60,11 @@
         "jle_long.h": "c",
         "jnle_long.h": "c",
         "setnp.h": "c",
-        "setle.h": "c"
+        "setle.h": "c",
+        "pop.h": "c",
+        "setns.h": "c",
+        "shld.h": "c",
+        "bts.h": "c"
     },
     "editor.tokenColorCustomizations": {}
 }

@@ -137,6 +137,10 @@ SRC = src/main.c \
 	src/decoder/operations/SETNL.c \
 	src/decoder/operations/SETLE.c \
 	src/decoder/operations/SETNLE.c \
+	src/decoder/operations/BT.c \
+	src/decoder/operations/SHLD.c \
+	src/decoder/operations/BTS.c \
+	src/decoder/operations/SHRD.c \
 
 OBJ = build/main.o \
 	build/bios/bios.o \
@@ -279,6 +283,10 @@ OBJ = build/main.o \
 	build/decoder/operations/SETNL.o \
 	build/decoder/operations/SETLE.o \
 	build/decoder/operations/SETNLE.o \
+	build/decoder/operations/BT.o \
+	build/decoder/operations/SHLD.o \
+	build/decoder/operations/BTS.o \
+	build/decoder/operations/SHRD.o \
 
 BINDIRS = bin/ \
 	build/memory \
@@ -731,6 +739,18 @@ build/decoder/operations/SETLE.o : src/decoder/operations/SETLE.c src/decoder/op
 
 build/decoder/operations/SETNLE.o : src/decoder/operations/SETNLE.c src/decoder/operations/SETNLE.h
 	$(GCC) $(OP) -c src/decoder/operations/SETNLE.c -o $@
+
+build/decoder/operations/BT.o : src/decoder/operations/BT.c src/decoder/operations/BT.h
+	$(GCC) $(OP) -c src/decoder/operations/BT.c -o $@
+
+build/decoder/operations/SHLD.o : src/decoder/operations/SHLD.c src/decoder/operations/SHLD.h
+	$(GCC) $(OP) -c src/decoder/operations/SHLD.c -o $@
+
+build/decoder/operations/BTS.o : src/decoder/operations/BTS.c src/decoder/operations/BTS.h
+	$(GCC) $(OP) -c src/decoder/operations/BTS.c -o $@
+
+build/decoder/operations/SHRD.o : src/decoder/operations/SHRD.c src/decoder/operations/SHRD.h
+	$(GCC) $(OP) -c src/decoder/operations/SHRD.c -o $@
 
 remake: 
 	make clean && make

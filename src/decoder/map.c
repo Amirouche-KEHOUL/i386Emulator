@@ -955,6 +955,32 @@ void map_SETNLE_operations(void)
     two_byte_opcode_map[0x9][0xF] = &SETNLE;
 }
 
+void map_BT_operations(void)
+{
+    two_byte_opcode_map[0xA][0x3] = &BT_EvGv;
+
+    ModRM_opcode_map[0x7][0x4] = &ModRM_BT;
+}
+
+void map_SHLD_operations(void)
+{
+    two_byte_opcode_map[0xA][0x4] = &SHLD_EvGvIb;
+    two_byte_opcode_map[0xA][0x5] = &SHLD_EvGvCL;
+}
+
+void map_BTS_operations(void)
+{
+    two_byte_opcode_map[0xA][0xB] = &BTS_EvGv;
+
+    ModRM_opcode_map[0x7][0x5] = &ModRM_BTS;
+}
+
+void map_SHRD_operations(void)
+{
+    two_byte_opcode_map[0xA][0xC] = &SHRD_EvGvIb;
+    two_byte_opcode_map[0xA][0xD] = &SHRD_EvGvCL;
+}
+
 // Init opcode maps: set all cells to no operation opcode (empty cells in opcode map)
 void init_opcode_maps(void)
 {
@@ -1106,4 +1132,8 @@ void map_operations_to_opcode_maps(void)
     map_SETNL_operations();
     map_SETLE_operations();
     map_SETNLE_operations();
+    map_BT_operations();
+    map_SHLD_operations();
+    map_BTS_operations();
+    map_SHRD_operations();
 }
