@@ -121,6 +121,22 @@ SRC = src/main.c \
 	src/decoder/operations/JNL_LONG.c \
 	src/decoder/operations/JLE_LONG.c \
 	src/decoder/operations/JNLE_LONG.c \
+	src/decoder/operations/SETO.c \
+	src/decoder/operations/SETNO.c \
+	src/decoder/operations/SETB.c \
+	src/decoder/operations/SETNB.c \
+	src/decoder/operations/SETZ.c \
+	src/decoder/operations/SETNZ.c \
+	src/decoder/operations/SETBE.c \
+	src/decoder/operations/SETNBE.c \
+	src/decoder/operations/SETS.c \
+	src/decoder/operations/SETNS.c \
+	src/decoder/operations/SETP.c \
+	src/decoder/operations/SETNP.c \
+	src/decoder/operations/SETL.c \
+	src/decoder/operations/SETNL.c \
+	src/decoder/operations/SETLE.c \
+	src/decoder/operations/SETNLE.c \
 
 OBJ = build/main.o \
 	build/bios/bios.o \
@@ -247,6 +263,22 @@ OBJ = build/main.o \
 	build/decoder/operations/JNL_LONG.o \
 	build/decoder/operations/JLE_LONG.o \
 	build/decoder/operations/JNLE_LONG.o \
+	build/decoder/operations/SETO.o \
+	build/decoder/operations/SETNO.o \
+	build/decoder/operations/SETB.o \
+	build/decoder/operations/SETNB.o \
+	build/decoder/operations/SETZ.o \
+	build/decoder/operations/SETNZ.o \
+	build/decoder/operations/SETBE.o \
+	build/decoder/operations/SETNBE.o \
+	build/decoder/operations/SETS.o \
+	build/decoder/operations/SETNS.o \
+	build/decoder/operations/SETP.o \
+	build/decoder/operations/SETNP.o \
+	build/decoder/operations/SETL.o \
+	build/decoder/operations/SETNL.o \
+	build/decoder/operations/SETLE.o \
+	build/decoder/operations/SETNLE.o \
 
 BINDIRS = bin/ \
 	build/memory \
@@ -651,6 +683,54 @@ build/decoder/operations/JLE_LONG.o : src/decoder/operations/JLE_LONG.c src/deco
 
 build/decoder/operations/JNLE_LONG.o : src/decoder/operations/JNLE_LONG.c src/decoder/operations/JNLE_LONG.h
 	$(GCC) $(OP) -c src/decoder/operations/JNLE_LONG.c -o $@
+
+build/decoder/operations/SETO.o : src/decoder/operations/SETO.c src/decoder/operations/SETO.h
+	$(GCC) $(OP) -c src/decoder/operations/SETO.c -o $@
+
+build/decoder/operations/SETNO.o : src/decoder/operations/SETNO.c src/decoder/operations/SETNO.h
+	$(GCC) $(OP) -c src/decoder/operations/SETNO.c -o $@
+
+build/decoder/operations/SETB.o : src/decoder/operations/SETB.c src/decoder/operations/SETB.h
+	$(GCC) $(OP) -c src/decoder/operations/SETB.c -o $@
+
+build/decoder/operations/SETNB.o : src/decoder/operations/SETNB.c src/decoder/operations/SETNB.h
+	$(GCC) $(OP) -c src/decoder/operations/SETNB.c -o $@
+
+build/decoder/operations/SETZ.o : src/decoder/operations/SETZ.c src/decoder/operations/SETZ.h
+	$(GCC) $(OP) -c src/decoder/operations/SETZ.c -o $@
+
+build/decoder/operations/SETNZ.o : src/decoder/operations/SETNZ.c src/decoder/operations/SETNZ.h
+	$(GCC) $(OP) -c src/decoder/operations/SETNZ.c -o $@
+
+build/decoder/operations/SETBE.o : src/decoder/operations/SETBE.c src/decoder/operations/SETBE.h
+	$(GCC) $(OP) -c src/decoder/operations/SETBE.c -o $@
+
+build/decoder/operations/SETNBE.o : src/decoder/operations/SETNBE.c src/decoder/operations/SETNBE.h
+	$(GCC) $(OP) -c src/decoder/operations/SETNBE.c -o $@
+
+build/decoder/operations/SETS.o : src/decoder/operations/SETS.c src/decoder/operations/SETS.h
+	$(GCC) $(OP) -c src/decoder/operations/SETS.c -o $@
+
+build/decoder/operations/SETNS.o : src/decoder/operations/SETNS.c src/decoder/operations/SETNS.h
+	$(GCC) $(OP) -c src/decoder/operations/SETNS.c -o $@
+
+build/decoder/operations/SETP.o : src/decoder/operations/SETP.c src/decoder/operations/SETP.h
+	$(GCC) $(OP) -c src/decoder/operations/SETP.c -o $@
+
+build/decoder/operations/SETNP.o : src/decoder/operations/SETNP.c src/decoder/operations/SETNP.h
+	$(GCC) $(OP) -c src/decoder/operations/SETNP.c -o $@
+
+build/decoder/operations/SETL.o : src/decoder/operations/SETL.c src/decoder/operations/SETL.h
+	$(GCC) $(OP) -c src/decoder/operations/SETL.c -o $@
+
+build/decoder/operations/SETNL.o : src/decoder/operations/SETNL.c src/decoder/operations/SETNL.h
+	$(GCC) $(OP) -c src/decoder/operations/SETNL.c -o $@
+
+build/decoder/operations/SETLE.o : src/decoder/operations/SETLE.c src/decoder/operations/SETLE.h
+	$(GCC) $(OP) -c src/decoder/operations/SETLE.c -o $@
+
+build/decoder/operations/SETNLE.o : src/decoder/operations/SETNLE.c src/decoder/operations/SETNLE.h
+	$(GCC) $(OP) -c src/decoder/operations/SETNLE.c -o $@
 
 remake: 
 	make clean && make

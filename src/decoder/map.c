@@ -874,6 +874,87 @@ void map_JNLE_LONG_operations(void)
 {
     two_byte_opcode_map[0x8][0xF] = &JNLE_LONG;
 }
+
+void map_SETO_operations(void)
+{
+    two_byte_opcode_map[0x9][0x0] = &SETO;
+}
+
+void map_SETNO_operations(void)
+{
+    two_byte_opcode_map[0x9][0x1] = &SETNO;
+}
+
+void map_SETB_operations(void)
+{
+    two_byte_opcode_map[0x9][0x2] = &SETB;
+}
+
+void map_SETNB_operations(void)
+{
+    two_byte_opcode_map[0x9][0x3] = &SETNB;
+}
+
+void map_SETZ_operations(void)
+{
+    two_byte_opcode_map[0x9][0x4] = &SETZ;
+}
+
+void map_SETNZ_operations(void)
+{
+    two_byte_opcode_map[0x9][0x5] = &SETNZ;
+}
+
+void map_SETBE_operations(void)
+{
+    two_byte_opcode_map[0x9][0x6] = &SETBE;
+}
+
+void map_SETNBE_operations(void)
+{
+    two_byte_opcode_map[0x9][0x7] = &SETNBE;
+}
+
+void map_SETS_operations(void)
+{
+    two_byte_opcode_map[0x9][0x8] = &SETS;
+}
+
+void map_SETNS_operations(void)
+{
+    two_byte_opcode_map[0x9][0x9] = &SETNS;
+}
+
+void map_SETP_operations(void)
+{
+    two_byte_opcode_map[0x9][0xA] = &SETP;
+}
+
+void map_SETNP_operations(void)
+{
+    two_byte_opcode_map[0x9][0xB] = &SETNP;
+}
+
+void map_SETL_operations(void)
+{
+    two_byte_opcode_map[0x9][0xC] = &SETL;
+}
+
+void map_SETNL_operations(void)
+{
+    two_byte_opcode_map[0x9][0xD] = &SETNL;
+}
+
+void map_SETLE_operations(void)
+{
+    two_byte_opcode_map[0x9][0xE] = &SETLE;
+}
+
+void map_SETNLE_operations(void)
+{
+    two_byte_opcode_map[0x9][0xF] = &SETNLE;
+}
+
 // Init opcode maps: set all cells to no operation opcode (empty cells in opcode map)
 void init_opcode_maps(void)
 {
@@ -1009,4 +1090,20 @@ void map_operations_to_opcode_maps(void)
     map_JNL_LONG_operations();
     map_JLE_LONG_operations();
     map_JNLE_LONG_operations();
+    map_SETO_operations();
+    map_SETNO_operations();
+    map_SETB_operations();
+    map_SETNB_operations();
+    map_SETZ_operations();
+    map_SETNZ_operations();
+    map_SETBE_operations();
+    map_SETNBE_operations();
+    map_SETS_operations();
+    map_SETNS_operations();
+    map_SETP_operations();
+    map_SETNP_operations();
+    map_SETL_operations();
+    map_SETNL_operations();
+    map_SETLE_operations();
+    map_SETNLE_operations();
 }

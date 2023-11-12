@@ -54,7 +54,13 @@
         "jl_long.h": "c",
         "jnb_long.h": "c",
         "jnz_long.h": "c",
-        "jo_long.h": "c"
+        "jo_long.h": "c",
+        "jnl_long.h": "c",
+        "seto.h": "c",
+        "jle_long.h": "c",
+        "jnle_long.h": "c",
+        "setnp.h": "c",
+        "setle.h": "c"
     },
     "editor.tokenColorCustomizations": {}
 }

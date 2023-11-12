@@ -115,6 +115,22 @@
 #include "./operations/JNL_LONG.h"
 #include "./operations/JLE_LONG.h"
 #include "./operations/JNLE_LONG.h"
+#include "./operations/SETO.h"
+#include "./operations/SETNO.h"
+#include "./operations/SETB.h"
+#include "./operations/SETNB.h"
+#include "./operations/SETZ.h"
+#include "./operations/SETNZ.h"
+#include "./operations/SETBE.h"
+#include "./operations/SETNBE.h"
+#include "./operations/SETS.h"
+#include "./operations/SETNS.h"
+#include "./operations/SETP.h"
+#include "./operations/SETNP.h"
+#include "./operations/SETL.h"
+#include "./operations/SETNL.h"
+#include "./operations/SETLE.h"
+#include "./operations/SETNLE.h"
 
 void map_operations_to_opcode_maps(void);
 
