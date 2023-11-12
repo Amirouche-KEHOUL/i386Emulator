@@ -89,6 +89,11 @@ SRC = src/main.c \
 	src/decoder/operations/AAD.c \
 	src/decoder/operations/XLAT.c \
 	src/decoder/operations/ESC_COP.c \
+	src/decoder/operations/LOOPNE.c \
+	src/decoder/operations/LOOPE.c \
+	src/decoder/operations/LOOP.c \
+	src/decoder/operations/JCXZ.c \
+	src/decoder/operations/IN.c \
 
 OBJ = build/main.o \
 	build/bios/bios.o \
@@ -182,6 +187,11 @@ OBJ = build/main.o \
 	build/decoder/operations/AAD.o \
 	build/decoder/operations/XLAT.o \
 	build/decoder/operations/ESC_COP.o \
+	build/decoder/operations/LOOPNE.o \
+	build/decoder/operations/LOOPE.o \
+	build/decoder/operations/LOOP.o \
+	build/decoder/operations/JCXZ.o \
+	build/decoder/operations/IN.o \
 
 BINDIRS = bin/ \
 	build/memory \
@@ -487,6 +497,21 @@ build/decoder/operations/XLAT.o : src/decoder/operations/XLAT.c src/decoder/oper
 
 build/decoder/operations/ESC_COP.o : src/decoder/operations/ESC_COP.c src/decoder/operations/ESC_COP.h
 	$(GCC) $(OP) -c src/decoder/operations/ESC_COP.c -o $@
+
+build/decoder/operations/LOOPNE.o : src/decoder/operations/LOOPNE.c src/decoder/operations/LOOPNE.h
+	$(GCC) $(OP) -c src/decoder/operations/LOOPNE.c -o $@
+
+build/decoder/operations/LOOPE.o : src/decoder/operations/LOOPE.c src/decoder/operations/LOOPE.h
+	$(GCC) $(OP) -c src/decoder/operations/LOOPE.c -o $@
+
+build/decoder/operations/LOOP.o : src/decoder/operations/LOOP.c src/decoder/operations/LOOP.h
+	$(GCC) $(OP) -c src/decoder/operations/LOOP.c -o $@
+
+build/decoder/operations/JCXZ.o : src/decoder/operations/JCXZ.c src/decoder/operations/JCXZ.h
+	$(GCC) $(OP) -c src/decoder/operations/JCXZ.c -o $@
+
+build/decoder/operations/IN.o : src/decoder/operations/IN.c src/decoder/operations/IN.h
+	$(GCC) $(OP) -c src/decoder/operations/IN.c -o $@
 
 remake: 
 	make clean && make

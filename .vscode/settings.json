@@ -46,7 +46,9 @@
         "into.h": "c",
         "int.h": "c",
         "ret_far.h": "c",
-        "ret_near.h": "c"
+        "ret_near.h": "c",
+        "esc_cop.h": "c",
+        "xlat.h": "c"
     },
     "editor.tokenColorCustomizations": {}
 }

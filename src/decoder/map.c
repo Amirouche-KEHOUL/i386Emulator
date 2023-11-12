@@ -704,6 +704,33 @@ void map_ESC_COP_operations(void)
     one_byte_opcode_map[0xD][0xF] = &ESC_COP;
 }
 
+void map_LOOPNE_operations(void)
+{
+    one_byte_opcode_map[0xE][0x0] = &LOOPNE_Jb;
+}
+
+void map_LOOPE_operations(void)
+{
+    one_byte_opcode_map[0xE][0x1] = &LOOPE_Jb;
+}
+
+void map_LOOP_operations(void)
+{
+    one_byte_opcode_map[0xE][0x2] = &LOOP_Jb;
+}
+
+void map_JCXZ_operations(void)
+{
+    one_byte_opcode_map[0xE][0x3] = &LOOP_Jb;
+}
+
+void map_IN_operations(void)
+{
+    one_byte_opcode_map[0xE][0x4] = &IN_ALIb;
+    one_byte_opcode_map[0xE][0x5] = &IN_eAXIb;
+    one_byte_opcode_map[0xE][0xC] = &IN_ALDX;
+    one_byte_opcode_map[0xE][0xD] = &IN_eAXDX;
+}
 // Init opcode maps: set all cells to no operation opcode (empty cells in opcode map)
 void init_opcode_maps(void)
 {
@@ -805,4 +832,9 @@ void map_operations_to_opcode_maps(void)
     map_AAD_operations();
     map_XLAT_operations();
     map_ESC_COP_operations();
+    map_LOOPNE_operations();
+    map_LOOPE_operations();
+    map_LOOP_operations();
+    map_JCXZ_operations();
+    map_IN_operations();
 }
