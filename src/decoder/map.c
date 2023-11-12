@@ -731,6 +731,15 @@ void map_IN_operations(void)
     one_byte_opcode_map[0xE][0xC] = &IN_ALDX;
     one_byte_opcode_map[0xE][0xD] = &IN_eAXDX;
 }
+
+void map_OUT_operations(void)
+{
+    one_byte_opcode_map[0xE][0x6] = &OUT_IbAL;
+    one_byte_opcode_map[0xE][0x7] = &OUT_IbeAX;
+    one_byte_opcode_map[0xE][0xE] = &OUT_DXAL;
+    one_byte_opcode_map[0xE][0xF] = &OUT_DXeAX;
+}
+
 // Init opcode maps: set all cells to no operation opcode (empty cells in opcode map)
 void init_opcode_maps(void)
 {
@@ -837,4 +846,5 @@ void map_operations_to_opcode_maps(void)
     map_LOOP_operations();
     map_JCXZ_operations();
     map_IN_operations();
+    map_OUT_operations();
 }

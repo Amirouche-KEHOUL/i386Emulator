@@ -94,6 +94,7 @@ SRC = src/main.c \
 	src/decoder/operations/LOOP.c \
 	src/decoder/operations/JCXZ.c \
 	src/decoder/operations/IN.c \
+	src/decoder/operations/OUT.c \
 
 OBJ = build/main.o \
 	build/bios/bios.o \
@@ -192,6 +193,7 @@ OBJ = build/main.o \
 	build/decoder/operations/LOOP.o \
 	build/decoder/operations/JCXZ.o \
 	build/decoder/operations/IN.o \
+	build/decoder/operations/OUT.o \
 
 BINDIRS = bin/ \
 	build/memory \
@@ -512,6 +514,9 @@ build/decoder/operations/JCXZ.o : src/decoder/operations/JCXZ.c src/decoder/oper
 
 build/decoder/operations/IN.o : src/decoder/operations/IN.c src/decoder/operations/IN.h
 	$(GCC) $(OP) -c src/decoder/operations/IN.c -o $@
+
+build/decoder/operations/OUT.o : src/decoder/operations/OUT.c src/decoder/operations/OUT.h
+	$(GCC) $(OP) -c src/decoder/operations/OUT.c -o $@
 
 remake: 
 	make clean && make

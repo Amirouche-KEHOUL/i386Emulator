@@ -87,6 +87,7 @@
 #include "./operations/LOOP.h"
 #include "./operations/JCXZ.h"
 #include "./operations/IN.h"
+#include "./operations/OUT.h"
 
 void map_operations_to_opcode_maps(void);
 
