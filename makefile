@@ -141,6 +141,16 @@ SRC = src/main.c \
 	src/decoder/operations/SHLD.c \
 	src/decoder/operations/BTS.c \
 	src/decoder/operations/SHRD.c \
+	src/decoder/operations/LSS.c \
+	src/decoder/operations/BTR.c \
+	src/decoder/operations/LFS.c \
+	src/decoder/operations/LGS.c \
+	src/decoder/operations/MOVZX.c \
+	src/decoder/operations/BTC.c \
+	src/decoder/operations/BSF.c \
+	src/decoder/operations/BSR.c \
+	src/decoder/operations/MOVSX.c \
+
 
 OBJ = build/main.o \
 	build/bios/bios.o \
@@ -287,6 +297,15 @@ OBJ = build/main.o \
 	build/decoder/operations/SHLD.o \
 	build/decoder/operations/BTS.o \
 	build/decoder/operations/SHRD.o \
+	build/decoder/operations/LSS.o \
+	build/decoder/operations/BTR.o \
+	build/decoder/operations/LFS.o \
+	build/decoder/operations/LGS.o \
+	build/decoder/operations/MOVZX.o \
+	build/decoder/operations/BTC.o \
+	build/decoder/operations/BSF.o \
+	build/decoder/operations/BSR.o \
+	build/decoder/operations/MOVSX.o \
 
 BINDIRS = bin/ \
 	build/memory \
@@ -752,6 +771,33 @@ build/decoder/operations/BTS.o : src/decoder/operations/BTS.c src/decoder/operat
 build/decoder/operations/SHRD.o : src/decoder/operations/SHRD.c src/decoder/operations/SHRD.h
 	$(GCC) $(OP) -c src/decoder/operations/SHRD.c -o $@
 
+build/decoder/operations/LSS.o : src/decoder/operations/LSS.c src/decoder/operations/LSS.h
+	$(GCC) $(OP) -c src/decoder/operations/LSS.c -o $@
+
+build/decoder/operations/BTR.o : src/decoder/operations/BTR.c src/decoder/operations/BTR.h
+	$(GCC) $(OP) -c src/decoder/operations/BTR.c -o $@
+
+build/decoder/operations/LFS.o : src/decoder/operations/LFS.c src/decoder/operations/LFS.h
+	$(GCC) $(OP) -c src/decoder/operations/LFS.c -o $@
+
+build/decoder/operations/LGS.o : src/decoder/operations/LGS.c src/decoder/operations/LGS.h
+	$(GCC) $(OP) -c src/decoder/operations/LGS.c -o $@
+
+build/decoder/operations/MOVZX.o : src/decoder/operations/MOVZX.c src/decoder/operations/MOVZX.h
+	$(GCC) $(OP) -c src/decoder/operations/MOVZX.c -o $@
+
+build/decoder/operations/BTC.o : src/decoder/operations/BTC.c src/decoder/operations/BTC.h
+	$(GCC) $(OP) -c src/decoder/operations/BTC.c -o $@
+
+build/decoder/operations/BSF.o : src/decoder/operations/BSF.c src/decoder/operations/BSF.h
+	$(GCC) $(OP) -c src/decoder/operations/BSF.c -o $@
+
+build/decoder/operations/BSR.o : src/decoder/operations/BSR.c src/decoder/operations/BSR.h
+	$(GCC) $(OP) -c src/decoder/operations/BSR.c -o $@
+
+build/decoder/operations/MOVSX.o : src/decoder/operations/MOVSX.c src/decoder/operations/MOVSX.h
+	$(GCC) $(OP) -c src/decoder/operations/MOVSX.c -o $@
+
 remake: 
 	make clean && make
 
@@ -769,4 +815,3 @@ doc:
 	doxygen 
 rmdoc:
 	rm -rf documentation
-

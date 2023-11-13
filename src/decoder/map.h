@@ -135,6 +135,15 @@
 #include "./operations/SHLD.h"
 #include "./operations/BTS.h"
 #include "./operations/SHRD.h"
+#include "./operations/LSS.h"
+#include "./operations/BTR.h"
+#include "./operations/LFS.h"
+#include "./operations/LGS.h"
+#include "./operations/MOVZX.h"
+#include "./operations/BTC.h"
+#include "./operations/BSF.h"
+#include "./operations/BSR.h"
+#include "./operations/MOVSX.h"
 
 void map_operations_to_opcode_maps(void);
 

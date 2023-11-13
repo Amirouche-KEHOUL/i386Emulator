@@ -981,6 +981,56 @@ void map_SHRD_operations(void)
     two_byte_opcode_map[0xA][0xD] = &SHRD_EvGvCL;
 }
 
+void map_LSS_operations(void)
+{
+    two_byte_opcode_map[0xB][0x2] = &LSS_Mp;
+}
+
+void map_BTR_operations(void)
+{
+    two_byte_opcode_map[0xB][0x3] = &BTR_EvGv;
+
+    ModRM_opcode_map[0x7][0x5] = &ModRM_BTR;
+}
+
+void map_LFS_operations(void)
+{
+    two_byte_opcode_map[0xB][0x4] = &LFS_Mp;
+}
+
+void map_LGS_operations(void)
+{
+    two_byte_opcode_map[0xB][0x5] = &LGS_Mp;
+}
+
+void map_MOVZX_operations(void)
+{
+    two_byte_opcode_map[0xB][0x6] = &MOVZX_GvEb;
+    two_byte_opcode_map[0xB][0x7] = &MOVZX_GvEw;
+}
+
+void map_BTC_operations(void)
+{
+    two_byte_opcode_map[0xB][0xA] = &BTC_EvGv;
+    two_byte_opcode_map[0x7][0x6] = &ModRM_BTC;
+}
+
+void map_BSF_operations(void)
+{
+    two_byte_opcode_map[0xB][0xC] = &BSF_GvEv;
+}
+
+void map_BSR_operations(void)
+{
+    two_byte_opcode_map[0xB][0xC] = &BSR_GvEv;
+}
+
+void map_MOVSX_operations(void)
+{
+    two_byte_opcode_map[0xB][0xE] = &MOVSX_GvEb;
+    two_byte_opcode_map[0xB][0xF] = &MOVSX_GvEw;
+}
+
 // Init opcode maps: set all cells to no operation opcode (empty cells in opcode map)
 void init_opcode_maps(void)
 {
@@ -1136,4 +1186,13 @@ void map_operations_to_opcode_maps(void)
     map_SHLD_operations();
     map_BTS_operations();
     map_SHRD_operations();
+    map_LSS_operations();
+    map_BTR_operations();
+    map_LFS_operations();
+    map_LGS_operations();
+    map_MOVZX_operations();
+    map_BTC_operations();
+    map_BSF_operations();
+    map_BSR_operations();
+    map_MOVSX_operations();
 }

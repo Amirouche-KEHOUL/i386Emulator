@@ -64,7 +64,12 @@
         "pop.h": "c",
         "setns.h": "c",
         "shld.h": "c",
-        "bts.h": "c"
+        "bts.h": "c",
+        "shrd.h": "c",
+        "lfs.h": "c",
+        "btr.h": "c",
+        "bsf.h": "c",
+        "movzx.h": "c"
     },
     "editor.tokenColorCustomizations": {}
 }
