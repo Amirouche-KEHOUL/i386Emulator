@@ -150,6 +150,8 @@ SRC = src/main.c \
 	src/decoder/operations/BSF.c \
 	src/decoder/operations/BSR.c \
 	src/decoder/operations/MOVSX.c \
+	src/decoder/operations/ROL.c \
+	src/decoder/operations/ROR.c \
 
 
 OBJ = build/main.o \
@@ -306,6 +308,8 @@ OBJ = build/main.o \
 	build/decoder/operations/BSF.o \
 	build/decoder/operations/BSR.o \
 	build/decoder/operations/MOVSX.o \
+	build/decoder/operations/ROL.o \
+	build/decoder/operations/ROR.o \
 
 BINDIRS = bin/ \
 	build/memory \
@@ -798,6 +802,11 @@ build/decoder/operations/BSR.o : src/decoder/operations/BSR.c src/decoder/operat
 build/decoder/operations/MOVSX.o : src/decoder/operations/MOVSX.c src/decoder/operations/MOVSX.h
 	$(GCC) $(OP) -c src/decoder/operations/MOVSX.c -o $@
 
+build/decoder/operations/ROL.o : src/decoder/operations/ROL.c src/decoder/operations/ROL.h
+	$(GCC) $(OP) -c src/decoder/operations/ROL.c -o $@
+
+build/decoder/operations/ROR.o : src/decoder/operations/ROR.c src/decoder/operations/ROR.h
+	$(GCC) $(OP) -c src/decoder/operations/ROR.c -o $@
 remake: 
 	make clean && make
 

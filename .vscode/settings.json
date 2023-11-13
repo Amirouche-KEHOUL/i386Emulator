@@ -69,7 +69,9 @@
         "lfs.h": "c",
         "btr.h": "c",
         "bsf.h": "c",
-        "movzx.h": "c"
+        "movzx.h": "c",
+        "bsr.h": "c",
+        "rol.h": "c"
     },
     "editor.tokenColorCustomizations": {}
 }

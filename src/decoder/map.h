@@ -144,6 +144,8 @@
 #include "./operations/BSF.h"
 #include "./operations/BSR.h"
 #include "./operations/MOVSX.h"
+#include "./operations/ROL.h"
+#include "./operations/ROR.h"
 
 void map_operations_to_opcode_maps(void);
 

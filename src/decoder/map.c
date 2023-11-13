@@ -1031,6 +1031,16 @@ void map_MOVSX_operations(void)
     two_byte_opcode_map[0xB][0xF] = &MOVSX_GvEw;
 }
 
+void map_ROL_operations(void)
+{
+    ModRM_opcode_map[0x1][0x0] = &ModRM_ROL;
+}
+
+void map_ROR_operations(void)
+{
+    ModRM_opcode_map[0x1][0x1] = &ModRM_ROR;
+}
+
 // Init opcode maps: set all cells to no operation opcode (empty cells in opcode map)
 void init_opcode_maps(void)
 {
@@ -1195,4 +1205,6 @@ void map_operations_to_opcode_maps(void)
     map_BSF_operations();
     map_BSR_operations();
     map_MOVSX_operations();
+    map_ROL_operations();
+    map_ROR_operations();
 }
