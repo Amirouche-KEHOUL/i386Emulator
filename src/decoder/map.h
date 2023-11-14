@@ -149,6 +149,11 @@
 #include "./operations/RCL.h"
 #include "./operations/RCR.h"
 #include "./operations/SHL.h"
+#include "./operations/SHR.h"
+#include "./operations/SAR.h"
+#include "./operations/NOT.h"
+#include "./operations/NEG.h"
+#include "./operations/MUL.h"
 
 void map_operations_to_opcode_maps(void);
 

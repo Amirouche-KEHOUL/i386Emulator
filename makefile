@@ -156,6 +156,11 @@ SRC = src/main.c \
 	src/decoder/operations/RCR.c \
 	src/decoder/operations/SHL.c \
 	src/decoder/operations/SHL.c \
+	src/decoder/operations/SHR.c \
+	src/decoder/operations/SAR.c \
+	src/decoder/operations/NOT.c \
+	src/decoder/operations/NEG.c \
+	src/decoder/operations/MUL.c \
 
 
 OBJ = build/main.o \
@@ -317,6 +322,11 @@ OBJ = build/main.o \
 	build/decoder/operations/RCL.o \
 	build/decoder/operations/RCR.o \
 	build/decoder/operations/SHL.o \
+	build/decoder/operations/SHR.o \
+	build/decoder/operations/SAR.o \
+	build/decoder/operations/NOT.o \
+	build/decoder/operations/NEG.o \
+	build/decoder/operations/MUL.o \
 
 BINDIRS = bin/ \
 	build/memory \
@@ -823,6 +833,21 @@ build/decoder/operations/RCR.o : src/decoder/operations/RCR.c src/decoder/operat
 
 build/decoder/operations/SHL.o : src/decoder/operations/SHL.c src/decoder/operations/SHL.h
 	$(GCC) $(OP) -c src/decoder/operations/SHL.c -o $@
+
+build/decoder/operations/SHR.o : src/decoder/operations/SHR.c src/decoder/operations/SHR.h
+	$(GCC) $(OP) -c src/decoder/operations/SHR.c -o $@
+
+build/decoder/operations/SAR.o : src/decoder/operations/SAR.c src/decoder/operations/SAR.h
+	$(GCC) $(OP) -c src/decoder/operations/SAR.c -o $@
+
+build/decoder/operations/NOT.o : src/decoder/operations/NOT.c src/decoder/operations/NOT.h
+	$(GCC) $(OP) -c src/decoder/operations/NOT.c -o $@
+
+build/decoder/operations/NEG.o : src/decoder/operations/NEG.c src/decoder/operations/NEG.h
+	$(GCC) $(OP) -c src/decoder/operations/NEG.c -o $@
+
+build/decoder/operations/MUL.o : src/decoder/operations/MUL.c src/decoder/operations/MUL.h
+	$(GCC) $(OP) -c src/decoder/operations/MUL.c -o $@
 
 remake: 
 	make clean && make

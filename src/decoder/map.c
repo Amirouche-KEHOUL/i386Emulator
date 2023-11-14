@@ -1056,6 +1056,31 @@ void map_SHL_operations(void)
     ModRM_opcode_map[0x1][0x4] = &ModRM_SHL;
 }
 
+void map_SHR_operations(void)
+{
+    ModRM_opcode_map[0x1][0x5] = &ModRM_SHR;
+}
+
+void map_SAR_operations(void)
+{
+    ModRM_opcode_map[0x1][0x7] = &ModRM_SAR;
+}
+
+void map_NOT_operations(void)
+{
+    ModRM_opcode_map[0x2][0x2] = &ModRM_NOT;
+}
+
+void map_NEG_operations(void)
+{
+    ModRM_opcode_map[0x2][0x3] = &ModRM_NEG;
+}
+
+void map_MUL_operations(void)
+{
+    ModRM_opcode_map[0x2][0x4] = &ModRM_MUL;
+}
+
 // Init opcode maps: set all cells to no operation opcode (empty cells in opcode map)
 void init_opcode_maps(void)
 {
@@ -1225,4 +1250,9 @@ void map_operations_to_opcode_maps(void)
     map_RCL_operations();
     map_RCR_operations();
     map_SHL_operations();
+    map_SHR_operations();
+    map_SAR_operations();
+    map_NOT_operations();
+    map_NEG_operations();
+    map_MUL_operations();
 }
