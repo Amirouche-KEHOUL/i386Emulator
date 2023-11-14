@@ -1041,6 +1041,21 @@ void map_ROR_operations(void)
     ModRM_opcode_map[0x1][0x1] = &ModRM_ROR;
 }
 
+void map_RCL_operations(void)
+{
+    ModRM_opcode_map[0x1][0x2] = &ModRM_RCL;
+}
+
+void map_RCR_operations(void)
+{
+    ModRM_opcode_map[0x1][0x3] = &ModRM_RCR;
+}
+
+void map_SHL_operations(void)
+{
+    ModRM_opcode_map[0x1][0x4] = &ModRM_SHL;
+}
+
 // Init opcode maps: set all cells to no operation opcode (empty cells in opcode map)
 void init_opcode_maps(void)
 {
@@ -1207,4 +1222,7 @@ void map_operations_to_opcode_maps(void)
     map_MOVSX_operations();
     map_ROL_operations();
     map_ROR_operations();
+    map_RCL_operations();
+    map_RCR_operations();
+    map_SHL_operations();
 }

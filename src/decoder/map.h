@@ -146,6 +146,9 @@
 #include "./operations/MOVSX.h"
 #include "./operations/ROL.h"
 #include "./operations/ROR.h"
+#include "./operations/RCL.h"
+#include "./operations/RCR.h"
+#include "./operations/SHL.h"
 
 void map_operations_to_opcode_maps(void);
 

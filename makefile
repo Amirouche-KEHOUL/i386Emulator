@@ -152,6 +152,10 @@ SRC = src/main.c \
 	src/decoder/operations/MOVSX.c \
 	src/decoder/operations/ROL.c \
 	src/decoder/operations/ROR.c \
+	src/decoder/operations/RCL.c \
+	src/decoder/operations/RCR.c \
+	src/decoder/operations/SHL.c \
+	src/decoder/operations/SHL.c \
 
 
 OBJ = build/main.o \
@@ -310,6 +314,9 @@ OBJ = build/main.o \
 	build/decoder/operations/MOVSX.o \
 	build/decoder/operations/ROL.o \
 	build/decoder/operations/ROR.o \
+	build/decoder/operations/RCL.o \
+	build/decoder/operations/RCR.o \
+	build/decoder/operations/SHL.o \
 
 BINDIRS = bin/ \
 	build/memory \
@@ -807,6 +814,16 @@ build/decoder/operations/ROL.o : src/decoder/operations/ROL.c src/decoder/operat
 
 build/decoder/operations/ROR.o : src/decoder/operations/ROR.c src/decoder/operations/ROR.h
 	$(GCC) $(OP) -c src/decoder/operations/ROR.c -o $@
+
+build/decoder/operations/RCL.o : src/decoder/operations/RCL.c src/decoder/operations/RCL.h
+	$(GCC) $(OP) -c src/decoder/operations/RCL.c -o $@
+
+build/decoder/operations/RCR.o : src/decoder/operations/RCR.c src/decoder/operations/RCR.h
+	$(GCC) $(OP) -c src/decoder/operations/RCR.c -o $@
+
+build/decoder/operations/SHL.o : src/decoder/operations/SHL.c src/decoder/operations/SHL.h
+	$(GCC) $(OP) -c src/decoder/operations/SHL.c -o $@
+
 remake: 
 	make clean && make
 
