@@ -154,6 +154,21 @@
 #include "./operations/NOT.h"
 #include "./operations/NEG.h"
 #include "./operations/MUL.h"
+#include "./operations/DIV.h"
+#include "./operations/IDIV.h"
+#include "./operations/JMP.h"
+#include "./operations/SLDT.h"
+#include "./operations/STR.h"
+#include "./operations/LLDT.h"
+#include "./operations/LTR.h"
+#include "./operations/VERR.h"
+#include "./operations/VERW.h"
+#include "./operations/SGDT.h"
+#include "./operations/SIDT.h"
+#include "./operations/LGDT.h"
+#include "./operations/LIDT.h"
+#include "./operations/SMSW.h"
+#include "./operations/LMSW.h"
 
 void map_operations_to_opcode_maps(void);
 

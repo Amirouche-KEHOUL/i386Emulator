@@ -1081,6 +1081,82 @@ void map_MUL_operations(void)
     ModRM_opcode_map[0x2][0x4] = &ModRM_MUL;
 }
 
+void map_DIV_operations(void)
+{
+    ModRM_opcode_map[0x2][0x6] = &ModRM_DIV;
+}
+
+void map_IDIV_operations(void)
+{
+    ModRM_opcode_map[0x2][0x7] = &ModRM_IDIV;
+}
+
+void map_JMP_operations(void)
+{
+    ModRM_opcode_map[0x4][0x4] = &ModRM_JMP_Ev;
+    ModRM_opcode_map[0x4][0x5] = &ModRM_JMP_Ep;
+}
+
+void map_SLDT_operations(void)
+{
+    ModRM_opcode_map[0x5][0x0] = &ModRM_SLDT;
+}
+
+void map_STR_operations(void)
+{
+    ModRM_opcode_map[0x5][0x1] = &ModRM_STR;
+}
+
+void map_LLDT_operations(void)
+{
+    ModRM_opcode_map[0x5][0x2] = &ModRM_LLDT;
+}
+
+void map_LTR_operations(void)
+{
+    ModRM_opcode_map[0x5][0x4] = &ModRM_LTR;
+}
+
+void map_VERR_operations(void)
+{
+    ModRM_opcode_map[0x5][0x5] = &ModRM_VERR;
+}
+
+void map_VERW_operations(void)
+{
+    ModRM_opcode_map[0x5][0x6] = &ModRM_VERW;
+}
+
+void map_SGDT_operations(void)
+{
+    ModRM_opcode_map[0x6][0x0] = &ModRM_SGDT;
+}
+
+void map_SIDT_operations(void)
+{
+    ModRM_opcode_map[0x6][0x1] = &ModRM_SIDT;
+}
+
+void map_LGDT_operations(void)
+{
+    ModRM_opcode_map[0x6][0x2] = &ModRM_LGDT;
+}
+
+void map_LIDT_operations(void)
+{
+    ModRM_opcode_map[0x6][0x3] = &ModRM_LIDT;
+}
+
+void map_SMSW_operations(void)
+{
+    ModRM_opcode_map[0x6][0x4] = &ModRM_SMSW;
+}
+
+void map_LMSW_operations(void)
+{
+    ModRM_opcode_map[0x6][0x6] = &ModRM_LMSW;
+}
+
 // Init opcode maps: set all cells to no operation opcode (empty cells in opcode map)
 void init_opcode_maps(void)
 {
@@ -1255,4 +1331,19 @@ void map_operations_to_opcode_maps(void)
     map_NOT_operations();
     map_NEG_operations();
     map_MUL_operations();
+    map_DIV_operations();
+    map_IDIV_operations();
+    map_JMP_operations();
+    map_SLDT_operations();
+    map_STR_operations();
+    map_LLDT_operations();
+    map_LTR_operations();
+    map_VERR_operations();
+    map_VERW_operations();
+    map_SGDT_operations();
+    map_SIDT_operations();
+    map_LGDT_operations();
+    map_LIDT_operations();
+    map_SMSW_operations();
+    map_LMSW_operations();
 }

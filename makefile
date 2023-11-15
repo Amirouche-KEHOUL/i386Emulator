@@ -161,6 +161,21 @@ SRC = src/main.c \
 	src/decoder/operations/NOT.c \
 	src/decoder/operations/NEG.c \
 	src/decoder/operations/MUL.c \
+	src/decoder/operations/DIV.c \
+	src/decoder/operations/IDIV.c \
+	src/decoder/operations/JMP.c \
+	src/decoder/operations/SLDT.c \
+	src/decoder/operations/STR.c \
+	src/decoder/operations/LLDT.c \
+	src/decoder/operations/LTR.c \
+	src/decoder/operations/VERR.c \
+	src/decoder/operations/VERW.c \
+	src/decoder/operations/SGDT.c \
+	src/decoder/operations/SIDT.c \
+	src/decoder/operations/LGDT.c \
+	src/decoder/operations/LIDT.c \
+	src/decoder/operations/SMSW.c \
+	src/decoder/operations/LMSW.c \
 
 
 OBJ = build/main.o \
@@ -327,6 +342,21 @@ OBJ = build/main.o \
 	build/decoder/operations/NOT.o \
 	build/decoder/operations/NEG.o \
 	build/decoder/operations/MUL.o \
+	build/decoder/operations/DIV.o \
+	build/decoder/operations/IDIV.o \
+	build/decoder/operations/JMP.o \
+	build/decoder/operations/SLDT.o \
+	build/decoder/operations/STR.o \
+	build/decoder/operations/LLDT.o \
+	build/decoder/operations/LTR.o \
+	build/decoder/operations/VERR.o \
+	build/decoder/operations/VERW.o \
+	build/decoder/operations/SGDT.o \
+	build/decoder/operations/SIDT.o \
+	build/decoder/operations/LGDT.o \
+	build/decoder/operations/LIDT.o \
+	build/decoder/operations/SMSW.o \
+	build/decoder/operations/LMSW.o \
 
 BINDIRS = bin/ \
 	build/memory \
@@ -848,6 +878,51 @@ build/decoder/operations/NEG.o : src/decoder/operations/NEG.c src/decoder/operat
 
 build/decoder/operations/MUL.o : src/decoder/operations/MUL.c src/decoder/operations/MUL.h
 	$(GCC) $(OP) -c src/decoder/operations/MUL.c -o $@
+
+build/decoder/operations/DIV.o : src/decoder/operations/DIV.c src/decoder/operations/DIV.h
+	$(GCC) $(OP) -c src/decoder/operations/DIV.c -o $@
+
+build/decoder/operations/IDIV.o : src/decoder/operations/IDIV.c src/decoder/operations/IDIV.h
+	$(GCC) $(OP) -c src/decoder/operations/IDIV.c -o $@
+
+build/decoder/operations/JMP.o : src/decoder/operations/JMP.c src/decoder/operations/JMP.h
+	$(GCC) $(OP) -c src/decoder/operations/JMP.c -o $@
+
+build/decoder/operations/SLDT.o : src/decoder/operations/SLDT.c src/decoder/operations/SLDT.h
+	$(GCC) $(OP) -c src/decoder/operations/SLDT.c -o $@
+
+build/decoder/operations/STR.o : src/decoder/operations/STR.c src/decoder/operations/STR.h
+	$(GCC) $(OP) -c src/decoder/operations/STR.c -o $@
+
+build/decoder/operations/LLDT.o : src/decoder/operations/LLDT.c src/decoder/operations/LLDT.h
+	$(GCC) $(OP) -c src/decoder/operations/LLDT.c -o $@
+
+build/decoder/operations/LTR.o : src/decoder/operations/LTR.c src/decoder/operations/LTR.h
+	$(GCC) $(OP) -c src/decoder/operations/LTR.c -o $@
+
+build/decoder/operations/VERR.o : src/decoder/operations/VERR.c src/decoder/operations/VERR.h
+	$(GCC) $(OP) -c src/decoder/operations/VERR.c -o $@
+
+build/decoder/operations/VERW.o : src/decoder/operations/VERW.c src/decoder/operations/VERW.h
+	$(GCC) $(OP) -c src/decoder/operations/VERW.c -o $@
+
+build/decoder/operations/SGDT.o : src/decoder/operations/SGDT.c src/decoder/operations/SGDT.h
+	$(GCC) $(OP) -c src/decoder/operations/SGDT.c -o $@
+
+build/decoder/operations/SIDT.o : src/decoder/operations/SIDT.c src/decoder/operations/SIDT.h
+	$(GCC) $(OP) -c src/decoder/operations/SIDT.c -o $@
+
+build/decoder/operations/LGDT.o : src/decoder/operations/LGDT.c src/decoder/operations/LGDT.h
+	$(GCC) $(OP) -c src/decoder/operations/LGDT.c -o $@
+
+build/decoder/operations/LIDT.o : src/decoder/operations/LIDT.c src/decoder/operations/LIDT.h
+	$(GCC) $(OP) -c src/decoder/operations/LIDT.c -o $@
+
+build/decoder/operations/SMSW.o : src/decoder/operations/SMSW.c src/decoder/operations/SMSW.h
+	$(GCC) $(OP) -c src/decoder/operations/SMSW.c -o $@
+
+build/decoder/operations/LMSW.o : src/decoder/operations/LMSW.c src/decoder/operations/LMSW.h
+	$(GCC) $(OP) -c src/decoder/operations/LMSW.c -o $@
 
 remake: 
 	make clean && make
