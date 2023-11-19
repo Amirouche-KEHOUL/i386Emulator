@@ -1,6 +1,6 @@
 #include "SETNBE.h"
 
-void SETNBE(void)
+void SETNBE_Eb(void)
 {
-    printf("SETNBE operation called correctly \n");
+    printf("SETNBE_Eb operation called correctly \n");
 }

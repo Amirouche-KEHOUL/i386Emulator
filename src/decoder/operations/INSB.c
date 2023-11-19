@@ -1,6 +1,6 @@
 #include "INSB.h"
 
-void INSB_YbDx(void)
+void INSB_YbDX(void)
 {
     printf("INSB operation called correctly \n");
 }

@@ -11,3 +11,6 @@ void ModRM_BT(void)
 {
     printf("BT operation called correctly \n");
 }
+void BT (void) {
+    printf("BT operation called correctly \n");
+}

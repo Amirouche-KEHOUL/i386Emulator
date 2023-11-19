@@ -3,6 +3,6 @@
 
 #include <stdio.h>
 
-void SETNS(void);
+void SETNS_Eb(void);
 
 #endif // _SETNS_H_

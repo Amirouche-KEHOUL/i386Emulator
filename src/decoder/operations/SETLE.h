@@ -3,6 +3,6 @@
 
 #include <stdio.h>
 
-void SETLE(void);
+void SETLE_Eb(void);
 
 #endif // _SETLE_H_

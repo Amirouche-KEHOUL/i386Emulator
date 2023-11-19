@@ -3,6 +3,6 @@
 
 #include <stdio.h>
 
-void OUTSW_D_DxXv(void);
+void OUTSWD_DxXv(void);
 
 #endif // _OUTSW_D_H_

@@ -9,3 +9,7 @@ void ModRM_BTC(void)
 {
     printf("BTC operation called correctly \n");
 }
+
+void BTC (void) {
+    printf("BTC operation called correctly \n");
+}

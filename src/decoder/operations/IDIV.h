@@ -5,4 +5,6 @@
 
 void ModRM_IDIV(void);
 
+void IDIV_EbAL (void);
+void IDIV_EveAL (void);
 #endif // _IDIV_H_

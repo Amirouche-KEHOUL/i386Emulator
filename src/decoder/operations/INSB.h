@@ -3,6 +3,6 @@
 
 #include <stdio.h>
 
-void INSB_YbDx(void);
+void INSB_YbDX(void);
 
 #endif // _INSB_H_

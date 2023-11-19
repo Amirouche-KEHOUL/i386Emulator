@@ -3,6 +3,6 @@
 
 #include <stdio.h>
 
-void STOSW_YveAX(void);
+void STOSWD_YveAX(void);
 
 #endif // _STOSW_H_

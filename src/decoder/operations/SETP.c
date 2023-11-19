@@ -1,6 +1,6 @@
 #include "SETP.h"
 
-void SETP(void)
+void SETP_Eb(void)
 {
-    printf("SETP operation called correctly \n");
+    printf("SETP_Eb operation called correctly \n");
 }

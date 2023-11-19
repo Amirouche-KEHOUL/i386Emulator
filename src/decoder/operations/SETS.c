@@ -1,6 +1,6 @@
 #include "SETS.h"
 
-void SETS(void)
+void SETS_Eb(void)
 {
-    printf("SETS operation called correctly \n");
+    printf("SETS_Eb operation called correctly \n");
 }

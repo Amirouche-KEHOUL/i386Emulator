@@ -5,4 +5,5 @@
 
 void ModRM_SIDT(void);
 
+void SIDT_Ms (void);
 #endif // _SIDT_H_

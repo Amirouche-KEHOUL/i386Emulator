@@ -1,6 +1,6 @@
 #include "SETLE.h"
 
-void SETLE(void)
+void SETLE_Eb(void)
 {
-    printf("SETLE operation called correctly \n");
+    printf("SETLE_Eb operation called correctly \n");
 }

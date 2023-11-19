@@ -9,4 +9,5 @@ void BT_EvGv(void);
 // Mapped to ModRM opcode map
 void ModRM_BT(void);
 
+void BT (void);
 #endif // _BT_H_

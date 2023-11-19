@@ -1,6 +1,6 @@
 #include "SETO.h"
 
-void SETO(void)
+void SETO_Eb(void)
 {
-    printf("SETO operation called correctly \n");
+    printf("SETO_Eb operation called correctly \n");
 }

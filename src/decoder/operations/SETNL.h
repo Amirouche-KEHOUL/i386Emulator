@@ -3,6 +3,6 @@
 
 #include <stdio.h>
 
-void SETNL(void);
+void SETNL_Eb(void);
 
 #endif // _SETNL_H_

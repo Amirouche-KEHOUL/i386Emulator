@@ -1,6 +1,6 @@
 #include "SETNS.h"
 
-void SETNS(void)
+void SETNS_Eb(void)
 {
-    printf("SETNS operation called correctly \n");
+    printf("SETNS_Eb operation called correctly \n");
 }

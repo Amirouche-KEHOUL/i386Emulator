@@ -42,8 +42,68 @@ void ADD_EvIv(void)
     printf("ADD operation called correctly \n");
 }
 
-void ModRM_ADD(void)
+// groupe1 ModRM opcode
+void AD_EbIb(void)
 {
-    // TODO: confirm which function to be called (2 functions above) based on the previous byte (opcode byte #0)
+    printf("ADD operation called correctly \n");
+}
+void OR_EbIb(void)
+{
+    printf("ADD operation called correctly \n");
+}
+void ADC_EbIb(void)
+{
+    printf("ADD operation called correctly \n");
+}
+void SBB_EbIb(void)
+{
+    printf("ADD operation called correctly \n");
+}
+void AND_EbIb(void)
+{
+    printf("ADD operation called correctly \n");
+}
+void SUB_EbIb(void)
+{
+    printf("ADD operation called correctly \n");
+}
+void XOR_EbIb(void)
+{
+    printf("ADD operation called correctly \n");
+}
+void CMP_EbIb(void)
+{
+    printf("ADD operation called correctly \n");
+}
+void AD_EvIv(void)
+{
+    printf("ADD operation called correctly \n");
+}
+void OR_EvIv(void)
+{
+    printf("ADD operation called correctly \n");
+}
+void ADC_EvIv(void)
+{
+    printf("ADD operation called correctly \n");
+}
+void SBB_EvIv(void)
+{
+    printf("ADD operation called correctly \n");
+}
+void AND_EvIv(void)
+{
+    printf("ADD operation called correctly \n");
+}
+void SUB_EvIv(void)
+{
+    printf("ADD operation called correctly \n");
+}
+void XOR_EvIv(void)
+{
+    printf("ADD operation called correctly \n");
+}
+void CMP_EvIv(void)
+{
     printf("ADD operation called correctly \n");
 }

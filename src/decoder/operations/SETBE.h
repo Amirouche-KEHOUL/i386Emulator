@@ -3,6 +3,6 @@
 
 #include <stdio.h>
 
-void SETBE(void);
+void SETBE_Eb(void);
 
 #endif // _SETBE_H_

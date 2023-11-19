@@ -5,4 +5,5 @@
 
 void ModRM_VERR(void);
 
+void VERR_Ew (void);
 #endif // _VERR_H_

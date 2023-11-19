@@ -3,6 +3,6 @@
 
 #include <stdio.h>
 
-void SETS(void);
+void SETS_Eb(void);
 
 #endif // _SETS_H_

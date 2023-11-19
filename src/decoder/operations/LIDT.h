@@ -5,4 +5,5 @@
 
 void ModRM_LIDT(void);
 
+void LIDT_Ms (void);
 #endif // _LIDT_H_

@@ -3,6 +3,6 @@
 
 #include <stdio.h>
 
-void SETZ(void);
+void SETZ_Eb(void);
 
 #endif // _SETZ_H_

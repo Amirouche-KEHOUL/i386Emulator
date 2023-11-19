@@ -1,6 +1,6 @@
-#include "MOVSW.h"
+#include "MOVSWD.h"
 
-void MOVSW_XvYv(void)
+void MOVSWD_XvYv(void)
 {
     printf("MOVSW operation called correctly \n");
 }

@@ -5,4 +5,5 @@
 
 void ModRM_LMSW(void);
 
+void LMSW_Ew (void);
 #endif // _LMSW_H_

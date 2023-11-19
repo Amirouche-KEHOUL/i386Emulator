@@ -1,6 +1,6 @@
 #include "SETZ.h"
 
-void SETZ(void)
+void SETZ_Eb(void)
 {
-    printf("SETZ operation called correctly \n");
+    printf("SETZ_Eb operation called correctly \n");
 }

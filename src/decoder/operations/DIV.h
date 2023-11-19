@@ -5,4 +5,6 @@
 
 void ModRM_DIV(void);
 
+void DIV_EbAL (void);
+void DIV_EveAL (void);
 #endif // _DIV_H_

@@ -19,3 +19,10 @@ void ModRM_CALL_Ep(void)
 {
     printf("CALL operation called correctly \n");
 }
+void CALL_Ev (void) {
+    printf("CALL_Ev operation called correctly \n");
+}
+
+void CALL_eP (void) {
+    printf("CALL_eP operation called correctly \n");
+}

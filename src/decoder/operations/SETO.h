@@ -1,8 +1,8 @@
-#ifndef _SETO_H_
-#define _SETO_H_
+#ifndef _SETO_Eb_H_
+#define _SETO_Eb_H_
 
 #include <stdio.h>
 
-void SETO(void);
+void SETO_Eb(void);
 
-#endif // _SETO_H_
+#endif // _SETO_Eb_H_

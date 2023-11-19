@@ -3,6 +3,6 @@
 
 #include <stdio.h>
 
-void CMPSW_XvYv(void);
+void CMPSWD_XvYv(void);
 
 #endif // _CMPSW_H_

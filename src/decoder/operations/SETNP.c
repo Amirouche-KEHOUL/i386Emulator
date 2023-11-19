@@ -1,6 +1,6 @@
 #include "SETNP.h"
 
-void SETNP(void)
+void SETNP_Eb(void)
 {
-    printf("SETNP operation called correctly \n");
+    printf("SETNP_Eb operation called correctly \n");
 }

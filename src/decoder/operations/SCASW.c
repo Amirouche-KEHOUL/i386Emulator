@@ -1,6 +1,6 @@
 #include "SCASW.h"
 
-void SCASW_eAXXv(void)
+void SCASWD_eAXXv(void)
 {
     printf("SCASW operation called correctly \n");
 }

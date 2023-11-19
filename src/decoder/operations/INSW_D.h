@@ -3,6 +3,6 @@
 
 #include <stdio.h>
 
-void INSW_D_YbDx(void);
+void INSWD_YvDX(void);
 
 #endif // _INSW_D_H_

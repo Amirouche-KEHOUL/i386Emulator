@@ -8,4 +8,5 @@ void BTR_EvGv(void);
 // Mapped to ModRM opcode map
 void ModRM_BTR(void);
 
+void BTR (void);
 #endif // _BTR_H_s

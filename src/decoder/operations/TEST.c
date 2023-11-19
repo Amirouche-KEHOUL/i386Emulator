@@ -31,3 +31,10 @@ void TEST_Ev(void)
 {
     printf("TEST operation called correctly \n");
 }
+void TEST_EbIb (void) {
+    printf("TEST_EbIb operation called correctly \n");
+}
+
+void TEST_EvIv (void) {
+    printf("TEST_EvIv operation called correctly \n");
+}

@@ -9,3 +9,10 @@ void ModRM_JMP_Ep(void)
 {
     printf("JMP operation called correctly \n");
 }
+void JMP_Ev (void) {
+    printf("JMP_Ev operation called correctly \n");
+}
+
+void JMP_Ep (void) {
+    printf("JMP_Ep operation called correctly \n");
+}

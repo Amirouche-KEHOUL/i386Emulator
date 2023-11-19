@@ -3,6 +3,6 @@
 
 #include <stdio.h>
 
-void MOVSW_XvYv(void);
+void MOVSWD_XvYv(void);
 
 #endif // _MOVSW_H_

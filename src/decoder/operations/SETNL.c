@@ -1,6 +1,6 @@
 #include "SETNL.h"
 
-void SETNL(void)
+void SETNL_Eb(void)
 {
-    printf("SETNL operation called correctly \n");
+    printf("SETNL_Eb operation called correctly \n");
 }

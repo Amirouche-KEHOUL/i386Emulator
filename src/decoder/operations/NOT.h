@@ -5,4 +5,6 @@
 
 void ModRM_NOT(void);
 
+void NOT_Eb (void);
+void NOT_Ev (void);
 #endif // _NOT_H_

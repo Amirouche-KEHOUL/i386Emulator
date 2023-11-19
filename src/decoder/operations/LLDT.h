@@ -5,4 +5,5 @@
 
 void ModRM_LLDT(void);
 
+void LLDT_Ew (void);
 #endif // _LLDT_H_

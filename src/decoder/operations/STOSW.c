@@ -1,6 +1,6 @@
 #include "STOSW.h"
 
-void STOSW_YveAX(void)
+void STOSWD_YveAX(void)
 {
     printf("STOSW operation called correctly \n");
 }

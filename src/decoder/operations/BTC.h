@@ -8,4 +8,5 @@ void BTC_EvGv(void);
 // Mapped to ModRM opcode map
 void ModRM_BTC(void);
 
+void BTC (void);
 #endif // _BTC_H_s

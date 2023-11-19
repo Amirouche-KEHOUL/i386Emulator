@@ -9,4 +9,5 @@ void BTS_EvGv(void);
 // Mapped to ModRM opcode map
 void ModRM_BTS(void);
 
+void BTS (void);
 #endif // _BTS_H_

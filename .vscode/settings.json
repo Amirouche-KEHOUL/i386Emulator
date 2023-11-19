@@ -71,7 +71,14 @@
         "bsf.h": "c",
         "movzx.h": "c",
         "bsr.h": "c",
-        "rol.h": "c"
+        "rol.h": "c",
+        "clts.h": "c",
+        "rcl.h": "c",
+        "ror.h": "c",
+        "rcr.h": "c",
+        "shl.h": "c",
+        "shr.h": "c",
+        "sar.h": "c"
     },
     "editor.tokenColorCustomizations": {}
 }

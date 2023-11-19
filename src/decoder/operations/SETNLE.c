@@ -1,6 +1,6 @@
 #include "SETNLE.h"
 
-void SETNLE(void)
+void SETNLE_Eb(void)
 {
-    printf("SETNLE operation called correctly \n");
+    printf("SETNLE_Eb operation called correctly \n");
 }

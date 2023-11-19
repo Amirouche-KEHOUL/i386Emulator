@@ -78,3 +78,6 @@ void ModRM_PUSH_Ev(void)
 {
     printf("PUSH operation called correctly \n");
 }
+void PUSH_Ev (void) {
+    printf("PUSH_Ev operation called correctly \n");
+}

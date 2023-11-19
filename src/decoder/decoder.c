@@ -1036,3 +1036,57 @@ void decode(void)
 
     one_byte_opcode_map[msb][lsb]();
 }
+
+/*
+prefetch queueu  = 00
+
+Global one-byte_map[][]
+Global two-byte_map[][]
+Global Groupe_map[][]
+
+Global 16bit_ModRM_map[][]
+Global 32bit_ModRM_map[][]
+Global REG_map[][]
+
+Global SIB_map[][]
+Global base_map[][]
+
+Global R/M_Operand
+Global R/M_Operand_address.
+Global R_Operand
+Global R_Operand_addresse.
+
+Global effective_operand_size
+Global effective_operand_address_size
+
+stream_byte() ==> bL = 0 , bH = 0
+one-byte_map[bH][bL] () ==> call Add_Eb,Gb()
+
+Add_Eb,Gb()
+{
+    // Eb ==> Use modRM_map[]
+    // Gb ==> Use of Reg_map[]
+    stream_byte()
+    update_ModRM_st()
+
+    Xbit_ModRM_map[R/M][Mod]()
+    REG_map[r8][REG]()
+
+    Do_operation()
+
+}
+
+Xbit_ModRM_map[R/M][Mod]()
+{
+    R/M_Operand_addresse = calculate_addr()
+    R/M_Operand = read_from_mem(M_Operand_addresse)
+
+}
+
+REG_map[r8][REG]()
+{
+    R_Operand = read_reg()
+    R_operand_address
+}
+
+*/

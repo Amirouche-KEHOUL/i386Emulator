@@ -3,6 +3,6 @@
 
 #include <stdio.h>
 
-void SETL(void);
+void SETL_Eb(void);
 
 #endif // _SETL_H_

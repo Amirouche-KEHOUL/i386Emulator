@@ -15,3 +15,10 @@ void ModRM_IMUL_ALeAX(void)
 {
     printf("IMUL operation called correctly \n");
 }
+void IMUL_EbAL (void) {
+    printf("IMUL_EbAL operation called correctly \n");
+}
+
+void IMUL_EveAL (void) {
+    printf("IMUL_EveAL operation called correctly \n");
+}

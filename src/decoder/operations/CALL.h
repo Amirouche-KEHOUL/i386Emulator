@@ -11,4 +11,6 @@ void CALL_Av(void);
 void ModRM_CALL_Ev(void);
 void ModRM_CALL_Ep(void);
 
+void CALL_Ev (void);
+void CALL_eP (void);
 #endif // _CALL_H_

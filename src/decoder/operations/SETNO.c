@@ -1,6 +1,6 @@
 #include "SETNO.h"
 
-void SETNO(void)
+void SETNO_Eb(void)
 {
-    printf("SETNO operation called correctly \n");
+    printf("SETNO_Eb operation called correctly \n");
 }

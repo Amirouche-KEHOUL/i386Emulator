@@ -5,4 +5,5 @@
 
 void ModRM_LTR(void);
 
+void LTR_Ew (void);
 #endif // _LTR_H_

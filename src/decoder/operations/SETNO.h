@@ -3,6 +3,6 @@
 
 #include <stdio.h>
 
-void SETNO(void);
+void SETNO_Eb(void);
 
 #endif // _SETNO_H_

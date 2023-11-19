@@ -46,3 +46,10 @@ void ModRM_INC_Eb(void)
 {
     printf("INC operation called correclty \n");
 }
+void INC_Eb (void) {
+    printf("INC_Eb operation called correctly \n");
+}
+
+void INC_Ev (void) {
+    printf("INC_Ev operation called correctly \n");
+}

@@ -3,6 +3,6 @@
 
 #include <stdio.h>
 
-void SCASW_eAXXv(void);
+void SCASWD_eAXXv(void);
 
 #endif // _SCASW_H_

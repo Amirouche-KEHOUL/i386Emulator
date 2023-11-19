@@ -3,6 +3,6 @@
 
 #include <stdio.h>
 
-void SETP(void);
+void SETP_Eb(void);
 
 #endif // _SETP_H_

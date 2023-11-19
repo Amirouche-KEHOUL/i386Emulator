@@ -2,37 +2,37 @@
 
 // Mapped to one-byte opcode map
 
-void XCHG_eCX(void)
+void XCHG_eCXeAX(void)
 {
     printf("XCHG operation called correclty \n");
 }
 
-void XCHG_eDX(void)
+void XCHG_eDXeAX(void)
 {
     printf("XCHG operation called correclty \n");
 }
 
-void XCHG_eBX(void)
+void XCHG_eBXeAX(void)
 {
     printf("XCHG operation called correclty \n");
 }
 
-void XCHG_eSP(void)
+void XCHG_eBXeAX(void)
 {
     printf("XCHG operation called correclty \n");
 }
 
-void XCHG_eBP(void)
+void XCHG_eBPeAX(void)
 {
     printf("XCHG operation called correclty \n");
 }
 
-void XCHG_eSI(void)
+void XCHG_eSIeAX(void)
 {
     printf("XCHG operation called correclty \n");
 }
 
-void XCHG_eDI(void)
+void XCHG_eDIeAX(void)
 {
     printf("XCHG operation called correclty \n");
 }

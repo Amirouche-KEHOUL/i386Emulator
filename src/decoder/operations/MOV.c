@@ -41,67 +41,67 @@ void MOV_OveAX(void)
 {
     printf("MOV operation called correctly \n");
 }
-void MOV_AL(void)
+void MOV_ALIb(void)
 {
     printf("MOV operation called correctly \n");
 }
-void MOV_CL(void)
+void MOV_CLIb(void)
 {
     printf("MOV operation called correctly \n");
 }
-void MOV_DL(void)
+void MOV_DLIb(void)
 {
     printf("MOV operation called correctly \n");
 }
-void MOV_BL(void)
+void MOV_BLIb(void)
 {
     printf("MOV operation called correctly \n");
 }
-void MOV_AH(void)
+void MOV_AHIb(void)
 {
     printf("MOV operation called correctly \n");
 }
-void MOV_CH(void)
+void MOV_CHIb(void)
 {
     printf("MOV operation called correctly \n");
 }
-void MOV_DH(void)
+void MOV_DHIb(void)
 {
     printf("MOV operation called correctly \n");
 }
-void MOV_BH(void)
+void MOV_BHIb(void)
 {
     printf("MOV operation called correctly \n");
 }
-void MOV_eAX(void)
+void MOV_eAXIv(void)
 {
     printf("MOV operation called correctly \n");
 }
-void MOV_eCX(void)
+void MOV_eCXIv(void)
 {
     printf("MOV operation called correctly \n");
 }
-void MOV_eDX(void)
+void MOV_eDXIv(void)
 {
     printf("MOV operation called correctly \n");
 }
-void MOV_eBX(void)
+void MOV_eBXIv(void)
 {
     printf("MOV operation called correctly \n");
 }
-void MOV_eSP(void)
+void MOV_eSPIv(void)
 {
     printf("MOV operation called correctly \n");
 }
-void MOV_eBP(void)
+void MOV_eBPIv(void)
 {
     printf("MOV operation called correctly \n");
 }
-void MOV_eSI(void)
+void MOV_eSIIv(void)
 {
     printf("MOV operation called correctly \n");
 }
-void MOV_eDI(void)
+void MOV_eDIIv(void)
 {
     printf("MOV operation called correctly \n");
 }
@@ -115,7 +115,7 @@ void MOV_EvIv(void)
 }
 
 // Mapped to two-byte opcode map
-void MOV_CbRb(void)
+void MOV_CdRd(void)
 {
     printf("MOV operation called correctly \n");
 }

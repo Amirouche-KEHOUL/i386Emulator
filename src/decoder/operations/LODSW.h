@@ -3,6 +3,6 @@
 
 #include <stdio.h>
 
-void LODSW_sAXXv(void);
+void LODSWD_eAXXv(void);
 
 #endif // _LODSW_H_

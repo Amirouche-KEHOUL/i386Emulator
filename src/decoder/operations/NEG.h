@@ -5,4 +5,6 @@
 
 void ModRM_NEG(void);
 
+void NEG_Eb (void);
+void NEG_Ev (void);
 #endif // _NEG_H_

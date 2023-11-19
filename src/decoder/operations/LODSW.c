@@ -1,6 +1,6 @@
 #include "LODSW.h"
 
-void LODSW_sAXXv(void)
+void LODSWD_eAXXv(void)
 {
     printf("LODSW operation called correctly \n");
 }

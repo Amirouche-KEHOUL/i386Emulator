@@ -37,22 +37,22 @@ SRC = src/main.c \
 	src/decoder/operations/INSW_D.c \
 	src/decoder/operations/OUTSB.c \
 	src/decoder/operations/OUTSW_D.c \
-	src/decoder/operations/JO_SHORT.c \
-	src/decoder/operations/JNO_SHORT.c \
-	src/decoder/operations/JB_SHORT.c \
-	src/decoder/operations/JNB_SHORT.c \
-	src/decoder/operations/JZ_SHORT.c \
-	src/decoder/operations/JNZ_SHORT.c \
-	src/decoder/operations/JBE_SHORT.c \
-	src/decoder/operations/JNBE_SHORT.c \
-	src/decoder/operations/JS_SHORT.c \
-	src/decoder/operations/JNS_SHORT.c \
-	src/decoder/operations/JP_SHORT.c \
-	src/decoder/operations/JNP_SHORT.c \
-	src/decoder/operations/JL_SHORT.c \
-	src/decoder/operations/JNL_SHORT.c \
-	src/decoder/operations/JLE_SHORT.c \
-	src/decoder/operations/JNLE_SHORT.c \
+	src/decoder/operations/JO_Jb.c \
+	src/decoder/operations/JNO_Jb.c \
+	src/decoder/operations/JB_Jb.c \
+	src/decoder/operations/JNB_Jb.c \
+	src/decoder/operations/JZ_Jb.c \
+	src/decoder/operations/JNZ_Jb.c \
+	src/decoder/operations/JBE_Jb.c \
+	src/decoder/operations/JNBE_Jb.c \
+	src/decoder/operations/JS_Jb.c \
+	src/decoder/operations/JNS_Jb.c \
+	src/decoder/operations/JP_Jb.c \
+	src/decoder/operations/JNP_Jb.c \
+	src/decoder/operations/JL_Jb.c \
+	src/decoder/operations/JNL_Jb.c \
+	src/decoder/operations/JLE_Jb.c \
+	src/decoder/operations/JNLE_Jb.c \
 	src/decoder/operations/TEST.c \
 	src/decoder/operations/XCNG.c \
 	src/decoder/operations/MOV.c \
@@ -105,22 +105,22 @@ SRC = src/main.c \
 	src/decoder/operations/LAR.c \
 	src/decoder/operations/LSL.c \
 	src/decoder/operations/CLTS.c \
-	src/decoder/operations/JO_LONG.c \
-	src/decoder/operations/JNO_LONG.c \
-	src/decoder/operations/JB_LONG.c \
-	src/decoder/operations/JNB_LONG.c \
-	src/decoder/operations/JZ_LONG.c \
-	src/decoder/operations/JNZ_LONG.c \
-	src/decoder/operations/JBE_LONG.c \
-	src/decoder/operations/JNBE_LONG.c \
-	src/decoder/operations/JS_LONG.c \
-	src/decoder/operations/JNS_LONG.c \
-	src/decoder/operations/JP_LONG.c \
-	src/decoder/operations/JNP_LONG.c \
-	src/decoder/operations/JL_LONG.c \
-	src/decoder/operations/JNL_LONG.c \
-	src/decoder/operations/JLE_LONG.c \
-	src/decoder/operations/JNLE_LONG.c \
+	src/decoder/operations/JO_Jv.c \
+	src/decoder/operations/JNO_Jv.c \
+	src/decoder/operations/JB_Jv.c \
+	src/decoder/operations/JNB_Jv.c \
+	src/decoder/operations/JZ_Jv.c \
+	src/decoder/operations/JNZ_Jv.c \
+	src/decoder/operations/JBE_Jv.c \
+	src/decoder/operations/JNBE_Jv.c \
+	src/decoder/operations/JS_Jv.c \
+	src/decoder/operations/JNS_Jv.c \
+	src/decoder/operations/JP_Jv.c \
+	src/decoder/operations/JNP_Jv.c \
+	src/decoder/operations/JL_Jv.c \
+	src/decoder/operations/JNL_Jv.c \
+	src/decoder/operations/JLE_Jv.c \
+	src/decoder/operations/JNLE_Jv.c \
 	src/decoder/operations/SETO.c \
 	src/decoder/operations/SETNO.c \
 	src/decoder/operations/SETB.c \
@@ -217,22 +217,22 @@ OBJ = build/main.o \
 	build/decoder/operations/INSW_D.o \
 	build/decoder/operations/OUTSB.o \
 	build/decoder/operations/OUTSW_D.o \
-	build/decoder/operations/JO_SHORT.o \
-	build/decoder/operations/JNO_SHORT.o \
-	build/decoder/operations/JB_SHORT.o \
-	build/decoder/operations/JNB_SHORT.o \
-	build/decoder/operations/JZ_SHORT.o \
-	build/decoder/operations/JNZ_SHORT.o \
-	build/decoder/operations/JBE_SHORT.o \
-	build/decoder/operations/JNBE_SHORT.o \
-	build/decoder/operations/JS_SHORT.o \
-	build/decoder/operations/JNS_SHORT.o \
-	build/decoder/operations/JP_SHORT.o \
-	build/decoder/operations/JNP_SHORT.o \
-	build/decoder/operations/JL_SHORT.o \
-	build/decoder/operations/JNL_SHORT.o \
-	build/decoder/operations/JLE_SHORT.o \
-	build/decoder/operations/JNLE_SHORT.o \
+	build/decoder/operations/JO_Jb.o \
+	build/decoder/operations/JNO_Jb.o \
+	build/decoder/operations/JB_Jb.o \
+	build/decoder/operations/JNB_Jb.o \
+	build/decoder/operations/JZ_Jb.o \
+	build/decoder/operations/JNZ_Jb.o \
+	build/decoder/operations/JBE_Jb.o \
+	build/decoder/operations/JNBE_Jb.o \
+	build/decoder/operations/JS_Jb.o \
+	build/decoder/operations/JNS_Jb.o \
+	build/decoder/operations/JP_Jb.o \
+	build/decoder/operations/JNP_Jb.o \
+	build/decoder/operations/JL_Jb.o \
+	build/decoder/operations/JNL_Jb.o \
+	build/decoder/operations/JLE_Jb.o \
+	build/decoder/operations/JNLE_Jb.o \
 	build/decoder/operations/TEST.o \
 	build/decoder/operations/XCNG.o \
 	build/decoder/operations/MOV.o \
@@ -287,22 +287,22 @@ OBJ = build/main.o \
 	build/decoder/operations/LAR.o \
 	build/decoder/operations/LSL.o \
 	build/decoder/operations/CLTS.o \
-	build/decoder/operations/JO_LONG.o \
-	build/decoder/operations/JNO_LONG.o \
-	build/decoder/operations/JB_LONG.o \
-	build/decoder/operations/JNB_LONG.o \
-	build/decoder/operations/JZ_LONG.o \
-	build/decoder/operations/JNZ_LONG.o \
-	build/decoder/operations/JBE_LONG.o \
-	build/decoder/operations/JNBE_LONG.o \
-	build/decoder/operations/JS_LONG.o \
-	build/decoder/operations/JNS_LONG.o \
-	build/decoder/operations/JP_LONG.o \
-	build/decoder/operations/JNP_LONG.o \
-	build/decoder/operations/JL_LONG.o \
-	build/decoder/operations/JNL_LONG.o \
-	build/decoder/operations/JLE_LONG.o \
-	build/decoder/operations/JNLE_LONG.o \
+	build/decoder/operations/JO_Jv.o \
+	build/decoder/operations/JNO_Jv.o \
+	build/decoder/operations/JB_Jv.o \
+	build/decoder/operations/JNB_Jv.o \
+	build/decoder/operations/JZ_Jv.o \
+	build/decoder/operations/JNZ_Jv.o \
+	build/decoder/operations/JBE_Jv.o \
+	build/decoder/operations/JNBE_Jv.o \
+	build/decoder/operations/JS_Jv.o \
+	build/decoder/operations/JNS_Jv.o \
+	build/decoder/operations/JP_Jv.o \
+	build/decoder/operations/JNP_Jv.o \
+	build/decoder/operations/JL_Jv.o \
+	build/decoder/operations/JNL_Jv.o \
+	build/decoder/operations/JLE_Jv.o \
+	build/decoder/operations/JNLE_Jv.o \
 	build/decoder/operations/SETO.o \
 	build/decoder/operations/SETNO.o \
 	build/decoder/operations/SETB.o \
@@ -503,53 +503,53 @@ build/decoder/operations/OUTSB.o : src/decoder/operations/OUTSB.c src/decoder/op
 build/decoder/operations/OUTSW_D.o : src/decoder/operations/OUTSW_D.c src/decoder/operations/OUTSW_D.h
 	$(GCC) $(OP) -c src/decoder/operations/OUTSW_D.c -o $@
 
-build/decoder/operations/JO_SHORT.o : src/decoder/operations/JO_SHORT.c src/decoder/operations/JO_SHORT.h
-	$(GCC) $(OP) -c src/decoder/operations/JO_SHORT.c -o $@
+build/decoder/operations/JO_Jb.o : src/decoder/operations/JO_Jb.c src/decoder/operations/JO_Jb.h
+	$(GCC) $(OP) -c src/decoder/operations/JO_Jb.c -o $@
 
-build/decoder/operations/JNO_SHORT.o : src/decoder/operations/JNO_SHORT.c src/decoder/operations/JNO_SHORT.h
-	$(GCC) $(OP) -c src/decoder/operations/JNO_SHORT.c -o $@
+build/decoder/operations/JNO_Jb.o : src/decoder/operations/JNO_Jb.c src/decoder/operations/JNO_Jb.h
+	$(GCC) $(OP) -c src/decoder/operations/JNO_Jb.c -o $@
 
-build/decoder/operations/JB_SHORT.o : src/decoder/operations/JB_SHORT.c src/decoder/operations/JB_SHORT.h
-	$(GCC) $(OP) -c src/decoder/operations/JB_SHORT.c -o $@
+build/decoder/operations/JB_Jb.o : src/decoder/operations/JB_Jb.c src/decoder/operations/JB_Jb.h
+	$(GCC) $(OP) -c src/decoder/operations/JB_Jb.c -o $@
 
-build/decoder/operations/JNB_SHORT.o : src/decoder/operations/JNB_SHORT.c src/decoder/operations/JNB_SHORT.h
-	$(GCC) $(OP) -c src/decoder/operations/JNB_SHORT.c -o $@
+build/decoder/operations/JNB_Jb.o : src/decoder/operations/JNB_Jb.c src/decoder/operations/JNB_Jb.h
+	$(GCC) $(OP) -c src/decoder/operations/JNB_Jb.c -o $@
 
-build/decoder/operations/JZ_SHORT.o : src/decoder/operations/JZ_SHORT.c src/decoder/operations/JZ_SHORT.h
-	$(GCC) $(OP) -c src/decoder/operations/JZ_SHORT.c -o $@
+build/decoder/operations/JZ_Jb.o : src/decoder/operations/JZ_Jb.c src/decoder/operations/JZ_Jb.h
+	$(GCC) $(OP) -c src/decoder/operations/JZ_Jb.c -o $@
 
-build/decoder/operations/JNZ_SHORT.o : src/decoder/operations/JNZ_SHORT.c src/decoder/operations/JNZ_SHORT.h
-	$(GCC) $(OP) -c src/decoder/operations/JNZ_SHORT.c -o $@
+build/decoder/operations/JNZ_Jb.o : src/decoder/operations/JNZ_Jb.c src/decoder/operations/JNZ_Jb.h
+	$(GCC) $(OP) -c src/decoder/operations/JNZ_Jb.c -o $@
 
-build/decoder/operations/JBE_SHORT.o : src/decoder/operations/JBE_SHORT.c src/decoder/operations/JBE_SHORT.h
-	$(GCC) $(OP) -c src/decoder/operations/JBE_SHORT.c -o $@
+build/decoder/operations/JBE_Jb.o : src/decoder/operations/JBE_Jb.c src/decoder/operations/JBE_Jb.h
+	$(GCC) $(OP) -c src/decoder/operations/JBE_Jb.c -o $@
 
-build/decoder/operations/JNBE_SHORT.o : src/decoder/operations/JNBE_SHORT.c src/decoder/operations/JNBE_SHORT.h
-	$(GCC) $(OP) -c src/decoder/operations/JNBE_SHORT.c -o $@
+build/decoder/operations/JNBE_Jb.o : src/decoder/operations/JNBE_Jb.c src/decoder/operations/JNBE_Jb.h
+	$(GCC) $(OP) -c src/decoder/operations/JNBE_Jb.c -o $@
 
-build/decoder/operations/JS_SHORT.o : src/decoder/operations/JS_SHORT.c src/decoder/operations/JS_SHORT.h
-	$(GCC) $(OP) -c src/decoder/operations/JS_SHORT.c -o $@
+build/decoder/operations/JS_Jb.o : src/decoder/operations/JS_Jb.c src/decoder/operations/JS_Jb.h
+	$(GCC) $(OP) -c src/decoder/operations/JS_Jb.c -o $@
 
-build/decoder/operations/JNS_SHORT.o : src/decoder/operations/JNS_SHORT.c src/decoder/operations/JNS_SHORT.h
-	$(GCC) $(OP) -c src/decoder/operations/JNS_SHORT.c -o $@
+build/decoder/operations/JNS_Jb.o : src/decoder/operations/JNS_Jb.c src/decoder/operations/JNS_Jb.h
+	$(GCC) $(OP) -c src/decoder/operations/JNS_Jb.c -o $@
 
-build/decoder/operations/JP_SHORT.o : src/decoder/operations/JP_SHORT.c src/decoder/operations/JP_SHORT.h
-	$(GCC) $(OP) -c src/decoder/operations/JP_SHORT.c -o $@
+build/decoder/operations/JP_Jb.o : src/decoder/operations/JP_Jb.c src/decoder/operations/JP_Jb.h
+	$(GCC) $(OP) -c src/decoder/operations/JP_Jb.c -o $@
 
-build/decoder/operations/JNP_SHORT.o : src/decoder/operations/JNP_SHORT.c src/decoder/operations/JNP_SHORT.h
-	$(GCC) $(OP) -c src/decoder/operations/JNP_SHORT.c -o $@
+build/decoder/operations/JNP_Jb.o : src/decoder/operations/JNP_Jb.c src/decoder/operations/JNP_Jb.h
+	$(GCC) $(OP) -c src/decoder/operations/JNP_Jb.c -o $@
 
-build/decoder/operations/JL_SHORT.o : src/decoder/operations/JL_SHORT.c src/decoder/operations/JL_SHORT.h
-	$(GCC) $(OP) -c src/decoder/operations/JL_SHORT.c -o $@
+build/decoder/operations/JL_Jb.o : src/decoder/operations/JL_Jb.c src/decoder/operations/JL_Jb.h
+	$(GCC) $(OP) -c src/decoder/operations/JL_Jb.c -o $@
 
-build/decoder/operations/JNL_SHORT.o : src/decoder/operations/JNL_SHORT.c src/decoder/operations/JNL_SHORT.h
-	$(GCC) $(OP) -c src/decoder/operations/JNL_SHORT.c -o $@
+build/decoder/operations/JNL_Jb.o : src/decoder/operations/JNL_Jb.c src/decoder/operations/JNL_Jb.h
+	$(GCC) $(OP) -c src/decoder/operations/JNL_Jb.c -o $@
 
-build/decoder/operations/JLE_SHORT.o : src/decoder/operations/JLE_SHORT.c src/decoder/operations/JLE_SHORT.h
-	$(GCC) $(OP) -c src/decoder/operations/JLE_SHORT.c -o $@
+build/decoder/operations/JLE_Jb.o : src/decoder/operations/JLE_Jb.c src/decoder/operations/JLE_Jb.h
+	$(GCC) $(OP) -c src/decoder/operations/JLE_Jb.c -o $@
 
-build/decoder/operations/JNLE_SHORT.o : src/decoder/operations/JNLE_SHORT.c src/decoder/operations/JNLE_SHORT.h
-	$(GCC) $(OP) -c src/decoder/operations/JNLE_SHORT.c -o $@
+build/decoder/operations/JNLE_Jb.o : src/decoder/operations/JNLE_Jb.c src/decoder/operations/JNLE_Jb.h
+	$(GCC) $(OP) -c src/decoder/operations/JNLE_Jb.c -o $@
 
 build/decoder/operations/TEST.o : src/decoder/operations/TEST.c src/decoder/operations/TEST.h
 	$(GCC) $(OP) -c src/decoder/operations/TEST.c -o $@
@@ -714,53 +714,53 @@ build/decoder/operations/LSL.o : src/decoder/operations/LSL.c src/decoder/operat
 build/decoder/operations/CLTS.o : src/decoder/operations/CLTS.c src/decoder/operations/CLTS.h
 	$(GCC) $(OP) -c src/decoder/operations/CLTS.c -o $@
 
-build/decoder/operations/JO_LONG.o : src/decoder/operations/JO_LONG.c src/decoder/operations/JO_LONG.h
-	$(GCC) $(OP) -c src/decoder/operations/JO_LONG.c -o $@
+build/decoder/operations/JO_Jv.o : src/decoder/operations/JO_Jv.c src/decoder/operations/JO_Jv.h
+	$(GCC) $(OP) -c src/decoder/operations/JO_Jv.c -o $@
 
-build/decoder/operations/JNO_LONG.o : src/decoder/operations/JNO_LONG.c src/decoder/operations/JNO_LONG.h
-	$(GCC) $(OP) -c src/decoder/operations/JNO_LONG.c -o $@
+build/decoder/operations/JNO_Jv.o : src/decoder/operations/JNO_Jv.c src/decoder/operations/JNO_Jv.h
+	$(GCC) $(OP) -c src/decoder/operations/JNO_Jv.c -o $@
 
-build/decoder/operations/JB_LONG.o : src/decoder/operations/JB_LONG.c src/decoder/operations/JB_LONG.h
-	$(GCC) $(OP) -c src/decoder/operations/JB_LONG.c -o $@
+build/decoder/operations/JB_Jv.o : src/decoder/operations/JB_Jv.c src/decoder/operations/JB_Jv.h
+	$(GCC) $(OP) -c src/decoder/operations/JB_Jv.c -o $@
 
-build/decoder/operations/JNB_LONG.o : src/decoder/operations/JNB_LONG.c src/decoder/operations/JNB_LONG.h
-	$(GCC) $(OP) -c src/decoder/operations/JNB_LONG.c -o $@
+build/decoder/operations/JNB_Jv.o : src/decoder/operations/JNB_Jv.c src/decoder/operations/JNB_Jv.h
+	$(GCC) $(OP) -c src/decoder/operations/JNB_Jv.c -o $@
 
-build/decoder/operations/JZ_LONG.o : src/decoder/operations/JZ_LONG.c src/decoder/operations/JZ_LONG.h
-	$(GCC) $(OP) -c src/decoder/operations/JZ_LONG.c -o $@
+build/decoder/operations/JZ_Jv.o : src/decoder/operations/JZ_Jv.c src/decoder/operations/JZ_Jv.h
+	$(GCC) $(OP) -c src/decoder/operations/JZ_Jv.c -o $@
 
-build/decoder/operations/JNZ_LONG.o : src/decoder/operations/JNZ_LONG.c src/decoder/operations/JNZ_LONG.h
-	$(GCC) $(OP) -c src/decoder/operations/JNZ_LONG.c -o $@
+build/decoder/operations/JNZ_Jv.o : src/decoder/operations/JNZ_Jv.c src/decoder/operations/JNZ_Jv.h
+	$(GCC) $(OP) -c src/decoder/operations/JNZ_Jv.c -o $@
 
-build/decoder/operations/JBE_LONG.o : src/decoder/operations/JBE_LONG.c src/decoder/operations/JBE_LONG.h
-	$(GCC) $(OP) -c src/decoder/operations/JBE_LONG.c -o $@
+build/decoder/operations/JBE_Jv.o : src/decoder/operations/JBE_Jv.c src/decoder/operations/JBE_Jv.h
+	$(GCC) $(OP) -c src/decoder/operations/JBE_Jv.c -o $@
 
-build/decoder/operations/JNBE_LONG.o : src/decoder/operations/JNBE_LONG.c src/decoder/operations/JNBE_LONG.h
-	$(GCC) $(OP) -c src/decoder/operations/JNBE_LONG.c -o $@
+build/decoder/operations/JNBE_Jv.o : src/decoder/operations/JNBE_Jv.c src/decoder/operations/JNBE_Jv.h
+	$(GCC) $(OP) -c src/decoder/operations/JNBE_Jv.c -o $@
 
-build/decoder/operations/JS_LONG.o : src/decoder/operations/JS_LONG.c src/decoder/operations/JS_LONG.h
-	$(GCC) $(OP) -c src/decoder/operations/JS_LONG.c -o $@
+build/decoder/operations/JS_Jv.o : src/decoder/operations/JS_Jv.c src/decoder/operations/JS_Jv.h
+	$(GCC) $(OP) -c src/decoder/operations/JS_Jv.c -o $@
 
-build/decoder/operations/JNS_LONG.o : src/decoder/operations/JNS_LONG.c src/decoder/operations/JNS_LONG.h
-	$(GCC) $(OP) -c src/decoder/operations/JNS_LONG.c -o $@
+build/decoder/operations/JNS_Jv.o : src/decoder/operations/JNS_Jv.c src/decoder/operations/JNS_Jv.h
+	$(GCC) $(OP) -c src/decoder/operations/JNS_Jv.c -o $@
 
-build/decoder/operations/JP_LONG.o : src/decoder/operations/JP_LONG.c src/decoder/operations/JP_LONG.h
-	$(GCC) $(OP) -c src/decoder/operations/JP_LONG.c -o $@
+build/decoder/operations/JP_Jv.o : src/decoder/operations/JP_Jv.c src/decoder/operations/JP_Jv.h
+	$(GCC) $(OP) -c src/decoder/operations/JP_Jv.c -o $@
 
-build/decoder/operations/JNP_LONG.o : src/decoder/operations/JNP_LONG.c src/decoder/operations/JNP_LONG.h
-	$(GCC) $(OP) -c src/decoder/operations/JNP_LONG.c -o $@
+build/decoder/operations/JNP_Jv.o : src/decoder/operations/JNP_Jv.c src/decoder/operations/JNP_Jv.h
+	$(GCC) $(OP) -c src/decoder/operations/JNP_Jv.c -o $@
 
-build/decoder/operations/JL_LONG.o : src/decoder/operations/JL_LONG.c src/decoder/operations/JL_LONG.h
-	$(GCC) $(OP) -c src/decoder/operations/JL_LONG.c -o $@
+build/decoder/operations/JL_Jv.o : src/decoder/operations/JL_Jv.c src/decoder/operations/JL_Jv.h
+	$(GCC) $(OP) -c src/decoder/operations/JL_Jv.c -o $@
 
-build/decoder/operations/JNL_LONG.o : src/decoder/operations/JNL_LONG.c src/decoder/operations/JNL_LONG.h
-	$(GCC) $(OP) -c src/decoder/operations/JNL_LONG.c -o $@
+build/decoder/operations/JNL_Jv.o : src/decoder/operations/JNL_Jv.c src/decoder/operations/JNL_Jv.h
+	$(GCC) $(OP) -c src/decoder/operations/JNL_Jv.c -o $@
 
-build/decoder/operations/JLE_LONG.o : src/decoder/operations/JLE_LONG.c src/decoder/operations/JLE_LONG.h
-	$(GCC) $(OP) -c src/decoder/operations/JLE_LONG.c -o $@
+build/decoder/operations/JLE_Jv.o : src/decoder/operations/JLE_Jv.c src/decoder/operations/JLE_Jv.h
+	$(GCC) $(OP) -c src/decoder/operations/JLE_Jv.c -o $@
 
-build/decoder/operations/JNLE_LONG.o : src/decoder/operations/JNLE_LONG.c src/decoder/operations/JNLE_LONG.h
-	$(GCC) $(OP) -c src/decoder/operations/JNLE_LONG.c -o $@
+build/decoder/operations/JNLE_Jv.o : src/decoder/operations/JNLE_Jv.c src/decoder/operations/JNLE_Jv.h
+	$(GCC) $(OP) -c src/decoder/operations/JNLE_Jv.c -o $@
 
 build/decoder/operations/SETO.o : src/decoder/operations/SETO.c src/decoder/operations/SETO.h
 	$(GCC) $(OP) -c src/decoder/operations/SETO.c -o $@

@@ -5,4 +5,5 @@
 
 void ModRM_SGDT(void);
 
+void SGDT_Ms (void);
 #endif // _SGDT_H_

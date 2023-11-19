@@ -9,3 +9,7 @@ void ModRM_BTR(void)
 {
     printf("BTR operation called correctly \n");
 }
+
+void BTR (void) {
+    printf("BTR operation called correctly \n");
+}

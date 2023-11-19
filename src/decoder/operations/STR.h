@@ -5,4 +5,5 @@
 
 void ModRM_STR(void);
 
+void STR_Ew (void);
 #endif // _STR_H_

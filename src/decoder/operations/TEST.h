@@ -14,4 +14,6 @@ void ModRM_TEST(void);
 void TEST_Eb(void);
 void TEST_Ev(void);
 
+void TEST_EbIb(void);
+void TEST_EvIv(void);
 #endif // _TEST_H_

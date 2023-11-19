@@ -25,4 +25,5 @@ void PUSH_GS(void);
 
 // Mapped to ModRM opcode  map
 void ModRM_PUSH_Ev(void);
+void PUSH_Ev (void);
 #endif // _PUSH_H_

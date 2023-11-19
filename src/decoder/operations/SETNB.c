@@ -1,6 +1,6 @@
 #include "SETNB.h"
 
-void SETNB(void)
+void SETNB_Eb(void)
 {
-    printf("SETNB operation called correctly \n");
+    printf("SETNB_Eb operation called correctly \n");
 }

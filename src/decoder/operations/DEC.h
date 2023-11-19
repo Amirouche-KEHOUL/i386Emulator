@@ -14,4 +14,6 @@ void DEC_eSI(void);
 void DEC_eDI(void);
 // Mapped to ModRM opcode  map
 void ModRM_DEC_Eb(void);
+void DEC_Eb (void);
+void DEC_Ev (void);
 #endif // _DEC_H_

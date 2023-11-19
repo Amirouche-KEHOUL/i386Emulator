@@ -1,6 +1,6 @@
 #include "SETNZ.h"
 
-void SETNZ(void)
+void SETNZ_Eb(void)
 {
-    printf("SETNZ operation called correctly \n");
+    printf("SETNZ_Eb operation called correctly \n");
 }

@@ -3,6 +3,6 @@
 
 #include <stdio.h>
 
-void SETNZ(void);
+void SETNZ_Eb(void);
 
 #endif // _SETNZ_H_

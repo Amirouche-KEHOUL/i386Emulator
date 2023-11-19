@@ -1,0 +1,45 @@
+#!/bin/bash
+
+# Define the map names and their corresponding functions
+declare -A maps
+maps["ModRM_map"]="BXSI BXSI_disp8 BXSI_disp16 EAX_AX_AL BXDI BXDI_disp8 BXDI_disp16 ECX_CX_CL EDX_DX_DL BPDI BPDI_disp8 BPDI_disp16 EBX_BX_BL SI SI_disp8 SI_disp16 ESP_SP_AH DI DI_disp8 DI_disp16 EBP_BP_CH disp16 BP_disp8 BP_disp816 ESI_SI_DH BX BX_disp8 BX_disp16 EDI_DI_BH EAX disp8_EAX disp32_EAX ECX disp8_ECX disp32_ECX EDX disp8_EDX disp32_EDX EBX disp8_EBX disp32_EBX SIB disp8_SIB disp32_SIB EBP disp8_EBP disp32_EBP ESI disp8_ESI disp32_ESI EDI disp8_EDI disp32_EDI"
+maps["ModRM_REG_map"]="AL_REG CL_REG DL_REG BL_REG AH_REG CH_REG DH_REG BH_REG AX_REG CX_REG DX_REG BX_REG SP_REG BP_REG SI_REG DI_REG EAX_REG ECX_REG EDX_REG EBX_REG ESP_REG EBP_REG ESI_REG EDI_REG"
+maps["SIB_map"]="EAX EAX_2 EAX_4 EAX_8 ECX ECX_2 ECX_4 ECX_8 EDX EDX_2 EDX_4 EDX_8 EBX EBX_2 EBX_4 EBX_8 none non_2 non_4 non_8 EBP EBP_2 EBP_4 EBP_8 ESI ESI_2 ESI_4 ESI_8 EDI EDI_2 EDI_4 EDI_8"
+maps["SIB_BASE_map"]="EAX_REG ECX_REG EDX_REG EBX_REG ESP_REG EBP_REG ESI_REG EDI_REG"
+
+# Directory where the files are located
+dir="."
+
+# File to update includes
+map_file="../map.h"
+
+for map in "${!maps[@]}"; do
+    header_file="$dir/${map}.h"
+    source_file="$dir/${map}.c"
+    funcs=(${maps[$map]})
+
+    # Create or update header file
+    echo "#ifndef _${map}_H_" > "$header_file"
+    echo "#define _${map}_H_" >> "$header_file"
+    echo "#include <stdio.h>" >> "$header_file"
+    
+    for func in "${funcs[@]}"; do
+        echo "void ${func} (void);" >> "$header_file"
+    done
+
+    echo "" >> "$header_file"
+    echo "#endif // _${map}_H_" >> "$header_file"
+
+    # Create or update source file
+    echo "#include \"${map}.h\"" > "$source_file"
+    for func in "${funcs[@]}"; do
+        echo -e "\nvoid ${func} (void) {" >> "$source_file"
+        echo "    printf(\"${func} operation called correctly \\n\");" >> "$source_file"
+        echo "}" >> "$source_file"
+    done
+
+    # Update map.h file
+    echo "#include \"./operations/${map}.h\"" >> "$map_file"
+done
+
+echo "Maps and functions updated successfully."

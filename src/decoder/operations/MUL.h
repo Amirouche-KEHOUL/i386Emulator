@@ -5,4 +5,6 @@
 
 void ModRM_MUL(void);
 
+void MUL_EbAL (void);
+void MUL_EveAL (void);
 #endif // _MUL_H_

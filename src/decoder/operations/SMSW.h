@@ -5,4 +5,5 @@
 
 void ModRM_SMSW(void);
 
+void SMSW_Ew (void);
 #endif // _SMSW_H_

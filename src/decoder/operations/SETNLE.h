@@ -3,6 +3,6 @@
 
 #include <stdio.h>
 
-void SETNLE(void);
+void SETNLE_Eb(void);
 
 #endif // _SETNLE_H_

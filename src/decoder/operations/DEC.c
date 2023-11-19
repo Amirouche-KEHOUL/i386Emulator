@@ -46,3 +46,10 @@ void ModRM_DEC_Eb(void)
 {
     printf("DEC operation called correclty \n");
 }
+void DEC_Eb (void) {
+    printf("DEC_Eb operation called correctly \n");
+}
+
+void DEC_Ev (void) {
+    printf("DEC_Ev operation called correctly \n");
+}
