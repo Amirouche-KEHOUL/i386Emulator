@@ -78,7 +78,11 @@
         "rcr.h": "c",
         "shl.h": "c",
         "shr.h": "c",
-        "sar.h": "c"
+        "sar.h": "c",
+        "prefix.h": "c",
+        "escape.h": "c",
+        "modrm_reg_map.h": "c",
+        "idiv.h": "c"
     },
     "editor.tokenColorCustomizations": {}
 }

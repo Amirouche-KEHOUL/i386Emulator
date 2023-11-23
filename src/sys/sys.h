@@ -9,7 +9,6 @@
 #include "../memory/physical_memory.h"
 #include "../memory/registers.h"
 #include "../memory/IO.h"
-#include "../decoder/map.h"
 
 #define _SYS_FAULTY 1
 #define _SYS_NOT_FAULTY 0

@@ -176,6 +176,12 @@ SRC = src/main.c \
 	src/decoder/operations/LIDT.c \
 	src/decoder/operations/SMSW.c \
 	src/decoder/operations/LMSW.c \
+	src/decoder/operations/PREFIX.c \
+	src/decoder/operations/ESCAPE.c \
+	src/decoder/operations/ModRM_map.c \
+	src/decoder/operations/ModRM_REG_map.c \
+	src/decoder/operations/SIB_map.c \
+
 
 
 OBJ = build/main.o \
@@ -357,6 +363,11 @@ OBJ = build/main.o \
 	build/decoder/operations/LIDT.o \
 	build/decoder/operations/SMSW.o \
 	build/decoder/operations/LMSW.o \
+	build/decoder/operations/PREFIX.o \
+	build/decoder/operations/ESCAPE.o \
+	build/decoder/operations/ModRM_map.o \
+	build/decoder/operations/ModRM_REG_map.o \
+	build/decoder/operations/SIB_map.o \
 
 BINDIRS = bin/ \
 	build/memory \
@@ -634,7 +645,6 @@ build/decoder/operations/LDS.o : src/decoder/operations/LDS.c src/decoder/operat
 
 build/decoder/operations/ENTER.o : src/decoder/operations/ENTER.c src/decoder/operations/ENTER.h
 	$(GCC) $(OP) -c src/decoder/operations/ENTER.c -o $@
-
 
 build/decoder/operations/LEAVE.o : src/decoder/operations/LEAVE.c src/decoder/operations/LEAVE.h
 	$(GCC) $(OP) -c src/decoder/operations/LEAVE.c -o $@
@@ -923,6 +933,22 @@ build/decoder/operations/SMSW.o : src/decoder/operations/SMSW.c src/decoder/oper
 
 build/decoder/operations/LMSW.o : src/decoder/operations/LMSW.c src/decoder/operations/LMSW.h
 	$(GCC) $(OP) -c src/decoder/operations/LMSW.c -o $@
+
+build/decoder/operations/PREFIX.o : src/decoder/operations/PREFIX.c src/decoder/operations/PREFIX.h
+	$(GCC) $(OP) -c src/decoder/operations/PREFIX.c -o $@
+
+build/decoder/operations/ESCAPE.o : src/decoder/operations/ESCAPE.c src/decoder/operations/ESCAPE.h
+	$(GCC) $(OP) -c src/decoder/operations/ESCAPE.c -o $@
+
+build/decoder/operations/ModRM_map.o : src/decoder/operations/ModRM_map.c src/decoder/operations/ModRM_map.h
+	$(GCC) $(OP) -c src/decoder/operations/ModRM_map.c -o $@
+
+build/decoder/operations/ModRM_REG_map.o : src/decoder/operations/ModRM_REG_map.c src/decoder/operations/ModRM_REG_map.h
+	$(GCC) $(OP) -c src/decoder/operations/ModRM_REG_map.c -o $@
+
+build/decoder/operations/SIB_map.o : src/decoder/operations/SIB_map.c src/decoder/operations/SIB_map.h
+	$(GCC) $(OP) -c src/decoder/operations/SIB_map.c -o $@
+
 
 remake: 
 	make clean && make

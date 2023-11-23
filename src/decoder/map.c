@@ -1,145 +1,5 @@
 #include "map.h"
 
-void SEG_ES(void)
-{
-}
-void SEG_CS(void)
-{
-}
-void SEG_DS(void)
-{
-}
-void SEG_SS(void)
-{
-}
-void SEG_FS(void)
-{
-}
-void SEG_GS(void)
-{
-}
-void Operand_Size(void)
-{
-}
-void Address_Size(void)
-{
-}
-void LOCK(void)
-{
-}
-void REPNE(void)
-{
-}
-void REP_REPE(void)
-{
-}
-
-void no_opcode(void)
-{
-    // TODO: confirm what to do in case of opcode hits an empty cell
-    printf("No operation for this opcode\n");
-}
-
-void _2byte_escape(void)
-{
-    _byte byte = stream_byte_prefetch_queue();
-    // _byte byte = 0x55;
-    _byte lsb = byte & 0x0F;        // least 4 significant bits
-    _byte msb = (byte & 0xF0) >> 4; // most 4 significant bits
-
-    two_byte_opcode_map[msb][lsb]();
-}
-
-void grp1_EbIb_escape(void)
-{
-    read_ModRM_byte_to_st();
-    ModRM_opcode_map[0x0][ModRM_st.REG_OPCODE]();
-}
-
-void grp1_EvIv_escape(void)
-{
-    read_ModRM_byte_to_st();
-    ModRM_opcode_map[0x0][ModRM_st.REG_OPCODE]();
-}
-
-void grp2_EbIb_escape(void)
-{
-    read_ModRM_byte_to_st();
-    ModRM_opcode_map[0x1][ModRM_st.REG_OPCODE]();
-}
-
-void grp2_EvIv_escape(void)
-{
-    read_ModRM_byte_to_st();
-    ModRM_opcode_map[0x1][ModRM_st.REG_OPCODE]();
-}
-
-void grp2_Eb1_escape(void)
-{
-    read_ModRM_byte_to_st();
-    ModRM_opcode_map[0x1][ModRM_st.REG_OPCODE]();
-}
-
-void grp2_Ev1_escape(void)
-{
-    read_ModRM_byte_to_st();
-    ModRM_opcode_map[0x1][ModRM_st.REG_OPCODE]();
-}
-
-void grp2_EbCL_escape(void)
-{
-    read_ModRM_byte_to_st();
-    ModRM_opcode_map[0x1][ModRM_st.REG_OPCODE]();
-}
-
-void grp2_EvCL_escape(void)
-{
-    read_ModRM_byte_to_st();
-    ModRM_opcode_map[0x1][ModRM_st.REG_OPCODE]();
-}
-
-void grp3_Eb_escape(void)
-{
-    read_ModRM_byte_to_st();
-    ModRM_opcode_map[0x2][ModRM_st.REG_OPCODE]();
-}
-
-void grp3_Ev_escape(void)
-{
-    read_ModRM_byte_to_st();
-    ModRM_opcode_map[0x2][ModRM_st.REG_OPCODE]();
-}
-
-void grp4_escape(void)
-{
-    read_ModRM_byte_to_st();
-    ModRM_opcode_map[0x3][ModRM_st.REG_OPCODE]();
-}
-
-void grp5_escape(void)
-{
-    read_ModRM_byte_to_st();
-    ModRM_opcode_map[0x4][ModRM_st.REG_OPCODE]();
-}
-
-void grp6_escape(void)
-{
-    read_ModRM_byte_to_st();
-    ModRM_opcode_map[0x5][ModRM_st.REG_OPCODE]();
-}
-
-void grp7_escape(void)
-{
-    read_ModRM_byte_to_st();
-    ModRM_opcode_map[0x6][ModRM_st.REG_OPCODE]();
-}
-
-void grp8_EvIb_escape(void)
-{
-    read_ModRM_byte_to_st();
-    ModRM_opcode_map[0x7][ModRM_st.REG_OPCODE]();
-}
-
 void (*one_byte_map[16][16])(void) = {
     {ADD_EbGb, ADD_EvGv, ADD_GbEb, ADD_GvEv, ADD_ALIb, ADD_eAXIv, PUSH_ES, POP_ES, OR_EbGb, OR_EvGv, OR_GbEb, OR_GvEv, OR_ALIb, OR_eAXIv, PUSH_CS, _2byte_escape},
     {ADC_EbGb, ADC_EvGv, ADC_GbEb, ADC_GvEv, ADC_ALIb, ADC_eAXIv, PUSH_SS, POP_SS, SBB_EbGb, SBB_EvGv, SBB_GbEb, SBB_GvEv, SBB_ALIb, SBB_eAXIv, PUSH_DS, POP_DS},
@@ -156,7 +16,8 @@ void (*one_byte_map[16][16])(void) = {
     {grp2_EbIb_escape, grp2_EvIv_escape, RET_NEAR_Iw, RET_NEAR, LES_GvMp, LDS_GvMp, MOV_EbIb, MOV_EvIv, ENTER_IwIb, LEAVE, RET_FAR_Iw, RET_FAR, INT_3, INT_Ib, INTO, IRET},
     {grp2_Eb1_escape, grp2_Ev1_escape, grp2_EbCL_escape, grp2_EvCL_escape, AAM, AAD, no_opcode, XLAT, ESC_COP, ESC_COP, ESC_COP, ESC_COP, ESC_COP, ESC_COP, ESC_COP, ESC_COP},
     {LOOPNE_Jb, LOOPE_Jb, LOOP_Jb, JCXZ_Jb, IN_ALIb, IN_eAXIb, OUT_IbAL, OUT_IbeAX, CALL_Av, no_opcode, no_opcode, no_opcode, IN_ALDX, IN_eAXDX, OUT_DXAL, OUT_DXeAX}, // confirm  JNP command (put no_operation temporarely)
-    {LOCK, no_opcode, REPNE, REP_REPE, HLT, CMC, grp3_Eb_escape, grp3_Ev_escape, CLC, STC, CLI, STI, CLD, STD, grp4_escape, grp5_escape}};
+    {LOCK, no_opcode, REPNE, REP_REPE, HLT, CMC, grp3_Eb_escape, grp3_Ev_escape, CLC, STC, CLI, STI, CLD, STD, grp4_escape, grp5_escape},
+};
 
 void (*two_byte_map[16][16])(void) = {
     {grp6_escape, grp7_escape, LAR_GwEw, LSL_GvEw, no_opcode, no_opcode, CLTS, no_opcode, no_opcode, no_opcode, no_opcode, no_opcode, no_opcode, no_opcode, no_opcode, no_opcode},
@@ -178,13 +39,14 @@ void (*two_byte_map[16][16])(void) = {
 };
 
 void (*group1[2][8])(void) = {
-    {AD_EbIb, OR_EbIb, ADC_EbIb, SBB_EbIb, AND_EbIb, SUB_EbIb, XOR_EbIb, CMP_EbIb},
-    {AD_EvIv, OR_EvIv, ADC_EvIv, SBB_EvIv, AND_EvIv, SUB_EvIv, XOR_EvIv, CMP_EvIv},
+    {ADD_EbIb, OR_EbIb, ADC_EbIb, SBB_EbIb, AND_EbIb, SUB_EbIb, XOR_EbIb, CMP_EbIb},
+    {ADD_EvIv, OR_EvIv, ADC_EvIv, SBB_EvIv, AND_EvIv, SUB_EvIv, XOR_EvIv, CMP_EvIv},
 };
 
 void (*group2[6][8])(void) = {
     {ROL_EbIb, ROR_EbIb, RCL_EbIb, RCR_EbIb, SHL_EbIb, SHR_EbIb, no_opcode, SAR_EbIb},
     {ROL_EvIv, ROR_EvIv, RCL_EvIv, RCR_EvIv, SHL_EvIv, SHR_EvIv, no_opcode, SAR_EvIv},
+    {ROL_Eb1, ROR_Eb1, RCL_Eb1, RCR_Eb1, SHL_Eb1, SHR_Eb1, no_opcode, SAR_Eb1},
     {ROL_Ev1, ROR_Ev1, RCL_Ev1, RCR_Ev1, SHL_Ev1, SHR_Ev1, no_opcode, SAR_Ev1},
     {ROL_EbCL, ROR_EbCL, RCL_EbCL, RCR_EbCL, SHL_EbCL, SHR_EbCL, no_opcode, SAR_EbCL},
     {ROL_EvCL, ROR_EvCL, RCL_EvCL, RCR_EvCL, SHL_EvCL, SHR_EvCL, no_opcode, SAR_EvCL},
@@ -195,25 +57,15 @@ void (*group3[2][8])(void) = {
     {TEST_EvIv, no_opcode, NOT_Ev, NEG_Ev, MUL_EveAL, IMUL_EveAL, DIV_EveAL, IDIV_EveAL},
 };
 
-void (*group4[2][8])(void) = {
-    {INC_Eb, DEC_Eb, no_opcode, no_opcode, no_opcode, no_opcode, no_opcode, no_opcode},
-};
+void (*group4[8])(void) = {INC_Eb, DEC_Eb, no_opcode, no_opcode, no_opcode, no_opcode, no_opcode, no_opcode};
 
-void (*group5[2][8])(void) = {
-    {INC_Ev, DEC_Ev, CALL_Ev, CALL_eP, JMP_Ev, JMP_Ep, PUSH_Ev, no_opcode},
-};
+void (*group5[8])(void) = {INC_Ev, DEC_Ev, CALL_Ev, CALL_eP, JMP_Ev, JMP_Ep, PUSH_Ev, no_opcode};
 
-void (*group6[2][8])(void) = {
-    {SLDT_Ew, STR_Ew, LLDT_Ew, LTR_Ew, VERR_Ew, VERW_Ew, no_opcode, no_opcode},
-};
+void (*group6[8])(void) = {SLDT_Ew, STR_Ew, LLDT_Ew, LTR_Ew, VERR_Ew, VERW_Ew, no_opcode, no_opcode};
 
-void (*group7[2][8])(void) = {
-    {SGDT_Ms, SIDT_Ms, LGDT_Ms, LIDT_Ms, SMSW_Ew, no_opcode, LMSW_Ew, no_opcode},
-};
+void (*group7[8])(void) = {SGDT_Ms, SIDT_Ms, LGDT_Ms, LIDT_Ms, SMSW_Ew, no_opcode, LMSW_Ew, no_opcode};
 
-void (*group8[2][8])(void) = {
-    {no_opcode, no_opcode, no_opcode, no_opcode, BT, BTS, BTR, BTC},
-};
+void (*group8[8])(void) = {no_opcode, no_opcode, no_opcode, no_opcode, BT, BTS, BTR, BTC};
 
 // R/M operands
 void (*ModRM_map[2][8][4])(void) = {

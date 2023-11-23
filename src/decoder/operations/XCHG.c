@@ -17,11 +17,6 @@ void XCHG_eBXeAX(void)
     printf("XCHG operation called correclty \n");
 }
 
-void XCHG_eBXeAX(void)
-{
-    printf("XCHG operation called correclty \n");
-}
-
 void XCHG_eBPeAX(void)
 {
     printf("XCHG operation called correclty \n");

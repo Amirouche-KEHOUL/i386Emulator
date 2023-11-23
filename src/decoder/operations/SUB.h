@@ -3,6 +3,8 @@
 
 #include <stdio.h>
 
+void SUB_EvIv(void);
+void SUB_EbIb(void);
 void SUB_EbGb(void);
 void SUB_EvGv(void);
 void SUB_GbEb(void);

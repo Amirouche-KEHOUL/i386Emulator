@@ -3,7 +3,9 @@
 
 #include <stdio.h>
 
+void OR_EvIv(void);
 void OR_EbGb(void);
+void OR_EbIb(void);
 void OR_EvGv(void);
 void OR_GbEb(void);
 void OR_GvEv(void);

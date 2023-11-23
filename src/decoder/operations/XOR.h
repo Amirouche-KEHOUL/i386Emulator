@@ -3,6 +3,8 @@
 
 #include <stdio.h>
 
+void XOR_EvIv(void);
+void XOR_EbIb(void);
 void XOR_EbGb(void);
 void XOR_EvGv(void);
 void XOR_GbEb(void);

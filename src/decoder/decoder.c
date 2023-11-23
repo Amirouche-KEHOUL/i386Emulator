@@ -1,16 +1,10 @@
 #include "decoder.h"
 
-/* ------------- data structures -------------*/
-
 extern _general_regs_st general_regs_st;
+extern void (*one_byte_map[16][16])(void);
 
 _ModRM_st ModRM_st = {0};
 _prefetch_queue_st prefetch_queue_st = {0};
-void (*one_byte_opcode_map[16][16])(void); // Page 414
-void (*two_byte_opcode_map[16][16])(void); // Page 415
-void (*ModRM_opcode_map[8][8])(void);      // Page 416
-
-/* ------------- FUNCTIONS -------------*/
 
 unsigned int get_effective_address_size(unsigned int default_seg_size, unsigned int adresse_size_prefix_present)
 {
@@ -1034,7 +1028,7 @@ void decode(void)
     _byte lsb = byte & 0x0F;        // least 4 significant bits
     _byte msb = (byte & 0xF0) >> 4; // most 4 significant bits
 
-    one_byte_opcode_map[msb][lsb]();
+    one_byte_map[msb][lsb]();
 }
 
 /*

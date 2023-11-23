@@ -3,6 +3,8 @@
 
 #include <stdio.h>
 
+void AND_EvIv(void);
+void AND_EbIb(void);
 void AND_EbGb(void);
 void AND_EvGv(void);
 void AND_GbEb(void);

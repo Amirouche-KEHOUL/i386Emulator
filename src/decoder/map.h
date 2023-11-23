@@ -2,7 +2,6 @@
 #define _MAP_H_
 
 #include "../typedefs.h"
-#include "./prefetch_queue.h"
 
 #include "./operations/ADD.h"
 #include "./operations/OR.h"
@@ -169,9 +168,6 @@
 #include "./operations/LIDT.h"
 #include "./operations/SMSW.h"
 #include "./operations/LMSW.h"
-
-void map_operations_to_opcode_maps(void);
-
 #include "./operations/TEST.h"
 #include "./operations/NOT.h"
 #include "./operations/NEG.h"
@@ -200,9 +196,11 @@ void map_operations_to_opcode_maps(void);
 #include "./operations/BTS.h"
 #include "./operations/BTR.h"
 #include "./operations/BTC.h"
-
-#endif // _MAP_H_
 #include "./operations/ModRM_map.h"
 #include "./operations/ModRM_REG_map.h"
 #include "./operations/SIB_BASE_map.h"
 #include "./operations/SIB_map.h"
+#include "./operations/PREFIX.h"
+#include "./operations/ESCAPE.h"
+
+#endif // _MAP_H_

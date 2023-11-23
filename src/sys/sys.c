@@ -66,9 +66,6 @@ void sys_init(void)
     printf("== Assert A {31-20} address lines \n");
 #endif
     A3120 = 0x0FFF;
-
-    /* Init opcode maps*/
-    map_operations_to_opcode_maps();
 }
 
 void sys_shutdown(void)

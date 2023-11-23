@@ -1,4 +1,4 @@
-#include "MOVSWD.h"
+#include "MOVSW.h"
 
 void MOVSWD_XvYv(void)
 {

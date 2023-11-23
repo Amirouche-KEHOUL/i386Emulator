@@ -3,6 +3,8 @@
 
 #include <stdio.h>
 
+void CMP_EvIv(void);
+void CMP_EbIb(void);
 void CMP_EbGb(void);
 void CMP_EvGv(void);
 void CMP_GbEb(void);
