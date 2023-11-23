@@ -1,14 +1,9 @@
 #include "prefetch_queue.h"
-// main.c
+
 extern _physical_memory_ptr physical_memory_ptr;
 extern _segment_regs_st segment_regs_st;
-
-// decoder.c
 extern _ModRM_st ModRM_st;
 extern _prefetch_queue_st prefetch_queue_st;
-extern void (*one_byte_opcode_map[16][16])(void); // Page 414
-extern void (*two_byte_opcode_map[16][16])(void); // Page 415
-extern void (*ModRM_opcode_map[8][8])(void);      // Page 416
 
 void fetch_prefetch_queue(void)
 {
