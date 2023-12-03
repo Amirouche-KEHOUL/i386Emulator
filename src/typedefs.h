@@ -5,6 +5,7 @@
 #define _GDT 0U
 #define _LDT 1U
 
+// segment_descriptor_type
 #define _CODE_SEGMENT_DESCRIPTOR 1U
 #define _DATA_SEGMENT_DESCRIPTOR 2U
 #define _SYS_SEGMENT_DESCRIPTOR 3U
@@ -60,6 +61,43 @@ typedef unsigned int _32_offset;
 typedef unsigned int _32_linear_addr;
 typedef unsigned int _32_physical_addr;
 typedef int _32_displacement;
+
+#define _16BIT_EFFECT_OPR_SIZE 0
+#define _32BIT_EFFECT_OPR_SIZE 1
+#define _16BIT_EFFECT_OPR_ADDR_SIZE 0
+#define _32BIT_EFFECT_OPR_ADDR_SIZE 1
+typedef int _effec_opr_size;
+typedef int _effec_opr_addr_size;
+
+// For r8
+#define AL_REG_DEF 0
+#define CL_REG_DEF 1
+#define DL_REG_DEF 2
+#define BL_REG_DEF 3
+#define AH_REG_DEF 4
+#define CH_REG_DEF 5
+#define DH_REG_DEF 6
+#define BH_REG_DEF 7
+
+// For r16
+#define AX_REG_DEF 8
+#define CX_REG_DEF 9
+#define DX_REG_DEF 10
+#define BX_REG_DEF 11
+#define SP_REG_DEF 12
+#define BP_REG_DEF 13
+#define SI_REG_DEF 14
+#define DI_REG_DEF 15
+
+// For r32
+#define EAX_REG_DEF 16
+#define ECX_REG_DEF 17
+#define EDX_REG_DEF 18
+#define EBX_REG_DEF 19
+#define ESP_REG_DEF 20
+#define EBP_REG_DEF 21
+#define ESI_REG_DEF 22
+#define EDI_REG_DEF 23
 
 // 32-bit general-perpose register
 typedef struct general_regs_st

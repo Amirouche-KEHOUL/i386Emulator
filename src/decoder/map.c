@@ -69,10 +69,11 @@ void (*group7[8])(void) = {SGDT_Ms, SIDT_Ms, LGDT_Ms, LIDT_Ms, SMSW_Ew, no_opcod
 void (*group8[8])(void) = {no_opcode, no_opcode, no_opcode, no_opcode, BT, BTS, BTR, BTC};
 
 // R/M operands
+// Usage: ModRM_map[16_or_32_addr][R/M][Mod]
 void (*ModRM_map[2][8][4])(void) = {
     /*------------16bit------------*/
     {
-
+        /*R/M*/
         /*0*/ {BXSI, BXSI_disp8, BXSI_disp16, EAX_AX_AL},
         /*1*/ {BXDI, BXDI_disp8, BXDI_disp16, ECX_CX_CL},
         /*2*/ {BXDI, BXDI_disp8, BXDI_disp16, EDX_DX_DL},
@@ -97,7 +98,7 @@ void (*ModRM_map[2][8][4])(void) = {
 };
 
 // REG operand
-
+// Usage: ModRM_REG_map[r8_r16_r32][REG]
 void (*ModRM_REG_map[3][8])(void) = {
     /*0*/ {AL_REG, CL_REG, DL_REG, BL_REG, AH_REG, CH_REG, DH_REG, BH_REG},         // r8
     /*1*/ {AX_REG, CX_REG, DX_REG, BX_REG, SP_REG, BP_REG, SI_REG, DI_REG},         // r16

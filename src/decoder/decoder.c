@@ -4,8 +4,19 @@ extern _general_regs_st general_regs_st;
 extern void (*one_byte_map[16][16])(void);
 
 _ModRM_st ModRM_st = {0};
-_prefetch_queue_st prefetch_queue_st = {0};
 
+// R/M operand
+_double_word RM_operand = 0x0;
+_32_offset RM_operand_addr = 0x0; // effective addresse
+
+// Register operand
+_double_word R_operand = 0x0;
+_32_offset R_operand_addr = 0x0; // effective addresse
+
+_effec_opr_size effec_opr_size = 0x0;
+_effec_opr_addr_size effec_opr_addr_size = 0x0;
+
+_prefetch_queue_st prefetch_queue_st = {0};
 
 unsigned int get_effective_address_size(unsigned int default_seg_size, unsigned int adresse_size_prefix_present)
 {
@@ -19,14 +30,15 @@ unsigned int get_effective_operand_size(unsigned int default_seg_size, unsigned 
 
 void decode(void)
 {
-    prefetch_queue_st.queue[0] = 0x80;
-    prefetch_queue_st.queue[1] = 0xA9;
+    prefetch_queue_st.queue[0] = 0x01;
+    prefetch_queue_st.queue[1] = 0x12;
 
     _byte byte = stream_byte_prefetch_queue();
 
     _byte lsb = byte & 0x0F;        // least 4 significant bits
     _byte msb = (byte & 0xF0) >> 4; // most 4 significant bits
 
+    effec_opr_size = _32BIT_EFFECT_OPR_SIZE;
     one_byte_map[msb][lsb]();
 }
 

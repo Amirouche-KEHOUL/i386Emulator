@@ -1,5 +1,11 @@
 #include "ModRM_map.h"
 
+#include "../../typedefs.h"
+#include "../../memory/registers.h"
+
+extern _32_offset RM_operand_addr;
+extern _general_regs_st general_regs_st;
+
 void disp32(void)
 {
     printf("disp32 operation called correctly \n");
@@ -8,6 +14,7 @@ void disp32(void)
 void BXSI(void)
 {
     printf("BXSI operation called correctly \n");
+    RM_operand_addr = get_BX() + general_regs_st.ESI.SI;
 }
 
 void BXSI_disp8(void)

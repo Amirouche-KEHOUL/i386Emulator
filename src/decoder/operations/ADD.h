@@ -2,6 +2,8 @@
 #define _ADD_H_
 
 #include <stdio.h>
+#include "../../typedefs.h"
+#include "../prefetch_queue.h"
 
 void ADD_EbGb(void);
 void ADD_EvGv(void);
